@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#222a36">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gastos">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0}
+  .noscroll::-webkit-scrollbar{display:none}
+  .noscroll{-ms-overflow-style:none;scrollbar-width:none}
+  input,select{font-family:Manrope,system-ui,sans-serif}
+  input::placeholder{color:oklch(0.5 0.012 260)}
+  select{-webkit-appearance:none;appearance:none}
+</style>
+</helmet>
+
+<div style="min-height:100vh;box-sizing:border-box;padding:56px 48px;background:#e6e6ea;font-family:Manrope,system-ui,sans-serif;display:flex;justify-content:flex-start">
+  <div style="flex:none;width:392px">
+    <div style="font:600 12px ui-monospace,SFMono-Regular,monospace;color:#54545c;letter-spacing:.1em;text-transform:uppercase;margin:0 0 16px 6px">App de Gastos · dados compartilhados</div>
+    <div style="width:392px;height:846px;background:oklch(0.165 0.012 260);border-radius:46px;overflow:hidden;position:relative;box-shadow:0 36px 70px -24px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;color:oklch(0.97 0.004 260)">
+      <span style="position:absolute;top:15px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:999px;background:oklch(0.08 0 0);z-index:6"></span>
+
+      <!-- status bar -->
+      <div style="height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 7px;flex:none">
+        <span style="font:700 15px Manrope">14:30</span>
+        <span style="display:flex;align-items:center;gap:7px">
+          <span style="display:flex;align-items:flex-end;gap:2px;height:11px">
+            <span style="width:3px;height:5px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
+            <span style="width:3px;height:8px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
+            <span style="width:3px;height:11px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
+          </span>
+          <span style="width:23px;height:12px;border:1.5px solid oklch(0.97 0.004 260 / .8);border-radius:3px;padding:1.5px;display:flex"><span style="flex:1;background:oklch(0.97 0.004 260);border-radius:1px"></span></span>
+        </span>
+      </div>
+
+      <!-- ===== DASHBOARD HEADER ===== -->
+      <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 6px;flex:none">
+          <span>
+            <span style="display:block;font:600 13px Manrope;color:oklch(0.6 0.012 260)">Boa tarde,</span>
+            <span style="display:block;font:800 21px Manrope;letter-spacing:-0.01em;margin-top:2px">Marina</span>
+          </span>
+          <span style="width:42px;height:42px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 16px Manrope;color:oklch(0.82 0.1 256)">M</span>
+        </div>
+      </sc-if>
+
+      <!-- ===== GENERIC HEADER ===== -->
+      <sc-if value="{{ showGenericHeader }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 20px 8px;flex:none">
+          <button onClick="{{ goBack }}" style="width:38px;height:38px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
+          <span style="font:800 19px Manrope;letter-spacing:-0.01em">{{ viewTitle }}</span>
+          <span style="width:38px"></span>
+        </div>
+      </sc-if>
+
+      <!-- ===== BODY ===== -->
+      <div class="noscroll" style="flex:1;overflow-y:auto;padding:14px 20px 22px">
+
+        <!-- ============ DASHBOARD ============ -->
+        <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:22px 20px;border-radius:24px;background:oklch(0.66 0.15 256 / 0.13);border:1px solid oklch(0.66 0.15 256 / 0.32)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Gastos de {{ monthLabel }}</span>
+              <span style="font:700 11px Manrope;color:oklch(0.78 0.11 256);background:oklch(0.66 0.15 256 / 0.18);padding:4px 9px;border-radius:999px">{{ usedPct }} da meta</span>
+            </div>
+            <div style="font:800 38px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:12px;letter-spacing:-0.02em">
+              <span style="font-size:20px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.45em;margin-right:5px">R$</span>{{ totalSpent }}
+            </div>
+            <div style="height:8px;border-radius:999px;background:oklch(0.27 0.016 260 / .6);margin-top:18px;overflow:hidden">
+              <div style="height:100%;border-radius:999px;width:{{ usedPct }};background:oklch(0.78 0.11 256)"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:13px">
+              <span><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Disponível</span><span style="display:block;font:700 15px Manrope;color:oklch(0.97 0.004 260);margin-top:2px">R$ {{ remaining }}</span></span>
+              <span style="text-align:right"><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Meta do mês</span><span style="display:block;font:700 15px Manrope;color:oklch(0.97 0.004 260);margin-top:2px">R$ {{ totalPlan }}</span></span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:11px;margin-top:14px">
+            <button onClick="{{ goLancar }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:54px;border-radius:18px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 15px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">
+              <span style="font-size:20px;line-height:1">＋</span> Lançar gasto
+            </button>
+            <button onClick="{{ goImportar }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.305 0.012 260);cursor:pointer" style-hover="background:oklch(0.255 0.016 260)">
+              <span style="position:relative;width:18px;height:18px;display:block">
+                <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:8px solid oklch(0.66 0.15 256)"></span>
+                <span style="position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:7px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
+                <span style="position:absolute;bottom:0;left:1px;width:16px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+              </span>
+            </button>
+            <button onClick="{{ goRelatorios }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.305 0.012 260);cursor:pointer" style-hover="background:oklch(0.255 0.016 260)">
+              <span style="display:flex;align-items:flex-end;gap:2.5px;height:18px">
+                <span style="width:4px;height:8px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
+                <span style="width:4px;height:14px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
+                <span style="width:4px;height:11px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
+              </span>
+            </button>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin:26px 2px 14px">
+            <span style="font:700 15px Manrope">Por categoria</span>
+            <button onClick="{{ goRelatorios }}" style="font:600 12px Manrope;color:oklch(0.74 0.1 256);background:none;border:none;cursor:pointer">Ver tudo ›</button>
+          </div>
+          <div style="padding:6px 18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+            <sc-for list="{{ topCats }}" as="c" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid oklch(0.245 0.014 260)">
+                <span style="width:34px;height:34px;border-radius:11px;flex:none;background:{{ c.tint }};display:flex;align-items:center;justify-content:center">
+                  <span style="width:12px;height:12px;border-radius:999px;background:{{ c.color }}"></span>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:flex;justify-content:space-between;align-items:center">
+                    <span style="font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ c.name }}</span>
+                    <span style="font:700 13px Manrope;color:oklch(0.95 0.004 260)">R$ {{ c.value }}</span>
+                  </span>
+                  <div style="height:5px;border-radius:999px;background:oklch(0.27 0.016 260);margin-top:8px;overflow:hidden">
+                    <div style="height:100%;border-radius:999px;width:{{ c.barPct }};background:{{ c.color }}"></div>
+                  </div>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ hasAlerts }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:26px 2px 14px;font:700 15px Manrope">Alertas de orçamento</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="2">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260)">
+                  <span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ a.color }}"></span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ a.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">R$ {{ a.detail }}</span>
+                  </span>
+                  <span style="flex:none;font:700 11px Manrope;padding:5px 10px;border-radius:999px;color:{{ a.statusColor }};background:{{ a.statusBg }}">{{ a.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin:26px 2px 14px">
+            <span style="font:700 15px Manrope">Últimos lançamentos</span>
+            <span style="font:600 12px Manrope;color:oklch(0.5 0.012 260)">{{ txCount }} este mês</span>
+          </div>
+          <div style="padding:4px 18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+            <sc-for list="{{ recent }}" as="t" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid oklch(0.245 0.014 260)">
+                <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ t.tint }};display:flex;align-items:center;justify-content:center">
+                  <span style="width:13px;height:13px;border-radius:999px;background:{{ t.color }}"></span>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font:600 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.sub }}</span>
+                </span>
+                <span style="flex:none;font:700 14px Manrope;color:oklch(0.92 0.006 260)">− R$ {{ t.amount }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ============ LANÇAR ============ -->
+        <sc-if value="{{ isLancar }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:0 0 4px;padding:13px 15px;border-radius:16px;background:oklch(0.215 0.014 260)">
+            <div style="display:flex;justify-content:space-between;align-items:center;font:600 12px Manrope;color:oklch(0.72 0.012 260)">
+              <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:999px;background:{{ lcBudget.color }}"></span>Orçamento · {{ lcBudget.name }}</span>
+              <span style="color:oklch(0.97 0.004 260)">R$ {{ lcBudget.spent }} <span style="color:oklch(0.56 0.013 260)">/ {{ lcBudget.plan }}</span></span>
+            </div>
+            <div style="height:7px;border-radius:999px;background:oklch(0.27 0.016 260);margin-top:10px;overflow:hidden">
+              <div style="height:100%;border-radius:999px;width:{{ lcBudget.pct }};background:{{ lcBudget.barColor }}"></div>
+            </div>
+            <div style="font:600 11px Manrope;margin-top:8px;color:{{ lcBudget.noteColor }}">{{ lcBudget.note }}</div>
+          </div>
+
+          <div style="text-align:center;padding:18px 0 12px">
+            <div style="font:600 11px Manrope;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.56 0.013 260)">Valor do gasto</div>
+            <div style="font:800 46px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:10px;letter-spacing:-0.02em">
+              <span style="font-size:22px;font-weight:700;color:oklch(0.72 0.012 260);vertical-align:0.5em;margin-right:5px">R$</span>{{ lcAmount }}
+            </div>
+          </div>
+
+          <div class="noscroll" style="display:flex;gap:8px;overflow-x:auto;padding:2px 0">
+            <sc-for list="{{ lcCats }}" as="chip" hint-placeholder-count="6">
+              <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
+                <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
+                <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="padding:16px 0 2px">
+            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Subcategoria · {{ lcCatName }}</div>
+            <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto">
+              <sc-for list="{{ lcSubs }}" as="sub" hint-placeholder-count="4">
+                <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                  {{ sub.label }}
+                  <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:9px;padding:16px 0 6px">
+            <button onClick="{{ lcPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">‹</button>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);color:oklch(0.9 0.008 260);font:600 14px Manrope">
+              <span style="width:15px;height:15px;border:1.6px solid oklch(0.66 0.15 256);border-radius:4px;flex:none"></span>{{ lcDateLabel }}
+            </div>
+            <button onClick="{{ lcNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">›</button>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px">
+            <sc-for list="{{ keys }}" as="key" hint-placeholder-count="12">
+              <button onClick="{{ key.onPress }}" style="height:52px;border:none;background:oklch(0.2 0.013 260);color:oklch(0.97 0.004 260);font:600 22px Manrope;border-radius:14px;cursor:pointer" style-hover="background:oklch(0.245 0.016 260)" style-active="background:oklch(0.28 0.016 260)">{{ key.label }}</button>
+            </sc-for>
+          </div>
+
+          <button onClick="{{ lcSave }}" style="height:56px;width:100%;margin-top:12px;border:none;border-radius:18px;background:{{ lcSaveBg }};color:#fff;font:700 17px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">{{ lcSaveLabel }}</button>
+        </sc-if>
+
+        <!-- ============ RELATÓRIOS ============ -->
+        <sc-if value="{{ isRel }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:4px;padding:4px;background:oklch(0.215 0.014 260);border-radius:14px;margin-bottom:16px">
+            <sc-for list="{{ periods }}" as="p" hint-placeholder-count="3">
+              <button onClick="{{ p.onSelect }}" style="position:relative;flex:1;padding:9px 0;border:none;background:none;border-radius:11px;color:oklch(0.7 0.012 260);font:700 13px Manrope;cursor:pointer">
+                <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
+                <span style="position:relative">{{ p.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="padding:20px;border-radius:22px;background:oklch(0.66 0.15 256 / 0.13);border:1px solid oklch(0.66 0.15 256 / 0.32)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Total · {{ periodLabel }}</span>
+              <span style="font:700 11px Manrope;color:{{ trendColor }};background:{{ trendBg }};padding:4px 9px;border-radius:999px">{{ trendLabel }}</span>
+            </div>
+            <div style="font:800 36px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:11px;letter-spacing:-0.02em">
+              <span style="font-size:19px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.45em;margin-right:5px">R$</span>{{ relTotal }}
+            </div>
+            <div style="height:7px;border-radius:999px;background:oklch(0.27 0.016 260 / .6);margin-top:16px;overflow:hidden">
+              <div style="height:100%;border-radius:999px;width:{{ relUsedPct }};background:oklch(0.78 0.11 256)"></div>
+            </div>
+            <div style="font:600 12px Manrope;color:oklch(0.78 0.11 256);margin-top:9px">{{ relUsedPct }} da meta · previsto R$ {{ relPlan }}</div>
+          </div>
+
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="font:700 14px Manrope;margin-bottom:4px">Gastos por categoria</div>
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px">Distribuição no período</div>
+            <div style="display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px">
+              <svg viewBox="0 0 140 140" style="width:158px;height:158px;transform:rotate(-90deg)">
+                <circle cx="70" cy="70" r="52" fill="none" stroke="oklch(0.27 0.016 260)" stroke-width="20"></circle>
+                <sc-for list="{{ donut }}" as="seg" hint-placeholder-count="6">
+                  <circle cx="70" cy="70" r="52" fill="none" stroke="{{ seg.color }}" stroke-width="20" stroke-dasharray="{{ seg.dash }}" stroke-dashoffset="{{ seg.offset }}"></circle>
+                </sc-for>
+              </svg>
+              <div style="position:absolute;text-align:center">
+                <div style="font:800 22px Manrope;letter-spacing:-0.02em">R$ {{ relTotalShort }}</div>
+                <div style="font:600 11px Manrope;color:oklch(0.56 0.013 260)">total</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 16px">
+              <sc-for list="{{ legend }}" as="it" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:9px;min-width:0">
+                  <span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ it.color }}"></span>
+                  <span style="min-width:0;flex:1">
+                    <span style="display:block;font:600 12px Manrope;color:oklch(0.88 0.008 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">R$ {{ it.value }} · {{ it.pct }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="font:700 14px Manrope;margin-bottom:4px">Ranking de categorias</div>
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:18px">Maiores gastos no período</div>
+            <sc-for list="{{ ranking }}" as="r" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px">
+                <span style="width:84px;flex:none;font:600 12px Manrope;color:oklch(0.86 0.01 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+                <div style="flex:1;height:9px;border-radius:999px;background:oklch(0.27 0.016 260);overflow:hidden">
+                  <div style="height:100%;border-radius:999px;width:{{ r.barPct }};background:{{ r.color }}"></div>
+                </div>
+                <span style="width:66px;flex:none;text-align:right;font:600 12px Manrope;color:oklch(0.72 0.012 260)">R$ {{ r.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="font:700 14px Manrope;margin-bottom:4px">Evolução dos gastos</div>
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:14px">Últimos 6 meses · meta R$ {{ goalShort }}</div>
+            <svg viewBox="0 0 320 132" style="width:100%;height:140px;display:block;overflow:visible">
+              <line x1="14" x2="306" y1="{{ budgetY }}" y2="{{ budgetY }}" stroke="oklch(0.62 0.05 256)" stroke-width="1.4" stroke-dasharray="5 5"></line>
+              <path d="{{ lineArea }}" fill="oklch(0.66 0.15 256 / 0.16)"></path>
+              <polyline points="{{ linePoints }}" fill="none" stroke="oklch(0.66 0.15 256)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"></polyline>
+              <circle cx="{{ lastDot.x }}" cy="{{ lastDot.y }}" r="4.5" fill="oklch(0.66 0.15 256)" stroke="oklch(0.215 0.014 260)" stroke-width="2.5"></circle>
+            </svg>
+            <div style="display:flex;justify-content:space-between;margin-top:8px;padding:0 6px">
+              <sc-for list="{{ lineLabels }}" as="lb" hint-placeholder-count="6">
+                <span style="font:600 11px Manrope;color:oklch(0.56 0.013 260)">{{ lb }}</span>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="font:700 14px Manrope;margin-bottom:4px">Mapa de gastos diários</div>
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px">{{ monthLabel }} · intensidade = valor gasto no dia</div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px">
+              <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
+                <span style="text-align:center;font:600 10px Manrope;color:oklch(0.5 0.012 260)">{{ w }}</span>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
+              <sc-for list="{{ days }}" as="d" hint-placeholder-count="30">
+                <div style="aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font:600 10px Manrope;background:{{ d.color }};color:{{ d.txt }}">{{ d.num }}</div>
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:14px">
+              <span style="font:600 10px Manrope;color:oklch(0.5 0.012 260)">menos</span>
+              <sc-for list="{{ heatScale }}" as="hc" hint-placeholder-count="5">
+                <span style="width:14px;height:14px;border-radius:4px;background:{{ hc }}"></span>
+              </sc-for>
+              <span style="font:600 10px Manrope;color:oklch(0.5 0.012 260)">mais</span>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="font:700 14px Manrope;margin-bottom:4px">Executado vs. meta</div>
+            <div style="display:flex;align-items:center;gap:14px;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-bottom:20px">
+              <span style="display:flex;align-items:center;gap:6px"><span style="width:16px;height:7px;border-radius:4px;background:oklch(0.66 0.15 256)"></span>gasto</span>
+              <span style="display:flex;align-items:center;gap:6px"><span style="width:2.5px;height:14px;border-radius:2px;background:oklch(0.94 0.004 260)"></span>meta prevista</span>
+            </div>
+            <sc-for list="{{ bullets }}" as="b" hint-placeholder-count="6">
+              <div style="margin-bottom:17px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
+                  <span style="display:flex;align-items:center;gap:8px;font:600 13px Manrope;color:oklch(0.9 0.008 260)"><span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ b.color }}"></span>{{ b.name }}</span>
+                  <span style="font:600 12px Manrope;color:oklch(0.72 0.012 260)">R$ {{ b.spent }} <span style="color:oklch(0.5 0.013 260)">/ {{ b.plan }}</span></span>
+                </div>
+                <div style="position:relative;height:16px;border-radius:6px;background:oklch(0.27 0.016 260)">
+                  <div style="position:absolute;top:4px;left:0;height:8px;border-radius:5px;width:{{ b.measurePct }};background:{{ b.barColor }}"></div>
+                  <div style="position:absolute;top:-3px;height:22px;width:2.5px;border-radius:2px;background:oklch(0.94 0.004 260);left:{{ b.targetPct }};transform:translateX(-50%)"></div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ============ PLANEJAMENTO ============ -->
+        <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:4px;padding:4px;background:oklch(0.215 0.014 260);border-radius:14px;margin-bottom:16px">
+            <sc-for list="{{ plTabs }}" as="t" hint-placeholder-count="2">
+              <button onClick="{{ t.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;color:oklch(0.7 0.012 260);font:700 13px Manrope;cursor:pointer">
+                <sc-if value="{{ t.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
+                <span style="position:relative">{{ t.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ isOrcamento }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:18px 20px;border-radius:20px;background:oklch(0.66 0.15 256 / 0.13);border:1px solid oklch(0.66 0.15 256 / 0.32);margin-bottom:18px">
+              <div style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Orçamento mensal total</div>
+              <div style="font:800 30px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:9px;letter-spacing:-0.02em">
+                <span style="font-size:17px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.4em;margin-right:5px">R$</span>{{ totalPlan }}
+              </div>
+              <div style="font:600 12px Manrope;color:oklch(0.7 0.06 256);margin-top:8px">Defina o valor previsto de cada subcategoria</div>
+            </div>
+            <sc-for list="{{ catsO }}" as="c" hint-placeholder-count="5">
+              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:10px">
+                <div onClick="{{ c.onToggle }}" style="display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer">
+                  <span style="width:12px;height:12px;border-radius:4px;flex:none;background:{{ c.color }}"></span>
+                  <span style="flex:1;font:700 14px Manrope;color:oklch(0.92 0.006 260)">{{ c.name }}</span>
+                  <span style="font:700 14px Manrope;color:oklch(0.95 0.004 260)">R$ {{ c.total }}</span>
+                  <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}"><span style="color:oklch(0.6 0.012 260);font-size:12px;width:14px;text-align:center">▾</span></sc-if>
+                  <sc-if value="{{ c.collapsed }}" hint-placeholder-val="{{ true }}"><span style="color:oklch(0.6 0.012 260);font-size:12px;width:14px;text-align:center">▸</span></sc-if>
+                </div>
+                <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:0 16px 12px">
+                    <sc-for list="{{ c.subs }}" as="sub" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid oklch(0.245 0.014 260)">
+                        <span style="flex:1;font:600 13px Manrope;color:oklch(0.74 0.012 260)">{{ sub.name }}</span>
+                        <span style="display:flex;align-items:center;gap:5px;background:oklch(0.255 0.016 260);border-radius:10px;padding:0 12px">
+                          <span style="font:600 12px Manrope;color:oklch(0.56 0.013 260)">R$</span>
+                          <input value="{{ sub.plan }}" onChange="{{ sub.onPlan }}" inputmode="numeric" style="width:62px;background:none;border:none;color:oklch(0.97 0.004 260);text-align:right;font:600 14px Manrope;padding:9px 0;outline:none"/>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <sc-if value="{{ isCategorias }}" hint-placeholder-val="{{ false }}">
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px;line-height:1.5">Toque na cor para alterar · no nome para renomear · na seta para editar as subcategorias.</div>
+            <sc-for list="{{ catsC }}" as="c" hint-placeholder-count="5">
+              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
+                  <button onClick="{{ c.onTogglePalette }}" style="width:32px;height:32px;border-radius:10px;flex:none;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:{{ c.color }}"></button>
+                  <input value="{{ c.name }}" onChange="{{ c.onRename }}" style="flex:1;min-width:0;background:none;border:none;color:oklch(0.95 0.004 260);font:700 15px Manrope;outline:none"/>
+                  <span style="font:600 11px Manrope;color:oklch(0.5 0.012 260);white-space:nowrap">{{ c.subCount }} subcat.</span>
+                  <button onClick="{{ c.onToggle }}" style="width:30px;height:30px;border:none;background:none;color:oklch(0.62 0.012 260);font-size:12px;cursor:pointer">
+                    <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">▾</sc-if>
+                    <sc-if value="{{ c.collapsed }}" hint-placeholder-val="{{ true }}">▸</sc-if>
+                  </button>
+                </div>
+                <sc-if value="{{ c.paletteOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:9px;flex-wrap:wrap;padding:2px 16px 14px">
+                    <sc-for list="{{ c.palette }}" as="p" hint-placeholder-count="10">
+                      <button onClick="{{ p.onSelect }}" style="position:relative;width:30px;height:30px;border-radius:999px;border:none;cursor:pointer;background:{{ p.color }}">
+                        <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-3px;border-radius:999px;border:2px solid oklch(0.97 0.004 260)"></span></sc-if>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:0 16px 14px">
+                    <sc-for list="{{ c.subs }}" as="s" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid oklch(0.245 0.014 260)">
+                        <span style="width:7px;height:7px;border-radius:999px;flex:none;background:{{ c.color }}"></span>
+                        <span style="flex:1;font:600 13px Manrope;color:oklch(0.86 0.01 260)">{{ s.name }}</span>
+                        <button onClick="{{ s.onRemove }}" style="width:26px;height:26px;border-radius:8px;border:none;background:oklch(0.255 0.016 260);color:oklch(0.6 0.012 260);font-size:15px;cursor:pointer">×</button>
+                      </div>
+                    </sc-for>
+                    <div style="display:flex;gap:8px;margin-top:12px">
+                      <input value="{{ c.draft }}" onChange="{{ c.onDraft }}" placeholder="Nova subcategoria" style="flex:1;min-width:0;background:oklch(0.2 0.014 260);border:1px solid oklch(0.3 0.016 260);border-radius:11px;padding:11px 13px;color:oklch(0.95 0.004 260);font:600 13px Manrope;outline:none"/>
+                      <button onClick="{{ c.onAddSub }}" style="flex:none;padding:0 16px;border-radius:11px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 13px Manrope;cursor:pointer">Adicionar</button>
+                    </div>
+                    <button onClick="{{ c.onRemoveCat }}" style="margin-top:14px;width:100%;padding:11px;border-radius:11px;border:1px solid oklch(0.4 0.12 25 / 0.4);background:none;color:oklch(0.72 0.15 25);font:700 12px Manrope;cursor:pointer">Excluir categoria</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <button onClick="{{ onAddCat }}" style="width:100%;margin-top:6px;padding:15px;border-radius:16px;border:1px dashed oklch(0.36 0.016 260);background:oklch(0.19 0.013 260);color:oklch(0.82 0.06 256);font:700 14px Manrope;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+              <span style="font-size:18px;line-height:1">＋</span> Nova categoria
+            </button>
+          </sc-if>
+        </sc-if>
+
+        <!-- ============ IMPORTAR ============ -->
+        <sc-if value="{{ isImport }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:16px">
+            <sc-for list="{{ stepDots }}" as="s" hint-placeholder-count="3">
+              <span style="height:5px;border-radius:999px;width:{{ s.w }};background:{{ s.bg }}"></span>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ imStep1 }}" hint-placeholder-val="{{ true }}">
+            <div style="font:600 13px Manrope;color:oklch(0.6 0.012 260);line-height:1.5;margin-bottom:18px">Exporte o extrato no app do seu banco e selecione o arquivo. Os lançamentos serão categorizados automaticamente e adicionados aos seus gastos.</div>
+            <label style="width:100%;border:1.5px dashed oklch(0.38 0.04 256);background:oklch(0.2 0.014 260);border-radius:20px;padding:34px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px">
+              <input type="file" accept=".csv,.ofx,.qfx,.xls,.xlsx,.txt" onChange="{{ onFile }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
+              <span style="width:56px;height:56px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center;position:relative">
+                <span style="position:absolute;top:16px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:11px solid oklch(0.78 0.11 256)"></span>
+                <span style="position:absolute;top:25px;left:50%;transform:translateX(-50%);width:5px;height:12px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
+              </span>
+              <span style="text-align:center">
+                <span style="display:block;font:700 15px Manrope;color:oklch(0.92 0.006 260)">Toque para selecionar o arquivo</span>
+                <span style="display:block;font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-top:5px">Formatos aceitos: CSV, OFX, XLS e XLSX</span>
+              </span>
+            </label>
+            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.5 0.012 260);margin:24px 2px 12px">Arquivos de exemplo</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ samples }}" as="f" hint-placeholder-count="3">
+                <button onClick="{{ f.onPick }}" style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+                  <span style="width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font:800 11px Manrope;color:{{ f.color }};background:{{ f.tint }}">{{ f.format }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">{{ f.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ f.desc }}</span>
+                  </span>
+                  <span style="color:oklch(0.5 0.012 260);font-size:18px">›</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ imStep2 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);margin-bottom:14px">
+              <span style="width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font:800 10px Manrope;color:{{ imFileColor }};background:{{ imFileTint }}">{{ imFileFormat }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ imFileName }}</span>
+                <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ imDetected }}</span>
+              </span>
+              <button onClick="{{ imReset }}" style="flex:none;font:700 12px Manrope;color:oklch(0.74 0.1 256);background:none;border:none;cursor:pointer">Trocar</button>
+            </div>
+
+            <sc-if value="{{ imShowMap }}" hint-placeholder-val="{{ false }}">
+              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:14px">
+                <div onClick="{{ imToggleMap }}" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer">
+                  <span style="flex:1;font:700 13px Manrope;color:oklch(0.9 0.008 260)">Mapeamento de colunas</span>
+                  <span style="font:700 10px Manrope;color:oklch(0.8 0.14 155);background:oklch(0.8 0.14 155 / 0.16);padding:4px 9px;border-radius:999px">Detectado</span>
+                  <sc-if value="{{ imMapOpen }}" hint-placeholder-val="{{ false }}"><span style="color:oklch(0.6 0.012 260);font-size:12px">▾</span></sc-if>
+                  <sc-if value="{{ imMapClosed }}" hint-placeholder-val="{{ true }}"><span style="color:oklch(0.6 0.012 260);font-size:12px">▸</span></sc-if>
+                </div>
+                <sc-if value="{{ imMapOpen }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:0 16px 14px;display:flex;flex-direction:column;gap:10px">
+                    <sc-for list="{{ imMapRows }}" as="m" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                        <span style="font:600 13px Manrope;color:oklch(0.74 0.012 260)">{{ m.label }}</span>
+                        <span style="position:relative;display:flex;align-items:center">
+                          <select value="{{ m.value }}" onChange="{{ m.onChange }}" style="background:oklch(0.255 0.016 260);border:1px solid oklch(0.3 0.016 260);border-radius:10px;color:oklch(0.95 0.004 260);font:600 13px Manrope;padding:9px 30px 9px 13px;outline:none;cursor:pointer">
+                            <sc-for list="{{ imColumns }}" as="col" hint-placeholder-count="5">
+                              <option value="{{ col.v }}">{{ col.label }}</option>
+                            </sc-for>
+                          </select>
+                          <span style="position:absolute;right:11px;color:oklch(0.6 0.012 260);font-size:10px;pointer-events:none">▾</span>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 2px 12px">
+              <span style="font:700 14px Manrope">Lançamentos encontrados</span>
+              <span style="font:600 12px Manrope;color:oklch(0.74 0.1 256)">{{ imIncluded }} de {{ imTotal }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ imTxsView }}" as="t" hint-placeholder-count="6">
+                <div style="border-radius:15px;background:oklch(0.215 0.014 260);border:1px solid {{ t.borderColor }};overflow:hidden">
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
+                    <button onClick="{{ t.onToggle }}" style="width:24px;height:24px;flex:none;border-radius:7px;cursor:pointer;border:1.5px solid {{ t.checkBorder }};background:{{ t.checkBg }};color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">{{ t.check }}</button>
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.desc }}</span>
+                      <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.date }}</span>
+                    </span>
+                    <span style="font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap">− R$ {{ t.value }}</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;padding:0 14px 13px 50px">
+                    <button onClick="{{ t.onOpenPicker }}" style="display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid oklch(0.3 0.016 260);background:oklch(0.2 0.014 260);cursor:pointer">
+                      <span style="width:9px;height:9px;border-radius:3px;background:{{ t.catColor }}"></span>
+                      <span style="font:600 12px Manrope;color:oklch(0.86 0.01 260)">{{ t.catName }}</span>
+                    </button>
+                    <sc-if value="{{ t.suggested }}" hint-placeholder-val="{{ true }}"><span style="font:700 10px Manrope;color:oklch(0.78 0.11 256);background:oklch(0.66 0.15 256 / 0.14);padding:4px 8px;border-radius:999px">sugerido</span></sc-if>
+                  </div>
+                  <sc-if value="{{ t.pickerOpen }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;padding:2px 14px 14px 50px">
+                      <sc-for list="{{ t.picker }}" as="p" hint-placeholder-count="10">
+                        <button onClick="{{ p.onSelect }}" style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid oklch(0.3 0.016 260);background:oklch(0.235 0.014 260);cursor:pointer">
+                          <span style="width:8px;height:8px;border-radius:3px;background:{{ p.color }}"></span>
+                          <span style="font:600 11px Manrope;color:oklch(0.84 0.01 260)">{{ p.name }}</span>
+                        </button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ imDoImport }}" style="width:100%;height:56px;margin-top:18px;border:none;border-radius:18px;background:oklch(0.66 0.15 256);color:#fff;font:700 16px Manrope;cursor:pointer">Importar {{ imIncluded }} lançamentos</button>
+          </sc-if>
+
+          <sc-if value="{{ imStep3 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 10px 0">
+              <span style="width:84px;height:84px;border-radius:999px;background:oklch(0.72 0.16 155 / 0.16);display:flex;align-items:center;justify-content:center;margin-bottom:22px">
+                <span style="font:800 38px Manrope;color:oklch(0.78 0.16 155);line-height:1">✓</span>
+              </span>
+              <span style="font:800 23px Manrope;letter-spacing:-0.01em">Importação concluída</span>
+              <span style="font:600 14px Manrope;color:oklch(0.6 0.012 260);margin-top:10px;line-height:1.5">{{ imIncluded }} lançamentos foram adicionados<br/>aos seus gastos.</span>
+              <div style="width:100%;display:flex;gap:11px;margin-top:30px">
+                <div style="flex:1;padding:18px;border-radius:18px;background:oklch(0.215 0.014 260);text-align:left">
+                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">Lançamentos</span>
+                  <span style="display:block;font:800 22px Manrope;color:oklch(0.95 0.004 260);margin-top:5px">{{ imIncluded }}</span>
+                </div>
+                <div style="flex:1;padding:18px;border-radius:18px;background:oklch(0.215 0.014 260);text-align:left">
+                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">Total</span>
+                  <span style="display:block;font:800 22px Manrope;color:oklch(0.95 0.004 260);margin-top:5px">R$ {{ imImportTotal }}</span>
+                </div>
+              </div>
+              <button onClick="{{ goDash }}" style="width:100%;height:56px;margin-top:26px;border:none;border-radius:18px;background:oklch(0.66 0.15 256);color:#fff;font:700 16px Manrope;cursor:pointer">Ver no início</button>
+              <button onClick="{{ imReset }}" style="width:100%;height:52px;margin-top:11px;border-radius:18px;border:1px solid oklch(0.305 0.012 260);background:none;color:oklch(0.82 0.01 260);font:700 15px Manrope;cursor:pointer">Importar outro arquivo</button>
+            </div>
+          </sc-if>
+        </sc-if>
+
+      </div>
+
+      <!-- toast -->
+      <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:20px;right:20px;bottom:96px;z-index:5;display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:14px;background:oklch(0.3 0.1 155);box-shadow:0 12px 28px -8px rgba(0,0,0,.5)">
+          <span style="font:800 14px Manrope;color:#fff">✓</span>
+          <span style="font:700 13px Manrope;color:#fff">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+      <!-- ===== BOTTOM NAV ===== -->
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;height:76px;padding:10px 30px 20px;border-top:1px solid oklch(0.245 0.014 260);background:oklch(0.185 0.013 260)">
+        <button onClick="{{ goDash }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="position:relative;width:21px;height:18px;display:block">
+            <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:7px solid {{ navDash }}"></span>
+            <span style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:13px;height:10px;border-radius:2px;background:{{ navDash }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navDash }}">Início</span>
+        </button>
+        <button onClick="{{ goRelatorios }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="display:flex;align-items:flex-end;gap:2.5px;height:18px">
+            <span style="width:4px;height:8px;border-radius:1px;background:{{ navRel }}"></span>
+            <span style="width:4px;height:14px;border-radius:1px;background:{{ navRel }}"></span>
+            <span style="width:4px;height:11px;border-radius:1px;background:{{ navRel }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navRel }}">Relatórios</span>
+        </button>
+        <button onClick="{{ goLancar }}" style="margin-top:-26px;width:56px;height:56px;flex:none;border-radius:999px;background:oklch(0.66 0.15 256);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -6px oklch(0.66 0.15 256 / 0.7);border:4px solid oklch(0.185 0.013 260);cursor:pointer">
+          <span style="font-size:27px;line-height:1;color:#fff;font-weight:300;margin-top:-2px">＋</span>
+        </button>
+        <button onClick="{{ goPlan }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="position:relative;width:20px;height:18px;display:block">
+            <span style="position:absolute;top:3px;left:0;width:20px;height:2px;border-radius:2px;background:{{ navPlanLine }}"></span>
+            <span style="position:absolute;top:0;left:12px;width:7px;height:8px;border-radius:2px;background:{{ navPlan }}"></span>
+            <span style="position:absolute;top:13px;left:0;width:20px;height:2px;border-radius:2px;background:{{ navPlanLine }}"></span>
+            <span style="position:absolute;top:10px;left:3px;width:7px;height:8px;border-radius:2px;background:{{ navPlan }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navPlan }}">Planejar</span>
+        </button>
+        <button onClick="{{ goImportar }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="position:relative;width:18px;height:18px;display:block">
+            <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:7px solid {{ navImport }}"></span>
+            <span style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:6px;border-radius:1px;background:{{ navImport }}"></span>
+            <span style="position:absolute;bottom:0;left:1px;width:16px;height:3px;border-radius:1px;background:{{ navImportLine }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navImport }}">Importar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:488,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  STORAGE = 'gastos_app_v2';
+  TODAY = '2026-06-22';
+  CUR_MONTH = '2026-06';
+  MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  MESLONG = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+
+  palette = [
+    { hue: 255, chroma: 0.13 }, { hue: 215, chroma: 0.13 }, { hue: 175, chroma: 0.13 },
+    { hue: 150, chroma: 0.13 }, { hue: 85, chroma: 0.13 }, { hue: 45, chroma: 0.13 },
+    { hue: 25, chroma: 0.13 }, { hue: 335, chroma: 0.13 }, { hue: 295, chroma: 0.13 },
+    { hue: 260, chroma: 0 },
+  ];
+
+  defaultCats = [
+    { id: 'moradia', name: 'Moradia', hue: 255, chroma: 0.13, subs: [
+      { name: 'Aluguel/Financiamento', plan: '1500' }, { name: 'Condomínio', plan: '450' }, { name: 'IPTU', plan: '150' }, { name: 'Manutenção', plan: '100' } ] },
+    { id: 'contas', name: 'Contas Básicas', hue: 215, chroma: 0.13, subs: [
+      { name: 'Energia', plan: '220' }, { name: 'Gás', plan: '60' }, { name: 'Água', plan: '90' }, { name: 'Internet', plan: '130' }, { name: 'TV', plan: '80' }, { name: 'Celular', plan: '120' } ] },
+    { id: 'alim', name: 'Alimentação', hue: 150, chroma: 0.13, subs: [
+      { name: 'Supermercado/Feira', plan: '800' }, { name: 'Padaria', plan: '120' }, { name: 'Restaurantes', plan: '280' }, { name: 'Delivery', plan: '200' } ] },
+    { id: 'transp', name: 'Transporte', hue: 85, chroma: 0.13, subs: [
+      { name: 'Combustível', plan: '300' }, { name: 'Uber/99/Táxi', plan: '120' }, { name: 'Manutenção', plan: '80' }, { name: 'IPVA', plan: '60' }, { name: 'Seguro', plan: '40' } ] },
+    { id: 'saude', name: 'Saúde', hue: 25, chroma: 0.13, subs: [
+      { name: 'Plano de saúde', plan: '320' }, { name: 'Farmácia', plan: '80' }, { name: 'Academia', plan: '60' }, { name: 'Consultas/Exames', plan: '20' }, { name: 'Higiene', plan: '20' } ] },
+    { id: 'educ', name: 'Educação', hue: 295, chroma: 0.13, subs: [
+      { name: 'Cursos', plan: '250' }, { name: 'Material de estudo', plan: '50' } ] },
+    { id: 'lazer', name: 'Lazer', hue: 335, chroma: 0.13, subs: [
+      { name: 'Streaming', plan: '80' }, { name: 'Vestuário', plan: '120' }, { name: 'Presentes', plan: '60' }, { name: 'Bares/Restaurantes', plan: '150' }, { name: 'Ingressos', plan: '60' }, { name: 'Pet', plan: '50' }, { name: 'Viagens', plan: '50' }, { name: 'Comprinhas', plan: '30' } ] },
+    { id: 'dividas', name: 'Dívidas', hue: 45, chroma: 0.13, subs: [
+      { name: 'Empréstimos', plan: '500' }, { name: 'Cartão de crédito', plan: '300' }, { name: 'Imposto de Renda', plan: '100' } ] },
+    { id: 'invest', name: 'Investimentos', hue: 175, chroma: 0.13, subs: [
+      { name: 'Previdência', plan: '200' }, { name: 'Reserva de emergência', plan: '400' }, { name: 'Investimentos', plan: '200' } ] },
+    { id: 'outros', name: 'Outros', hue: 260, chroma: 0, subs: [
+      { name: 'Diversos', plan: '200' } ] },
+  ];
+
+  catRules = [
+    [/ifood|ifd\b|rappi|delivery|99food|aiqfome/i, 'alim'],
+    [/mercado|supermerc|carrefour|pao de a|atacad|assai|assaí|feira|hortifr|sacol|big\b|extra\b/i, 'alim'],
+    [/padaria|confeit|lanchon|acougue|açougue/i, 'alim'],
+    [/restaur|burger|outback|pizzar|pizza|mc ?donald|boteco|cafe|café|starbucks|bar do/i, 'lazer'],
+    [/uber|99\b|99app|99pop|taxi|táxi|cabify|blablacar/i, 'transp'],
+    [/posto|shell|ipiranga|petrobr|combust|gasolin|alcool|álcool|etanol/i, 'transp'],
+    [/estacion|pedagio|pedágio|sem parar|conectcar|veloe/i, 'transp'],
+    [/ipva|detran|licenciam/i, 'transp'],
+    [/farmac|farmác|drogar|drogasil|pacheco|raia|panvel|ultrafarma/i, 'saude'],
+    [/academ|smartfit|gympass|bioritmo|crossfit/i, 'saude'],
+    [/plano de saude|saúde|unimed|amil|hapvida|sulameric|odonto|hospital|clinica|clínica|laborat/i, 'saude'],
+    [/netflix|spotify|disney|hbo|prime video|youtube|deezer|globoplay|paramount|appletv/i, 'lazer'],
+    [/amazon|magalu|americ|shopee|aliexpress|mercado livre|shein|renner|riachuelo|zara|c&a|petz|cobasi/i, 'lazer'],
+    [/cinema|ingress|teatro|\bshow\b|evento|ticket|cinemark/i, 'lazer'],
+    [/aluguel|imobili|condomin|condomín/i, 'moradia'],
+    [/iptu/i, 'moradia'],
+    [/enel|cemig|light|cpfl|energia|eletric|elétric|copel|equatorial|celesc|coelba/i, 'contas'],
+    [/sabesp|\bagua\b|\bágua\b|copasa|saneam|cedae/i, 'contas'],
+    [/comgas|\bgas\b|\bgás\b/i, 'contas'],
+    [/vivo|claro|\btim\b|\boi\b|internet|\bnet\b|telefon|fibra|telecom/i, 'contas'],
+    [/escola|faculdad|curso|udemy|alura|colegio|colégio|mensalidade|material escolar|livraria/i, 'educ'],
+    [/fatura|cartao|cartão|emprest|empréstim|financiam|credito|crédito|parcel|juros/i, 'dividas'],
+    [/imposto de renda|irpf|darf|receita federal/i, 'dividas'],
+    [/previd|tesouro|\bcdb\b|investim|aplicac|aplicaç|corretora|nuinvest|reserva/i, 'invest'],
+  ];
+
+  autoCat(desc) {
+    const d = (desc || '').toLowerCase();
+    for (const [re, id] of this.catRules) { if (re.test(d)) return id; }
+    return 'outros';
+  }
+
+  parseNum(s) {
+    if (s == null) return NaN;
+    let t = String(s).replace(/\s/g, '').replace(/r\$/i, '').replace(/[^\d.,\-]/g, '');
+    if (!t) return NaN;
+    const neg = /^-/.test(t) || /-$/.test(t); t = t.replace(/-/g, '');
+    if (t.indexOf(',') > -1 && t.indexOf('.') > -1) {
+      t = (t.lastIndexOf(',') > t.lastIndexOf('.')) ? t.replace(/\./g, '').replace(',', '.') : t.replace(/,/g, '');
+    } else if (t.indexOf(',') > -1) { t = t.replace(',', '.'); }
+    const n = parseFloat(t); return isNaN(n) ? NaN : (neg ? -n : n);
+  }
+
+  parseDate(s) {
+    if (!s) return null;
+    const m = String(s).trim();
+    let r = m.match(/(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})/);
+    if (r) { let y = r[3]; if (y.length === 2) y = '20' + y; return y + '-' + this.pad(+r[2]) + '-' + this.pad(+r[1]); }
+    r = m.match(/(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})/);
+    if (r) return r[1] + '-' + this.pad(+r[2]) + '-' + this.pad(+r[3]);
+    r = m.match(/^(\d{4})(\d{2})(\d{2})/);
+    if (r) return r[1] + '-' + r[2] + '-' + r[3];
+    return null;
+  }
+
+  splitCsvLine(line, d) {
+    const out = []; let cur = '', q = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { if (q && line[i + 1] === '"') { cur += '"'; i++; } else q = !q; }
+      else if (ch === d && !q) { out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+    out.push(cur); return out.map(x => x.trim().replace(/^"|"$/g, ''));
+  }
+
+  parseCSV(text) {
+    const lines = text.replace(/\r/g, '').split('\n').filter(l => l.trim());
+    if (!lines.length) return [];
+    const first = lines[0];
+    const d = ((first.match(/;/g) || []).length >= (first.match(/,/g) || []).length) ? ';' : (first.indexOf('\t') > -1 ? '\t' : ',');
+    let rows = lines.map(l => this.splitCsvLine(l, d));
+    const header = rows[0].map(h => h.toLowerCase());
+    const hasHeader = header.some(h => /data|date|valor|value|amount|descri|hist|lan[çc]|moviment/.test(h));
+    let dateCol = -1, valCol = -1, descCol = -1;
+    if (hasHeader) {
+      header.forEach((h, i) => {
+        if (dateCol < 0 && /data|date/.test(h)) dateCol = i;
+        if (valCol < 0 && /valor|value|amount|montante/.test(h)) valCol = i;
+        if (descCol < 0 && /descri|hist|lan[çc]|moviment|memo|estabelec|titulo|título/.test(h)) descCol = i;
+      });
+      rows = rows.slice(1);
+    }
+    const ncol = Math.max(...rows.map(r => r.length));
+    if (dateCol < 0 || valCol < 0) {
+      for (let c = 0; c < ncol; c++) {
+        const vals = rows.map(r => r[c]);
+        if (dateCol < 0 && vals.filter(v => this.parseDate(v)).length > rows.length * 0.6) dateCol = c;
+        if (valCol < 0 && vals.filter(v => v && !this.parseDate(v) && /\d/.test(v) && !isNaN(this.parseNum(v))).length > rows.length * 0.6) valCol = c;
+      }
+    }
+    if (descCol < 0) {
+      let best = -1, bestLen = -1;
+      for (let c = 0; c < ncol; c++) { if (c === dateCol || c === valCol) continue; const len = rows.reduce((a, r) => a + ((r[c] || '').length), 0); if (len > bestLen) { bestLen = len; best = c; } }
+      descCol = best;
+    }
+    const out = [];
+    rows.forEach(r => {
+      const dt = this.parseDate(r[dateCol]); const v = this.parseNum(r[valCol]);
+      if (!dt || isNaN(v) || v === 0) return;
+      out.push({ date: dt, v: Math.abs(v), raw: v, desc: (r[descCol] || 'Lançamento').trim() });
+    });
+    return this.finalize(out);
+  }
+
+  parseOFX(text) {
+    const parts = text.split(/<STMTTRN>/i).slice(1);
+    const tag = (b, t) => { const m = b.match(new RegExp('<' + t + '>\\s*([^<\\r\\n]+)', 'i')); return m ? m[1].trim() : ''; };
+    const out = [];
+    parts.forEach(b => {
+      const v = this.parseNum(tag(b, 'TRNAMT')); const dt = this.parseDate(tag(b, 'DTPOSTED'));
+      const nm = tag(b, 'NAME') || tag(b, 'MEMO') || 'Lançamento';
+      if (!dt || isNaN(v) || v === 0) return;
+      out.push({ date: dt, v: Math.abs(v), raw: v, desc: nm });
+    });
+    return this.finalize(out);
+  }
+
+  finalize(rows) {
+    const hasNeg = rows.some(r => r.raw < 0);
+    const filt = hasNeg ? rows.filter(r => r.raw < 0) : rows;
+    return filt.map((r, i) => ({ id: i, desc: r.desc, date: r.date, v: r.v, cat: this.autoCat(r.desc), include: true, suggested: true }));
+  }
+
+  sizeLabel(b) { return b < 1024 ? b + ' B' : b < 1048576 ? Math.round(b / 1024) + ' KB' : (b / 1048576).toFixed(1) + ' MB'; }
+  txDateLabel(iso) { const p = iso.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; }
+  rangeLabel(txs) { if (!txs.length) return ''; const ds = txs.map(t => t.date).sort(); const s = (x) => x.slice(8, 10) + '/' + x.slice(5, 7); return ds[0] === ds[ds.length - 1] ? s(ds[0]) : s(ds[0]) + '–' + s(ds[ds.length - 1]); }
+
+  loadScript(src) { return new Promise((res, rej) => { if (window.XLSX) return res(); const s = document.createElement('script'); s.src = src; s.onload = () => res(); s.onerror = rej; document.head.appendChild(s); }); }
+  async readXlsx(file) {
+    try {
+      await this.loadScript('https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js');
+      const buf = await file.arrayBuffer();
+      const wb = window.XLSX.read(buf, { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const csv = window.XLSX.utils.sheet_to_csv(ws, { FS: ';' });
+      this.applyParsed(file.name, 'XLSX', this.sizeLabel(file.size), this.parseCSV(csv));
+    } catch (e) { this.toast('Para XLS/XLSX é preciso conexão na 1ª vez'); }
+  }
+  async readFile(file) {
+    const ext = (file.name || '').toLowerCase().split('.').pop();
+    const fmt = ext.toUpperCase();
+    try {
+      if (ext === 'xls' || ext === 'xlsx') { return this.readXlsx(file); }
+      const t = await file.text();
+      const rows = (ext === 'ofx' || ext === 'qfx' || /<STMTTRN>/i.test(t)) ? this.parseOFX(t) : this.parseCSV(t);
+      this.applyParsed(file.name, fmt, this.sizeLabel(file.size), rows);
+    } catch (e) { this.toast('Não consegui ler esse arquivo'); }
+  }
+  applyParsed(name, fmt, size, rows) {
+    if (!rows || !rows.length) { this.toast('Nenhuma despesa encontrada no arquivo'); return; }
+    this.setState({ imFile: { name, format: fmt, size }, imTxs: rows, imStep: 2, imShowMap: fmt !== 'OFX', imMapOpen: false, imPicker: null });
+  }
+  onFile(e) { const f = e.target.files && e.target.files[0]; if (f) this.readFile(f); e.target.value = ''; }
+
+  sampleText(fmt) {
+    if (fmt === 'CSV') {
+      return ['Data;Descrição;Valor',
+        '02/06/2026;SUPERMERCADO CARREFOUR;-280,00',
+        '03/06/2026;UBER *TRIP;-36,10',
+        '05/06/2026;TED ALUGUEL IMOVEL;-1500,00',
+        '08/06/2026;CURSO ONLINE ALURA;-250,00',
+        '10/06/2026;SPOTIFY P*BRASIL;-21,90',
+        '10/06/2026;FATURA CARTAO CREDITO;-600,00',
+        '12/06/2026;ENEL DISTRIBUICAO;-187,30',
+        '13/06/2026;SUPERMERCADO PAO DE ACUCAR;-318,40',
+        '14/06/2026;AMAZON BR;-134,90',
+        '15/06/2026;POSTO SHELL SELECT;-210,00',
+        '15/06/2026;DROGASIL 1234;-89,70',
+        '16/06/2026;NETFLIX.COM;-55,90',
+        '17/06/2026;IFD*IFOOD;-45,90',
+        '20/06/2026;SALARIO EMPRESA XPTO;7200,00'].join('\n');
+    }
+    return ['OFXHEADER:100 DATA:OFXSGML',
+      '<OFX><BANKMSGSRSV1><STMTTRNRS><STMTRS><BANKTRANLIST>',
+      '<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260603<TRNAMT>-36.10<NAME>UBER *TRIP</STMTTRN>',
+      '<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260607<TRNAMT>-90.00<NAME>PETZ PET SHOP</STMTTRN>',
+      '<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260611<TRNAMT>-360.20<NAME>RESTAURANTE OUTBACK</STMTTRN>',
+      '<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260615<TRNAMT>-120.00<NAME>SMARTFIT ACADEMIA</STMTTRN>',
+      '<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260618<TRNAMT>-102.70<NAME>SABESP AGUA</STMTTRN>',
+      '<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20260620<TRNAMT>7200.00<NAME>SALARIO</STMTTRN>',
+      '</BANKTRANLIST></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>'].join('\n');
+  }
+  imPickSample(s) {
+    const txt = this.sampleText(s.format);
+    const rows = s.format === 'OFX' ? this.parseOFX(txt) : this.parseCSV(txt);
+    this.applyParsed(s.name, s.format, this.sizeLabel(txt.length), rows);
+  }
+
+  pad(n) { return String(n).padStart(2, '0'); }
+
+  seedTx() {
+    const out = [];
+    const june = [
+      ['Aluguel', 'moradia', 'Aluguel/Financiamento', 1500.0, 5],
+      ['Condomínio', 'moradia', 'Condomínio', 350.0, 5],
+      ['Conta de energia', 'contas', 'Energia', 187.3, 12],
+      ['Internet', 'contas', 'Internet', 130.0, 15],
+      ['Celular', 'contas', 'Celular', 120.0, 15],
+      ['Conta de água', 'contas', 'Água', 102.7, 18],
+      ['Supermercado Pão de Açúcar', 'alim', 'Supermercado/Feira', 318.4, 13],
+      ['Supermercado Carrefour', 'alim', 'Supermercado/Feira', 280.0, 2],
+      ['iFood', 'alim', 'Delivery', 45.9, 17],
+      ['iFood', 'alim', 'Delivery', 62.0, 9],
+      ['Padaria União', 'alim', 'Padaria', 18.5, 16],
+      ['Padaria', 'alim', 'Padaria', 35.0, 6],
+      ['Restaurante', 'alim', 'Restaurantes', 360.2, 11],
+      ['Posto Shell', 'transp', 'Combustível', 210.0, 15],
+      ['Uber', 'transp', 'Uber/99/Táxi', 23.9, 17],
+      ['Uber', 'transp', 'Uber/99/Táxi', 36.1, 3],
+      ['Revisão do carro', 'transp', 'Manutenção', 200.0, 14],
+      ['Drogasil', 'saude', 'Farmácia', 89.7, 15],
+      ['Smartfit', 'saude', 'Academia', 90.3, 3],
+      ['Curso online', 'educ', 'Cursos', 250.0, 8],
+      ['Livro técnico', 'educ', 'Material de estudo', 50.0, 4],
+      ['Netflix', 'lazer', 'Streaming', 55.9, 16],
+      ['Spotify', 'lazer', 'Streaming', 21.9, 10],
+      ['Amazon', 'lazer', 'Comprinhas', 134.9, 14],
+      ['Bar do Zé', 'lazer', 'Bares/Restaurantes', 150.0, 20],
+      ['Loja de roupas', 'lazer', 'Vestuário', 120.0, 8],
+      ['Pet shop', 'lazer', 'Pet', 90.0, 7],
+      ['Cinema', 'lazer', 'Ingressos', 60.0, 21],
+      ['Comprinhas', 'lazer', 'Comprinhas', 87.4, 12],
+      ['Fatura do cartão', 'dividas', 'Cartão de crédito', 600.0, 10],
+      ['Reserva de emergência', 'invest', 'Reserva de emergência', 400.0, 5],
+      ['Previdência', 'invest', 'Previdência', 200.0, 5],
+      ['Aporte investimentos', 'invest', 'Investimentos', 200.0, 5],
+      ['Diversos', 'outros', 'Diversos', 90.0, 11],
+    ];
+    june.forEach((e, i) => out.push({ id: 'j' + i, desc: e[0], cat: e[1], sub: e[2], v: e[3], date: '2026-06-' + this.pad(e[4]) }));
+
+    const months = { '2026-01': 5200, '2026-02': 4800, '2026-03': 6100, '2026-04': 5500, '2026-05': 7200 };
+    const totalPlan = this.defaultCats.reduce((a, c) => a + this.catPlan(c), 0);
+    Object.entries(months).forEach(([mk, tot]) => {
+      this.defaultCats.forEach(c => {
+        const amt = Math.round(tot * this.catPlan(c) / totalPlan * 100) / 100;
+        if (amt > 0) out.push({ id: mk + '-' + c.id, desc: c.name, cat: c.id, sub: c.subs[0] ? c.subs[0].name : '', v: amt, date: mk + '-10' });
+      });
+    });
+    return out;
+  }
+
+  catPlan(c) { return c.subs.reduce((a, s) => a + (parseInt(s.plan || '0', 10) || 0), 0); }
+
+  state = {
+    view: 'dashboard',
+    categories: JSON.parse(JSON.stringify(this.defaultCats)),
+    transactions: this.seedTx(),
+    toast: null,
+    lcAmount: '', lcCat: 0, lcSub: 0, lcDate: this.TODAY,
+    period: 'mes',
+    plTab: 'orcamento', plExpO: 0, plExpC: null, plPaletteFor: null, plDraft: {},
+    imStep: 1, imFile: null, imShowMap: false, imMapOpen: false,
+    imMap: { data: 'A', desc: 'B', valor: 'D' }, imPicker: null, imTxs: [],
+  };
+
+  samples = [
+    { name: 'extrato_junho.csv', format: 'CSV', desc: 'CSV de banco · lido de verdade' },
+    { name: 'extrato.ofx', format: 'OFX', desc: 'Open Financial Exchange · lido de verdade' },
+  ];
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem(this.STORAGE);
+      if (raw) {
+        const d = JSON.parse(raw);
+        if (d && d.categories && d.transactions) {
+          this.setState({ categories: d.categories, transactions: d.transactions });
+          return;
+        }
+      }
+      this.persist();
+    } catch (e) {}
+    try {
+      if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      }
+    } catch (e) {}
+  }
+  persist() {
+    try { localStorage.setItem(this.STORAGE, JSON.stringify({ categories: this.state.categories, transactions: this.state.transactions })); } catch (e) {}
+  }
+  save(partial) { this.setState(partial, () => this.persist()); }
+
+  fmt(cents) {
+    const s = (Math.round(cents) / 100).toFixed(2);
+    let [i, d] = s.split('.');
+    i = i.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return i + ',' + d;
+  }
+  fmtR(r) { return this.fmt(Math.round(r * 100)); }
+  thousands(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  short(r) { return r >= 1000 ? (r / 1000).toFixed(1).replace('.', ',') + 'k' : String(Math.round(r)); }
+  color(c) { return `oklch(0.74 ${c.chroma ?? 0.13} ${c.hue})`; }
+  tint(c) { return `oklch(0.74 ${c.chroma ?? 0.13} ${c.hue} / 0.18)`; }
+  catById(id) { return this.state.categories.find(c => c.id === id) || { id: 'na', name: 'Sem categoria', hue: 260, chroma: 0, subs: [] }; }
+  cloneCats() { return JSON.parse(JSON.stringify(this.state.categories)); }
+  spentByCat(txs) { const m = {}; txs.forEach(t => { m[t.cat] = (m[t.cat] || 0) + t.v; }); return m; }
+  monthTxs(mk) { return this.state.transactions.filter(t => t.date.slice(0, 7) === mk); }
+  rangeTxs(a, b) { return this.state.transactions.filter(t => t.date >= a && t.date <= b); }
+
+  // ---- date ----
+  shiftDate(iso, delta) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d)); dt.setUTCDate(dt.getUTCDate() + delta);
+    return dt.toISOString().slice(0, 10);
+  }
+  dateLabel(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const lbl = `${d} ${this.MES[m - 1]}`;
+    return iso === this.TODAY ? 'Hoje · ' + lbl : (iso === this.shiftDate(this.TODAY, -1) ? 'Ontem · ' + lbl : lbl);
+  }
+
+  // ---- lançar ----
+  lcPress(k) {
+    let a = this.state.lcAmount;
+    if (k === 'back') a = a.slice(0, -1); else a = a + k;
+    a = a.replace(/^0+/, ''); if (a.length > 9) a = a.slice(0, 9);
+    this.setState({ lcAmount: a });
+  }
+  lcSave() {
+    const cents = parseInt(this.state.lcAmount || '0', 10);
+    if (cents <= 0) { this.toast('Informe um valor'); return; }
+    const cat = this.state.categories[this.state.lcCat];
+    const sub = cat.subs[this.state.lcSub];
+    const tx = { id: 't' + Date.now(), desc: sub ? sub.name : cat.name, cat: cat.id, sub: sub ? sub.name : '', v: cents / 100, date: this.state.lcDate };
+    this.save({ transactions: [tx, ...this.state.transactions], lcAmount: '', view: 'dashboard' });
+    this.toast('Gasto de R$ ' + this.fmt(cents) + ' salvo');
+  }
+  toast(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: null }), 2200); }
+
+  // ---- planejamento ----
+  plSetPlan(ci, si, v) { v = (v || '').replace(/\D/g, '').slice(0, 7); const cats = this.cloneCats(); cats[ci].subs[si].plan = v; this.save({ categories: cats }); }
+  plSetColor(ci, p) { const cats = this.cloneCats(); cats[ci].hue = p.hue; cats[ci].chroma = p.chroma; this.save({ categories: cats, plPaletteFor: null }); }
+  plRename(ci, v) { const cats = this.cloneCats(); cats[ci].name = v; this.save({ categories: cats }); }
+  plRemoveSub(ci, si) { const cats = this.cloneCats(); cats[ci].subs.splice(si, 1); this.save({ categories: cats }); }
+  plAddSub(ci) { const name = (this.state.plDraft[ci] || '').trim(); if (!name) return; const cats = this.cloneCats(); cats[ci].subs.push({ name, plan: '0' }); this.save({ categories: cats, plDraft: { ...this.state.plDraft, [ci]: '' } }); }
+  plAddCat() { const cats = this.cloneCats(); cats.push({ id: 'c' + Date.now(), name: 'Nova categoria', hue: 215, chroma: 0.13, subs: [] }); this.save({ categories: cats, plTab: 'categorias', plExpC: cats.length - 1, plPaletteFor: cats.length - 1 }); }
+  plRemoveCat(ci) { const cats = this.cloneCats(); cats.splice(ci, 1); this.save({ categories: cats, plExpC: null, plPaletteFor: null }); }
+
+  // ---- importar ----
+  imResetFn() { this.setState({ imStep: 1, imFile: null, imPicker: null, imTxs: [] }); }
+  imToggle(i) { this.setState({ imTxs: this.state.imTxs.map((t, idx) => idx === i ? { ...t, include: !t.include } : t) }); }
+  imSetCat(i, id) { this.setState({ imTxs: this.state.imTxs.map((t, idx) => idx === i ? { ...t, cat: id, suggested: false } : t), imPicker: null }); }
+  imDoImportFn() {
+    const inc = this.state.imTxs.filter(t => t.include);
+    const newTx = inc.map((t, i) => ({ id: 'i' + Date.now() + '-' + i, desc: t.desc, cat: t.cat, sub: '', v: t.v, date: t.date }));
+    this.save({ transactions: [...newTx, ...this.state.transactions], imStep: 3 });
+  }
+  fileTone(fmt) { const h = fmt === 'CSV' ? 150 : fmt === 'XLS' ? 85 : 256; return { color: `oklch(0.78 0.12 ${h})`, tint: `oklch(0.74 0.13 ${h} / 0.16)` }; }
+
+  navColor(active) { return active ? 'oklch(0.78 0.11 256)' : 'oklch(0.52 0.012 260)'; }
+  navColorDim(active) { return active ? 'oklch(0.66 0.09 256)' : 'oklch(0.4 0.012 260)'; }
+
+  renderVals() {
+    const st = this.state;
+    const cats = st.categories;
+    const view = st.view;
+    const out = {};
+
+    // nav + chrome
+    out.isDash = view === 'dashboard';
+    out.isLancar = view === 'lancar';
+    out.isRel = view === 'relatorios';
+    out.isPlan = view === 'planejamento';
+    out.isImport = view === 'importar';
+    out.showGenericHeader = view !== 'dashboard';
+    out.viewTitle = { lancar: 'Lançar gasto', relatorios: 'Relatórios', planejamento: 'Planejamento', importar: 'Importar extrato' }[view] || '';
+    out.goDash = () => this.setState({ view: 'dashboard' });
+    out.goLancar = () => this.setState({ view: 'lancar' });
+    out.goRelatorios = () => this.setState({ view: 'relatorios' });
+    out.goPlan = () => this.setState({ view: 'planejamento' });
+    out.goImportar = () => this.setState({ view: 'importar' });
+    out.goBack = () => this.setState({ view: 'dashboard' });
+    out.navDash = this.navColor(view === 'dashboard');
+    out.navRel = this.navColor(view === 'relatorios');
+    out.navPlan = this.navColor(view === 'planejamento');
+    out.navPlanLine = this.navColorDim(view === 'planejamento');
+    out.navImport = this.navColor(view === 'importar');
+    out.navImportLine = this.navColorDim(view === 'importar');
+    out.showToast = !!st.toast; out.toast = st.toast || '';
+
+    out.monthLabel = this.MESLONG[5];
+    const totalPlan = cats.reduce((a, c) => a + this.catPlan(c), 0);
+    out.totalPlan = this.thousands(totalPlan);
+    out.goalShort = this.short(totalPlan);
+
+    // ===== current month aggregates (dashboard) =====
+    const curTxs = this.monthTxs(this.CUR_MONTH);
+    const curSpentMap = this.spentByCat(curTxs);
+    const curSpent = curTxs.reduce((a, t) => a + t.v, 0);
+    out.totalSpent = this.fmtR(curSpent);
+    out.remaining = this.fmtR(Math.max(0, totalPlan - curSpent));
+    out.usedPct = (totalPlan ? Math.min(100, Math.round(curSpent / totalPlan * 100)) : 0) + '%';
+    out.txCount = curTxs.length;
+
+    const ranked = cats.map(c => ({ c, v: curSpentMap[c.id] || 0 })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+    const maxCur = ranked.length ? ranked[0].v : 1;
+    out.topCats = ranked.slice(0, 4).map(x => ({
+      name: x.c.name, color: this.color(x.c), tint: this.tint(x.c),
+      value: this.thousands(x.v), barPct: (x.v / maxCur * 100).toFixed(0) + '%',
+    }));
+
+    const alertList = cats.map(c => {
+      const plan = this.catPlan(c), sp = curSpentMap[c.id] || 0;
+      return { c, plan, sp, ratio: plan ? sp / plan : 0 };
+    }).filter(x => x.plan > 0 && x.ratio >= 0.9).sort((a, b) => b.ratio - a.ratio);
+    out.hasAlerts = alertList.length > 0;
+    out.alerts = alertList.slice(0, 3).map(x => {
+      const over = x.sp > x.plan;
+      return {
+        name: x.c.name, color: this.color(x.c),
+        detail: `${this.thousands(x.sp)} de ${this.thousands(x.plan)} previstos`,
+        status: over ? 'Estourou' : 'No limite',
+        statusColor: over ? 'oklch(0.72 0.17 25)' : 'oklch(0.82 0.13 75)',
+        statusBg: over ? 'oklch(0.72 0.17 25 / 0.16)' : 'oklch(0.82 0.13 75 / 0.16)',
+      };
+    });
+
+    out.recent = curTxs.slice().sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).slice(0, 6).map(t => {
+      const c = this.catById(t.cat);
+      const [y, m, d] = t.date.split('-').map(Number);
+      const rel = t.date === this.TODAY ? 'Hoje' : (t.date === this.shiftDate(this.TODAY, -1) ? 'Ontem' : `${d} ${this.MES[m - 1]}`);
+      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v) };
+    });
+
+    // ===== LANÇAR =====
+    const lcCat = cats[Math.min(st.lcCat, cats.length - 1)] || cats[0];
+    const lcSpent = curSpentMap[lcCat.id] || 0;
+    const lcPlan = this.catPlan(lcCat);
+    const lcOver = lcSpent > lcPlan, lcExact = !lcOver && lcSpent === lcPlan && lcPlan > 0;
+    out.lcBudget = {
+      name: lcCat.name, color: this.color(lcCat),
+      spent: this.fmtR(lcSpent), plan: this.fmtR(lcPlan),
+      pct: (lcPlan ? Math.min(100, lcSpent / lcPlan * 100) : 0).toFixed(0) + '%',
+      barColor: lcOver ? 'oklch(0.62 0.19 25)' : this.color(lcCat),
+      note: lcPlan === 0 ? 'Sem orçamento definido' : (lcOver ? `R$ ${this.fmtR(lcSpent - lcPlan)} acima do previsto` : (lcExact ? 'Orçamento totalmente utilizado' : `Restam R$ ${this.fmtR(lcPlan - lcSpent)} este mês`)),
+      noteColor: lcOver ? 'oklch(0.72 0.16 25)' : 'oklch(0.56 0.013 260)',
+    };
+    out.lcAmount = this.fmt(parseInt(st.lcAmount || '0', 10));
+    out.lcCatName = lcCat.name;
+    out.lcCats = cats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.lcCat, onSelect: () => this.setState({ lcCat: i, lcSub: 0 }) }));
+    out.lcSubs = lcCat.subs.map((s, i) => ({ label: s.name, selected: i === st.lcSub, onSelect: () => this.setState({ lcSub: i }) }));
+    out.lcDateLabel = this.dateLabel(st.lcDate);
+    out.lcPrevDay = () => this.setState({ lcDate: this.shiftDate(st.lcDate, -1) });
+    out.lcNextDay = () => { if (st.lcDate < this.TODAY) this.setState({ lcDate: this.shiftDate(st.lcDate, 1) }); };
+    out.keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '00', '0', 'back'].map(k => ({ label: k === 'back' ? '⌫' : k, onPress: () => this.lcPress(k) }));
+    out.lcSaveLabel = 'Salvar gasto'; out.lcSaveBg = 'oklch(0.66 0.15 256)';
+    out.lcSave = () => this.lcSave();
+
+    // ===== RELATÓRIOS =====
+    const ranges = { mes: ['2026-06-01', '2026-06-30', 1, 'Junho de 2026'], tri: ['2026-04-01', '2026-06-30', 3, '2º Trimestre'], ano: ['2026-01-01', '2026-12-31', 12, 'Ano de 2026'] };
+    const rg = ranges[st.period];
+    const relTxs = this.rangeTxs(rg[0], rg[1]);
+    const relSpentMap = this.spentByCat(relTxs);
+    const relTotal = relTxs.reduce((a, t) => a + t.v, 0);
+    const relPlan = totalPlan * rg[2];
+    out.periods = [['mes', 'Mês'], ['tri', 'Trimestre'], ['ano', 'Ano']].map(a => ({ label: a[1], selected: st.period === a[0], onSelect: () => this.setState({ period: a[0] }) }));
+    out.periodLabel = rg[3];
+    out.relTotal = this.fmtR(relTotal);
+    out.relTotalShort = this.short(relTotal);
+    out.relPlan = this.thousands(relPlan);
+    out.relUsedPct = (relPlan ? Math.min(100, Math.round(relTotal / relPlan * 100)) : 0) + '%';
+
+    // donut + legend + ranking + bullets from relSpentMap
+    const relRanked = cats.map(c => ({ c, v: relSpentMap[c.id] || 0 })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+    const C = 2 * Math.PI * 52; let acc = 0;
+    out.donut = relRanked.map(x => { const len = relTotal ? (x.v / relTotal) * C : 0; const seg = { color: this.color(x.c), dash: `${len.toFixed(2)} ${(C - len).toFixed(2)}`, offset: (-acc).toFixed(2) }; acc += len; return seg; });
+    out.legend = relRanked.map(x => ({ color: this.color(x.c), name: x.c.name, value: this.thousands(x.v), pct: (relTotal ? Math.round(x.v / relTotal * 100) : 0) + '%' }));
+    const maxRel = relRanked.length ? relRanked[0].v : 1;
+    out.ranking = relRanked.map(x => ({ color: this.color(x.c), name: x.c.name, value: this.thousands(x.v), barPct: (x.v / maxRel * 100).toFixed(0) + '%' }));
+    out.bullets = cats.map(c => {
+      const sp = relSpentMap[c.id] || 0, pl = this.catPlan(c) * rg[2];
+      const scale = (Math.max(sp, pl) * 1.12) || 1, over = sp > pl;
+      return { color: this.color(c), name: c.name, spent: this.fmtR(sp), plan: this.fmtR(pl), measurePct: (sp / scale * 100).toFixed(1) + '%', targetPct: (pl / scale * 100).toFixed(1) + '%', barColor: over ? 'oklch(0.62 0.19 25)' : this.color(c) };
+    }).filter(b => parseFloat(b.measurePct) > 0 || parseFloat(b.targetPct) > 0);
+
+    // line — last 6 months
+    const lineMonths = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06'];
+    const vals = lineMonths.map(mk => this.monthTxs(mk).reduce((a, t) => a + t.v, 0));
+    out.lineLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+    const budget = totalPlan;
+    const n = vals.length, x0 = 14, x1 = 306, pb = 118, pt = 12, ph = pb - pt;
+    const maxV = Math.max(...vals, budget) * 1.1 || 1;
+    const X = (i) => x0 + i * ((x1 - x0) / (n - 1));
+    const Y = (v) => pb - (v / maxV) * ph;
+    out.linePoints = vals.map((v, i) => `${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+    out.lineArea = `M${X(0).toFixed(1)},${pb} ` + vals.map((v, i) => `L${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ') + ` L${X(n - 1).toFixed(1)},${pb} Z`;
+    out.budgetY = Y(budget).toFixed(1);
+    out.lastDot = { x: X(n - 1).toFixed(1), y: Y(vals[n - 1]).toFixed(1) };
+    const dpct = vals[n - 2] ? ((vals[n - 1] - vals[n - 2]) / vals[n - 2]) * 100 : 0;
+    const down = dpct < 0;
+    out.trendLabel = `${down ? '▼' : '▲'} ${Math.abs(dpct).toFixed(1).replace('.', ',')}%`;
+    out.trendColor = down ? 'oklch(0.8 0.14 155)' : 'oklch(0.78 0.15 35)';
+    out.trendBg = down ? 'oklch(0.8 0.14 155 / 0.16)' : 'oklch(0.78 0.15 35 / 0.16)';
+
+    // heatmap — current month
+    out.weekdays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+    out.heatScale = ['oklch(0.245 0.012 260)', 'oklch(0.42 0.08 256)', 'oklch(0.53 0.12 256)', 'oklch(0.62 0.15 256)', 'oklch(0.72 0.16 256)'];
+    const dayMap = {};
+    curTxs.forEach(t => { const d = parseInt(t.date.slice(8, 10), 10); dayMap[d] = (dayMap[d] || 0) + t.v; });
+    const firstDow = new Date(Date.UTC(2026, 5, 1)).getUTCDay(); // 0 Sun
+    const lead = (firstDow + 6) % 7;
+    const bucket = (v) => v === 0 ? 0 : v < 80 ? 1 : v < 200 ? 2 : v < 400 ? 3 : 4;
+    const days = [];
+    for (let i = 0; i < lead; i++) days.push({ num: '', color: 'transparent', txt: 'transparent' });
+    for (let d = 1; d <= 30; d++) {
+      const v = dayMap[d] || 0, b = bucket(v);
+      days.push({ num: d, color: out.heatScale[b], txt: b >= 3 ? 'oklch(0.2 0.01 260)' : (b === 0 ? 'oklch(0.45 0.012 260)' : 'oklch(0.85 0.01 260)') });
+    }
+    out.days = days;
+
+    // ===== PLANEJAMENTO =====
+    out.plTabs = [['orcamento', 'Orçamento'], ['categorias', 'Categorias']].map(a => ({ label: a[1], selected: st.plTab === a[0], onSelect: () => this.setState({ plTab: a[0] }) }));
+    out.isOrcamento = st.plTab === 'orcamento';
+    out.isCategorias = st.plTab === 'categorias';
+    out.catsO = cats.map((c, ci) => ({
+      name: c.name, color: this.color(c), total: this.thousands(this.catPlan(c)),
+      expanded: st.plExpO === ci, collapsed: st.plExpO !== ci,
+      onToggle: () => this.setState({ plExpO: st.plExpO === ci ? null : ci }),
+      subs: c.subs.map((s, si) => ({ name: s.name, plan: s.plan, onPlan: (e) => this.plSetPlan(ci, si, e.target.value) })),
+    }));
+    out.catsC = cats.map((c, ci) => ({
+      name: c.name, color: this.color(c), subCount: c.subs.length,
+      expanded: st.plExpC === ci, collapsed: st.plExpC !== ci, paletteOpen: st.plPaletteFor === ci,
+      onToggle: () => this.setState({ plExpC: st.plExpC === ci ? null : ci, plPaletteFor: null }),
+      onTogglePalette: () => this.setState({ plPaletteFor: st.plPaletteFor === ci ? null : ci }),
+      onRename: (e) => this.plRename(ci, e.target.value),
+      draft: st.plDraft[ci] || '',
+      onDraft: (e) => this.setState({ plDraft: { ...st.plDraft, [ci]: e.target.value } }),
+      onAddSub: () => this.plAddSub(ci),
+      onRemoveCat: () => this.plRemoveCat(ci),
+      palette: this.palette.map(p => ({ color: this.color(p), selected: c.hue === p.hue && (c.chroma ?? 0.13) === p.chroma, onSelect: () => this.plSetColor(ci, p) })),
+      subs: c.subs.map((s, si) => ({ name: s.name, onRemove: () => this.plRemoveSub(ci, si) })),
+    }));
+    out.onAddCat = () => this.plAddCat();
+
+    // ===== IMPORTAR =====
+    out.stepDots = [1, 2, 3].map(nn => ({ w: st.imStep === nn ? '22px' : '5px', bg: st.imStep >= nn ? 'oklch(0.66 0.15 256)' : 'oklch(0.3 0.016 260)' }));
+    out.imStep1 = st.imStep === 1; out.imStep2 = st.imStep === 2; out.imStep3 = st.imStep === 3;
+    out.samples = this.samples.map(s => { const tn = this.fileTone(s.format); return { name: s.name, format: s.format, desc: s.desc, color: tn.color, tint: tn.tint, onPick: () => this.imPickSample(s) }; });
+    out.onFile = (e) => this.onFile(e);
+    const f = st.imFile, tn = f ? this.fileTone(f.format) : { color: '', tint: '' };
+    out.imFileName = f ? f.name : ''; out.imFileFormat = f ? f.format : '';
+    out.imFileColor = tn.color; out.imFileTint = tn.tint;
+    out.imDetected = f ? `${st.imTxs.length} despesas · ${this.rangeLabel(st.imTxs)} · ${f.size}` : '';
+    out.imReset = () => this.imResetFn();
+    out.imShowMap = st.imShowMap; out.imMapOpen = st.imMapOpen; out.imMapClosed = !st.imMapOpen;
+    out.imToggleMap = () => this.setState({ imMapOpen: !st.imMapOpen });
+    out.imColumns = ['A', 'B', 'C', 'D', 'E'].map(v => ({ v, label: 'Coluna ' + v }));
+    out.imMapRows = [
+      { label: 'Data', value: st.imMap.data, onChange: (e) => this.setState({ imMap: { ...st.imMap, data: e.target.value } }) },
+      { label: 'Descrição', value: st.imMap.desc, onChange: (e) => this.setState({ imMap: { ...st.imMap, desc: e.target.value } }) },
+      { label: 'Valor', value: st.imMap.valor, onChange: (e) => this.setState({ imMap: { ...st.imMap, valor: e.target.value } }) },
+    ];
+    const incImp = st.imTxs.filter(t => t.include);
+    out.imIncluded = incImp.length; out.imTotal = st.imTxs.length;
+    out.imImportTotal = this.fmtR(incImp.reduce((a, t) => a + t.v, 0));
+    out.imTxsView = st.imTxs.map((t, i) => {
+      const c = this.catById(t.cat);
+      return {
+        desc: t.desc, date: this.txDateLabel(t.date), value: this.fmtR(t.v),
+        check: t.include ? '✓' : '', suggested: t.suggested,
+        checkBg: t.include ? 'oklch(0.66 0.15 256)' : 'transparent',
+        checkBorder: t.include ? 'oklch(0.66 0.15 256)' : 'oklch(0.4 0.016 260)',
+        borderColor: t.include ? 'oklch(0.27 0.016 260)' : 'oklch(0.23 0.012 260)',
+        catColor: this.color(c), catName: c.name,
+        onToggle: () => this.imToggle(i), onOpenPicker: () => this.setState({ imPicker: st.imPicker === i ? null : i }),
+        pickerOpen: st.imPicker === i,
+        picker: cats.map(cc => ({ name: cc.name, color: this.color(cc), onSelect: () => this.imSetCat(i, cc.id) })),
+      };
+    });
+    out.imDoImport = () => this.imDoImportFn();
+    out.goDash = out.goDash;
+
+    return out;
+  }
+}
+</script>
+</body>
+</html>
