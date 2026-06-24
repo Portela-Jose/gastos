@@ -159,7 +159,7 @@
           </div>
           <div style="padding:4px 18px;border-radius:20px;background:oklch(0.215 0.014 260)">
             <sc-for list="{{ recent }}" as="t" hint-placeholder-count="5">
-              <div style="display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid oklch(0.245 0.014 260)">
+              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 0;border:none;border-top:1px solid oklch(0.245 0.014 260);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
                 <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ t.tint }};display:flex;align-items:center;justify-content:center">
                   <span style="width:13px;height:13px;border-radius:999px;background:{{ t.color }}"></span>
                 </span>
@@ -168,7 +168,8 @@
                   <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.sub }}</span>
                 </span>
                 <span style="flex:none;font:700 14px Manrope;color:oklch(0.92 0.006 260)">− R$ {{ t.amount }}</span>
-              </div>
+                <span style="flex:none;color:oklch(0.45 0.012 260);font-size:15px;margin-left:1px">›</span>
+              </button>
             </sc-for>
           </div>
         </sc-if>
@@ -193,34 +194,63 @@
             </div>
           </div>
 
-          <div class="noscroll" style="display:flex;gap:8px;overflow-x:auto;padding:2px 0">
-            <sc-for list="{{ lcCats }}" as="chip" hint-placeholder-count="6">
-              <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
-                <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
-                <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
-              </button>
-            </sc-for>
+          <div style="display:flex;align-items:center;gap:7px">
+            <button onClick="{{ lcPrevCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
+            <div class="noscroll" ref="{{ catScrollRef }}" style="flex:1;min-width:0;display:flex;gap:8px;overflow-x:auto;padding:2px 0">
+              <sc-for list="{{ lcCats }}" as="chip" hint-placeholder-count="6">
+                <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
+                  <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
+                  <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ lcNextCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
           </div>
 
           <div style="padding:16px 0 2px">
             <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Subcategoria · {{ lcCatName }}</div>
-            <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto">
-              <sc-for list="{{ lcSubs }}" as="sub" hint-placeholder-count="4">
-                <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
-                  {{ sub.label }}
-                  <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
-                </button>
-              </sc-for>
+            <div style="display:flex;align-items:center;gap:7px">
+              <button onClick="{{ lcPrevSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
+              <div class="noscroll" ref="{{ subScrollRef }}" style="flex:1;min-width:0;display:flex;gap:7px;overflow-x:auto">
+                <sc-for list="{{ lcSubs }}" as="sub" hint-placeholder-count="4">
+                  <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                    {{ sub.label }}
+                    <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+              <button onClick="{{ lcNextSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
             </div>
           </div>
 
           <div style="display:flex;align-items:center;gap:9px;padding:16px 0 6px">
             <button onClick="{{ lcPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">‹</button>
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);color:oklch(0.9 0.008 260);font:600 14px Manrope">
+            <button onClick="{{ lcToggleCal }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid {{ lcDateBorder }};color:oklch(0.9 0.008 260);font:600 14px Manrope;cursor:pointer">
               <span style="width:15px;height:15px;border:1.6px solid oklch(0.66 0.15 256);border-radius:4px;flex:none"></span>{{ lcDateLabel }}
-            </div>
+              <span style="color:oklch(0.58 0.012 260);font-size:10px;margin-left:1px">▾</span>
+            </button>
             <button onClick="{{ lcNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">›</button>
           </div>
+
+          <sc-if value="{{ lcCalOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:8px;padding:14px;border-radius:16px;background:oklch(0.2 0.014 260);border:1px solid oklch(0.27 0.016 260)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <button onClick="{{ lcCalPrev }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
+                <span style="font:700 14px Manrope;color:oklch(0.92 0.008 260);text-transform:capitalize">{{ lcCalMonthLabel }}</span>
+                <button onClick="{{ lcCalNext }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:5px">
+                <sc-for list="{{ lcCalWeekdays }}" as="w" hint-placeholder-count="7">
+                  <span style="text-align:center;font:600 10px Manrope;color:oklch(0.5 0.012 260)">{{ w }}</span>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+                <sc-for list="{{ lcCalDays }}" as="d" hint-placeholder-count="35">
+                  <button onClick="{{ d.onPick }}" disabled="{{ d.disabled }}" style="aspect-ratio:1;border:none;border-radius:9px;font:600 12px Manrope;visibility:{{ d.vis }};cursor:{{ d.cursor }};background:{{ d.bg }};color:{{ d.color }}">{{ d.num }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px">
             <sc-for list="{{ keys }}" as="key" hint-placeholder-count="12">
@@ -355,15 +385,39 @@
               </div>
             </sc-for>
           </div>
+
+          <div style="margin-top:14px;padding:20px 18px;border-radius:22px;background:oklch(0.215 0.014 260)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:0 2px 4px">
+              <span style="font:700 14px Manrope">Lançamentos · {{ periodLabel }}</span>
+              <span style="font:600 12px Manrope;color:oklch(0.56 0.013 260)">{{ relCount }}</span>
+            </div>
+            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin:0 2px 8px">Toque para editar ou excluir</div>
+            <sc-for list="{{ relList }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 2px;border:none;border-top:1px solid oklch(0.245 0.014 260);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
+                <span style="width:36px;height:36px;border-radius:11px;flex:none;background:{{ t.tint }};display:flex;align-items:center;justify-content:center">
+                  <span style="width:12px;height:12px;border-radius:999px;background:{{ t.color }}"></span>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font:600 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.sub }}</span>
+                </span>
+                <span style="flex:none;font:700 14px Manrope;color:oklch(0.92 0.006 260)">− R$ {{ t.amount }}</span>
+                <span style="flex:none;color:oklch(0.45 0.012 260);font-size:15px;margin-left:1px">›</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{ relListEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:18px 2px;text-align:center;font:600 12px Manrope;color:oklch(0.5 0.012 260)">Nenhum lançamento neste período</div>
+            </sc-if>
+          </div>
         </sc-if>
 
         <!-- ============ PLANEJAMENTO ============ -->
         <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;gap:4px;padding:4px;background:oklch(0.215 0.014 260);border-radius:14px;margin-bottom:16px">
             <sc-for list="{{ plTabs }}" as="t" hint-placeholder-count="2">
-              <button onClick="{{ t.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;color:oklch(0.7 0.012 260);font:700 13px Manrope;cursor:pointer">
+              <button onClick="{{ t.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;font:700 13px Manrope;cursor:pointer">
                 <sc-if value="{{ t.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
-                <span style="position:relative">{{ t.label }}</span>
+                <span style="position:relative;color:{{ t.textColor }}">{{ t.label }}</span>
               </button>
             </sc-for>
           </div>
@@ -746,6 +800,56 @@
 
       </div>
 
+      <!-- edit / delete sheet (FUN-01) -->
+      <sc-if value="{{ editOpen }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ closeEdit }}" aria-label="Fechar" style="position:absolute;inset:0;z-index:8;border:none;background:oklch(0.1 0.01 260 / 0.62);cursor:pointer"></button>
+        <div class="noscroll" style="position:absolute;left:0;right:0;bottom:0;z-index:9;background:oklch(0.185 0.013 260);border-radius:26px 26px 0 0;border-top:1px solid oklch(0.27 0.016 260);box-shadow:0 -18px 44px -12px rgba(0,0,0,.55);padding:16px 20px 22px;max-height:90%;overflow-y:auto">
+          <div style="width:40px;height:4px;border-radius:999px;background:oklch(0.32 0.014 260);margin:0 auto 14px"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <span style="font:800 18px Manrope;color:oklch(0.95 0.004 260);letter-spacing:-0.01em">Editar lançamento</span>
+            <button onClick="{{ closeEdit }}" style="width:34px;height:34px;border-radius:11px;border:1px solid oklch(0.3 0.014 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:16px;cursor:pointer">×</button>
+          </div>
+
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:8px">Valor</div>
+          <div style="display:flex;align-items:center;gap:8px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);border-radius:14px;padding:0 15px;margin-bottom:18px">
+            <span style="font:700 16px Manrope;color:oklch(0.72 0.012 260)">R$</span>
+            <input value="{{ edAmount }}" onChange="{{ onEdAmount }}" inputmode="decimal" style="flex:1;min-width:0;background:none;border:none;color:oklch(0.97 0.004 260);font:700 20px Manrope;padding:14px 0;outline:none"/>
+          </div>
+
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Categoria</div>
+          <div class="noscroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin-bottom:16px">
+            <sc-for list="{{ edCats }}" as="chip" hint-placeholder-count="6">
+              <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
+                <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
+                <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Subcategoria · {{ edCatName }}</div>
+          <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-bottom:16px">
+            <sc-for list="{{ edSubs }}" as="sub" hint-placeholder-count="4">
+              <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                {{ sub.label }}
+                <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Data</div>
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px">
+            <button onClick="{{ edPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">‹</button>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);color:oklch(0.9 0.008 260);font:600 14px Manrope">
+              <span style="width:15px;height:15px;border:1.6px solid oklch(0.66 0.15 256);border-radius:4px;flex:none"></span>{{ edDateLabel }}
+            </div>
+            <button onClick="{{ edNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">›</button>
+          </div>
+
+          <button onClick="{{ saveEdit }}" style="height:54px;width:100%;border:none;border-radius:16px;background:oklch(0.66 0.15 256);color:#fff;font:700 16px Manrope;cursor:pointer;margin-bottom:10px" style-hover="background:oklch(0.7 0.15 256)">Salvar alterações</button>
+          <button onClick="{{ deleteEdit }}" style="height:48px;width:100%;border:1px solid oklch(0.5 0.14 25 / 0.5);border-radius:16px;background:none;color:oklch(0.72 0.15 25);font:700 14px Manrope;cursor:pointer" style-hover="background:oklch(0.5 0.14 25 / 0.12)">Excluir lançamento</button>
+        </div>
+      </sc-if>
+
       <!-- toast -->
       <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;left:20px;right:20px;bottom:96px;z-index:5;display:flex;align-items:center;gap:10px;padding:13px 16px;border-radius:14px;background:oklch(0.3 0.1 155);box-shadow:0 12px 28px -8px rgba(0,0,0,.5)">
@@ -763,17 +867,6 @@
           </span>
           <span style="font:700 10px Manrope;color:{{ navDash }}">Início</span>
         </button>
-        <button onClick="{{ goRelatorios }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
-          <span style="display:flex;align-items:flex-end;gap:2.5px;height:18px">
-            <span style="width:4px;height:8px;border-radius:1px;background:{{ navRel }}"></span>
-            <span style="width:4px;height:14px;border-radius:1px;background:{{ navRel }}"></span>
-            <span style="width:4px;height:11px;border-radius:1px;background:{{ navRel }}"></span>
-          </span>
-          <span style="font:700 10px Manrope;color:{{ navRel }}">Relatórios</span>
-        </button>
-        <button onClick="{{ goLancar }}" style="margin-top:-26px;width:56px;height:56px;flex:none;border-radius:999px;background:oklch(0.66 0.15 256);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px -6px oklch(0.66 0.15 256 / 0.7);border:4px solid oklch(0.185 0.013 260);cursor:pointer">
-          <span style="font-size:27px;line-height:1;color:#fff;font-weight:300;margin-top:-2px">＋</span>
-        </button>
         <button onClick="{{ goPlan }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
           <span style="position:relative;width:20px;height:18px;display:block">
             <span style="position:absolute;top:3px;left:0;width:20px;height:2px;border-radius:2px;background:{{ navPlanLine }}"></span>
@@ -782,6 +875,21 @@
             <span style="position:absolute;top:10px;left:3px;width:7px;height:8px;border-radius:2px;background:{{ navPlan }}"></span>
           </span>
           <span style="font:700 10px Manrope;color:{{ navPlan }}">Planejar</span>
+        </button>
+        <button onClick="{{ goLancar }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="position:relative;width:21px;height:18px;display:block">
+            <span style="position:absolute;top:50%;left:1px;transform:translateY(-50%);width:19px;height:2.6px;border-radius:2px;background:{{ navLancar }}"></span>
+            <span style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:2.6px;height:18px;border-radius:2px;background:{{ navLancar }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navLancar }}">Lançar</span>
+        </button>
+        <button onClick="{{ goRelatorios }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
+          <span style="display:flex;align-items:flex-end;gap:2.5px;height:18px">
+            <span style="width:4px;height:8px;border-radius:1px;background:{{ navRel }}"></span>
+            <span style="width:4px;height:14px;border-radius:1px;background:{{ navRel }}"></span>
+            <span style="width:4px;height:11px;border-radius:1px;background:{{ navRel }}"></span>
+          </span>
+          <span style="font:700 10px Manrope;color:{{ navRel }}">Relatórios</span>
         </button>
         <button onClick="{{ goImportar }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
           <span style="position:relative;width:18px;height:18px;display:block">
@@ -1093,6 +1201,8 @@ class Component extends DCLogic {
     transactions: this.seedTx(),
     toast: null,
     lcAmount: '', lcCat: 0, lcSub: 0, lcDate: this.TODAY,
+    lcCalOpen: false, lcCalMonth: this.CUR_MONTH,
+    editId: null, edAmount: '', edCat: 0, edSub: 0, edDate: this.TODAY,
     period: 'mes',
     plTab: 'orcamento', plExpO: 0, plExpC: null, plPaletteFor: null, plDraft: {},
     imStep: 1, imFile: null, imShowMap: false, imMapOpen: false,
@@ -1101,6 +1211,9 @@ class Component extends DCLogic {
     authFormOpen: false, authEmail: '', authPass: '',
     cfgUrl: '', cfgKey: '',
   };
+
+  _subScroll = (typeof React !== 'undefined') ? React.createRef() : { current: null };
+  _catScroll = (typeof React !== 'undefined') ? React.createRef() : { current: null };
 
   samples = [
     { name: 'extrato_junho.csv', format: 'CSV', desc: 'CSV de banco · lido de verdade' },
@@ -1293,6 +1406,74 @@ class Component extends DCLogic {
     this.save({ transactions: [tx, ...this.state.transactions], lcAmount: '', view: 'dashboard' });
     this.toast('Gasto de R$ ' + this.fmt(cents) + ' salvo');
   }
+  // ---- UX-01: navegação por setas nas subcategorias ----
+  lcStepSub(delta) {
+    const cats = this.state.categories;
+    const lcCat = cats[Math.min(this.state.lcCat, cats.length - 1)] || cats[0];
+    const n = (lcCat.subs || []).length; if (!n) return;
+    let i = this.state.lcSub + delta; if (i < 0) i = 0; if (i > n - 1) i = n - 1;
+    this.setState({ lcSub: i }, () => this.scrollSubIntoView());
+  }
+  scrollSubIntoView() {
+    const el = this._subScroll && this._subScroll.current; if (!el) return;
+    const child = el.children[this.state.lcSub]; if (!child) return;
+    const er = el.getBoundingClientRect(), cr = child.getBoundingClientRect();
+    el.scrollLeft += (cr.left - er.left) - (el.clientWidth - cr.width) / 2;
+  }
+  lcStepCat(delta) {
+    const n = this.state.categories.length; if (!n) return;
+    let i = this.state.lcCat + delta; if (i < 0) i = 0; if (i > n - 1) i = n - 1;
+    this.setState({ lcCat: i, lcSub: 0 }, () => this.scrollCatIntoView());
+  }
+  scrollCatIntoView() {
+    const el = this._catScroll && this._catScroll.current; if (!el) return;
+    const child = el.children[this.state.lcCat]; if (!child) return;
+    const er = el.getBoundingClientRect(), cr = child.getBoundingClientRect();
+    el.scrollLeft += (cr.left - er.left) - (el.clientWidth - cr.width) / 2;
+  }
+
+  // ---- UX-02: calendário ----
+  monthMeta(mk) {
+    const [y, m] = mk.split('-').map(Number);
+    const firstDow = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+    const lead = (firstDow + 6) % 7;
+    const dim = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    return { y, m, lead, dim };
+  }
+  shiftCalMonth(delta) {
+    const mk = this.state.lcCalMonth || this.CUR_MONTH;
+    let [y, m] = mk.split('-').map(Number);
+    m += delta; if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; }
+    this.setState({ lcCalMonth: y + '-' + this.pad(m) });
+  }
+  lcToggleCal() { this.setState({ lcCalOpen: !this.state.lcCalOpen, lcCalMonth: this.state.lcDate.slice(0, 7) }); }
+  lcPickDay(iso) { this.setState({ lcDate: iso, lcCalOpen: false }); }
+
+  // ---- FUN-01: editar / excluir lançamento ----
+  openEdit(id) {
+    const t = this.state.transactions.find(x => x.id === id); if (!t) return;
+    let ci = this.state.categories.findIndex(c => c.id === t.cat); if (ci < 0) ci = 0;
+    const cat = this.state.categories[ci] || this.state.categories[0];
+    let si = (cat.subs || []).findIndex(s => s.name === t.sub); if (si < 0) si = 0;
+    this.setState({ editId: id, edAmount: this.fmtR(t.v), edCat: ci, edSub: si, edDate: t.date });
+  }
+  closeEdit() { this.setState({ editId: null }); }
+  edStepDay(delta) { const d = this.shiftDate(this.state.edDate || this.TODAY, delta); if (delta > 0 && d > this.TODAY) return; this.setState({ edDate: d }); }
+  saveEdit() {
+    const v = this.parseNum(this.state.edAmount);
+    if (!v || v <= 0) { this.toast('Informe um valor válido'); return; }
+    const cat = this.state.categories[Math.min(this.state.edCat, this.state.categories.length - 1)] || this.state.categories[0];
+    const sub = cat.subs[this.state.edSub];
+    const txs = this.state.transactions.map(t => t.id === this.state.editId ? { ...t, cat: cat.id, sub: sub ? sub.name : '', v: Math.round(Math.abs(v) * 100) / 100, date: this.state.edDate } : t);
+    this.save({ transactions: txs, editId: null });
+    this.toast('Lançamento atualizado');
+  }
+  deleteEdit() {
+    const txs = this.state.transactions.filter(t => t.id !== this.state.editId);
+    this.save({ transactions: txs, editId: null });
+    this.toast('Lançamento excluído');
+  }
+
   toast(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: null }), 2200); }
 
   // ---- planejamento ----
@@ -1408,6 +1589,7 @@ class Component extends DCLogic {
     out.goImportar = () => this.setState({ view: 'importar' });
     out.goBack = () => this.setState({ view: 'dashboard' });
     out.navDash = this.navColor(view === 'dashboard');
+    out.navLancar = this.navColor(view === 'lancar');
     out.navRel = this.navColor(view === 'relatorios');
     out.navPlan = this.navColor(view === 'planejamento');
     out.navPlanLine = this.navColorDim(view === 'planejamento');
@@ -1456,7 +1638,7 @@ class Component extends DCLogic {
       const c = this.catById(t.cat);
       const [y, m, d] = t.date.split('-').map(Number);
       const rel = t.date === this.TODAY ? 'Hoje' : (t.date === this.shiftDate(this.TODAY, -1) ? 'Ontem' : `${d} ${this.MES[m - 1]}`);
-      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v) };
+      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), onOpen: () => this.openEdit(t.id) };
     });
 
     // ===== LANÇAR =====
@@ -1479,9 +1661,54 @@ class Component extends DCLogic {
     out.lcDateLabel = this.dateLabel(st.lcDate);
     out.lcPrevDay = () => this.setState({ lcDate: this.shiftDate(st.lcDate, -1) });
     out.lcNextDay = () => { if (st.lcDate < this.TODAY) this.setState({ lcDate: this.shiftDate(st.lcDate, 1) }); };
+    // UX-01 subcategory arrows
+    out.subScrollRef = this._subScroll;
+    out.lcPrevSub = () => this.lcStepSub(-1);
+    out.lcNextSub = () => this.lcStepSub(1);
+    out.catScrollRef = this._catScroll;
+    out.lcPrevCat = () => this.lcStepCat(-1);
+    out.lcNextCat = () => this.lcStepCat(1);
+    // UX-02 calendar
+    out.lcToggleCal = () => this.lcToggleCal();
+    out.lcCalOpen = !!st.lcCalOpen;
+    out.lcDateBorder = st.lcCalOpen ? 'oklch(0.66 0.15 256 / 0.5)' : 'oklch(0.27 0.016 260)';
+    out.lcCalWeekdays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+    out.lcCalPrev = () => this.shiftCalMonth(-1);
+    out.lcCalNext = () => { if ((st.lcCalMonth || this.CUR_MONTH) < this.CUR_MONTH) this.shiftCalMonth(1); };
+    const calMk = st.lcCalMonth || this.CUR_MONTH;
+    const calMeta = this.monthMeta(calMk);
+    out.lcCalMonthLabel = this.MESLONG[calMeta.m - 1] + ' de ' + calMeta.y;
+    const calCells = [];
+    for (let i = 0; i < calMeta.lead; i++) calCells.push({ num: '', vis: 'hidden', cursor: 'default', disabled: true, bg: 'transparent', color: 'transparent', onPick: () => {} });
+    for (let d = 1; d <= calMeta.dim; d++) {
+      const iso = calMk + '-' + this.pad(d);
+      const future = iso > this.TODAY;
+      const selected = iso === st.lcDate, today = iso === this.TODAY;
+      let bg = 'transparent', color = 'oklch(0.86 0.01 260)', cursor = 'pointer';
+      if (future) { color = 'oklch(0.4 0.012 260)'; cursor = 'default'; }
+      else if (selected) { bg = 'oklch(0.66 0.15 256)'; color = '#fff'; }
+      else if (today) { bg = 'oklch(0.66 0.15 256 / 0.18)'; color = 'oklch(0.82 0.1 256)'; }
+      calCells.push({ num: d, vis: 'visible', cursor, disabled: future, bg, color, onPick: future ? () => {} : () => this.lcPickDay(iso) });
+    }
+    out.lcCalDays = calCells;
     out.keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '00', '0', 'back'].map(k => ({ label: k === 'back' ? '⌫' : k, onPress: () => this.lcPress(k) }));
     out.lcSaveLabel = 'Salvar gasto'; out.lcSaveBg = 'oklch(0.66 0.15 256)';
     out.lcSave = () => this.lcSave();
+
+    // ===== EDITAR / EXCLUIR (FUN-01) =====
+    out.editOpen = !!st.editId;
+    out.closeEdit = () => this.closeEdit();
+    out.edAmount = st.edAmount;
+    out.onEdAmount = (e) => this.setState({ edAmount: e.target.value });
+    const edCatObj = cats[Math.min(st.edCat, cats.length - 1)] || cats[0];
+    out.edCats = cats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.edCat, onSelect: () => this.setState({ edCat: i, edSub: 0 }) }));
+    out.edSubs = (edCatObj ? edCatObj.subs : []).map((s, i) => ({ label: s.name, selected: i === st.edSub, onSelect: () => this.setState({ edSub: i }) }));
+    out.edCatName = edCatObj ? edCatObj.name : '';
+    out.edDateLabel = this.dateLabel(st.edDate || this.TODAY);
+    out.edPrevDay = () => this.edStepDay(-1);
+    out.edNextDay = () => this.edStepDay(1);
+    out.saveEdit = () => this.saveEdit();
+    out.deleteEdit = () => this.deleteEdit();
 
     // ===== RELATÓRIOS =====
     const ranges = { mes: ['2026-06-01', '2026-06-30', 1, 'Junho de 2026'], tri: ['2026-04-01', '2026-06-30', 3, '2º Trimestre'], ano: ['2026-01-01', '2026-12-31', 12, 'Ano de 2026'] };
@@ -1496,6 +1723,17 @@ class Component extends DCLogic {
     out.relTotalShort = this.short(relTotal);
     out.relPlan = this.thousands(relPlan);
     out.relUsedPct = (relPlan ? Math.min(100, Math.round(relTotal / relPlan * 100)) : 0) + '%';
+
+    // lista de lançamentos do período (FUN-01 nos Relatórios)
+    const relSorted = relTxs.slice().sort((a, b) => b.date.localeCompare(a.date) || String(b.id).localeCompare(String(a.id)));
+    out.relCount = relSorted.length + (relSorted.length === 1 ? ' lançamento' : ' lançamentos');
+    out.relListEmpty = relSorted.length === 0;
+    out.relList = relSorted.map(t => {
+      const c = this.catById(t.cat);
+      const [yy, mm, dd] = t.date.split('-').map(Number);
+      const rel = t.date === this.TODAY ? 'Hoje' : (t.date === this.shiftDate(this.TODAY, -1) ? 'Ontem' : `${dd} ${this.MES[mm - 1]}`);
+      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), onOpen: () => this.openEdit(t.id) };
+    });
 
     // donut + legend + ranking + bullets from relSpentMap
     const relRanked = cats.map(c => ({ c, v: relSpentMap[c.id] || 0 })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
@@ -1546,7 +1784,7 @@ class Component extends DCLogic {
     out.days = days;
 
     // ===== PLANEJAMENTO =====
-    out.plTabs = [['orcamento', 'Orçamento'], ['categorias', 'Categorias']].map(a => ({ label: a[1], selected: st.plTab === a[0], onSelect: () => this.setState({ plTab: a[0] }) }));
+    out.plTabs = [['orcamento', 'Orçamento'], ['categorias', 'Categorias']].map(a => ({ label: a[1], selected: st.plTab === a[0], textColor: st.plTab === a[0] ? '#fff' : 'oklch(0.7 0.012 260)', onSelect: () => this.setState({ plTab: a[0] }) }));
     out.isOrcamento = st.plTab === 'orcamento';
     out.isCategorias = st.plTab === 'categorias';
     out.catsO = cats.map((c, ci) => ({
