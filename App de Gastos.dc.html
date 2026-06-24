@@ -18,7 +18,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Gastos">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *{box-sizing:border-box}
   body{margin:0}
@@ -54,12 +53,9 @@
         <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 6px;flex:none">
           <span>
             <span style="display:block;font:600 13px Manrope;color:oklch(0.6 0.012 260)">Boa tarde,</span>
-            <span style="display:block;font:800 21px Manrope;letter-spacing:-0.01em;margin-top:2px">{{ firstName }}</span>
+            <span style="display:block;font:800 21px Manrope;letter-spacing:-0.01em;margin-top:2px">Marina</span>
           </span>
-          <button onClick="{{ goConta }}" style="position:relative;width:42px;height:42px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 16px Manrope;color:oklch(0.82 0.1 256);cursor:pointer">
-            {{ avatarInitial }}
-            <span style="position:absolute;bottom:-1px;right:-1px;width:13px;height:13px;border-radius:999px;border:2px solid oklch(0.165 0.012 260);background:{{ syncDot }}"></span>
-          </button>
+          <span style="width:42px;height:42px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 16px Manrope;color:oklch(0.82 0.1 256)">M</span>
         </div>
       </sc-if>
 
@@ -583,144 +579,6 @@
           </sc-if>
         </sc-if>
 
-        <!-- ============ CONTA ============ -->
-        <sc-if value="{{ isConta }}" hint-placeholder-val="{{ false }}">
-
-          <sc-if value="{{ signedOut }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 6px 0">
-              <span style="width:78px;height:78px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-                <span style="position:relative;width:38px;height:24px;display:block">
-                  <span style="position:absolute;bottom:0;left:0;width:38px;height:17px;border-radius:11px;background:oklch(0.78 0.11 256)"></span>
-                  <span style="position:absolute;bottom:8px;left:7px;width:16px;height:16px;border-radius:999px;background:oklch(0.78 0.11 256)"></span>
-                  <span style="position:absolute;bottom:10px;left:17px;width:13px;height:13px;border-radius:999px;background:oklch(0.78 0.11 256)"></span>
-                </span>
-              </span>
-              <span style="font:800 21px Manrope;letter-spacing:-0.01em">Sincronize seus dados</span>
-              <span style="font:600 13px Manrope;color:oklch(0.6 0.012 260);margin-top:9px;line-height:1.5;max-width:300px">Entre com uma conta para acessar seus gastos no celular, tablet e PC, sempre atualizados e com backup na nuvem.</span>
-            </div>
-
-            <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px">
-              <button onClick="{{ signInGoogle }}" style="display:flex;align-items:center;justify-content:center;gap:11px;height:54px;border-radius:16px;border:none;background:#fff;color:#1f2430;font:700 15px Manrope;cursor:pointer">
-                <span style="width:20px;height:20px;border-radius:999px;background:conic-gradient(#ea4335 0 25%,#fbbc05 0 50%,#34a853 0 75%,#4285f4 0);display:inline-block"></span>
-                Entrar com Google
-              </button>
-              <button onClick="{{ signInEmail }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:16px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.92 0.006 260);font:700 15px Manrope;cursor:pointer">
-                Entrar com e-mail
-              </button>
-            </div>
-
-            <div style="display:flex;align-items:center;gap:12px;margin:24px 2px 18px">
-              <span style="flex:1;height:1px;background:oklch(0.27 0.016 260)"></span>
-              <span style="font:600 11px Manrope;color:oklch(0.5 0.012 260)">backup sem conta</span>
-              <span style="flex:1;height:1px;background:oklch(0.27 0.016 260)"></span>
-            </div>
-
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
-                <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
-                  <span style="position:relative;width:16px;height:16px;display:block">
-                    <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
-                  </span>
-                </span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Exportar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Salva um arquivo .json com tudo</span>
-                </span>
-              </button>
-              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
-                <input type="file" accept=".json,application/json" onChange="{{ onImportBackup }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
-                <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
-                  <span style="position:relative;width:16px;height:16px;display:block">
-                    <span style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
-                  </span>
-                </span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Importar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Restaura de um arquivo .json</span>
-                </span>
-              </label>
-            </div>
-          </sc-if>
-
-          <sc-if value="{{ signedIn }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;background:oklch(0.215 0.014 260)">
-              <span style="width:52px;height:52px;border-radius:999px;flex:none;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 19px Manrope;color:oklch(0.82 0.1 256)">{{ avatarInitial }}</span>
-              <span style="flex:1;min-width:0">
-                <span style="display:block;font:700 16px Manrope;color:oklch(0.95 0.004 260)">{{ accountName }}</span>
-                <span style="display:block;font:600 12px Manrope;color:oklch(0.58 0.013 260);margin-top:2px">{{ accountEmail }}</span>
-              </span>
-            </div>
-
-            <div style="margin-top:12px;padding:18px;border-radius:20px;background:oklch(0.215 0.014 260)">
-              <div style="display:flex;align-items:center;gap:11px">
-                <span style="width:11px;height:11px;border-radius:999px;flex:none;background:{{ syncDot }}"></span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 14px Manrope;color:oklch(0.92 0.006 260)">{{ syncLabel }}</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ syncSub }}</span>
-                </span>
-                <button onClick="{{ syncNow }}" style="flex:none;padding:9px 14px;border-radius:11px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.2 0.014 260);color:oklch(0.82 0.06 256);font:700 12px Manrope;cursor:pointer">{{ syncBtnLabel }}</button>
-              </div>
-            </div>
-
-            <div style="margin:24px 2px 12px;font:700 14px Manrope">Meus dispositivos</div>
-            <div style="padding:4px 16px;border-radius:20px;background:oklch(0.215 0.014 260)">
-              <sc-for list="{{ devices }}" as="d" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid oklch(0.245 0.014 260)">
-                  <span style="width:34px;height:34px;border-radius:10px;flex:none;background:oklch(0.255 0.016 260);display:flex;align-items:center;justify-content:center">
-                    <span style="width:13px;height:17px;border-radius:3px;border:1.6px solid {{ d.iconColor }}"></span>
-                  </span>
-                  <span style="flex:1;min-width:0">
-                    <span style="display:block;font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ d.name }}</span>
-                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ d.meta }}</span>
-                  </span>
-                  <sc-if value="{{ d.current }}" hint-placeholder-val="{{ false }}">
-                    <span style="flex:none;font:700 10px Manrope;color:oklch(0.8 0.14 155);background:oklch(0.8 0.14 155 / 0.16);padding:4px 9px;border-radius:999px">este</span>
-                  </sc-if>
-                </div>
-              </sc-for>
-            </div>
-
-            <div style="margin:24px 2px 12px;font:700 14px Manrope">Backup</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
-                <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
-                  <span style="position:relative;width:16px;height:16px;display:block">
-                    <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
-                  </span>
-                </span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Exportar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Salva um arquivo .json com tudo</span>
-                </span>
-              </button>
-              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
-                <input type="file" accept=".json,application/json" onChange="{{ onImportBackup }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
-                <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
-                  <span style="position:relative;width:16px;height:16px;display:block">
-                    <span style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
-                  </span>
-                </span>
-                <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Importar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Restaura de um arquivo .json</span>
-                </span>
-              </label>
-            </div>
-
-            <button onClick="{{ signOut }}" style="width:100%;margin-top:20px;padding:14px;border-radius:14px;border:1px solid oklch(0.305 0.012 260);background:none;color:oklch(0.74 0.012 260);font:700 14px Manrope;cursor:pointer">Sair da conta</button>
-          </sc-if>
-
-          <div style="font:600 11px Manrope;color:oklch(0.45 0.012 260);text-align:center;margin-top:22px;line-height:1.5">{{ cloudNote }}</div>
-        </sc-if>
-
       </div>
 
       <!-- toast -->
@@ -775,14 +633,6 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:488,&quot;height&quot;:960}}">
 class Component extends DCLogic {
-  // ┌─────────────────────────────────────────────────────────────────────┐
-  // │ COLE AQUI as chaves do seu projeto Supabase (Project Settings → API). │
-  // │ Deixe vazio para usar o app offline (sincronização em modo prévia).   │
-  // └─────────────────────────────────────────────────────────────────────┘
-  SUPABASE_URL = 'https://pxgcezxjibjsgdiwjoqn.supabase.co/rest/v1/';        // ex.: 'https://xxxx.supabase.co'
-  SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4Z2NlenhqaWJqc2dkaXdqb3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyNTY0NzUsImV4cCI6MjA5NzgzMjQ3NX0.sAmagrZm0yP6_5Rah56hcUNEc5bem-W7kR-kysyDX7c';   // a "anon public key"
-  cloudReady = false;
-
   STORAGE = 'gastos_app_v2';
   TODAY = '2026-06-22';
   CUR_MONTH = '2026-06';
@@ -1074,7 +924,6 @@ class Component extends DCLogic {
     plTab: 'orcamento', plExpO: 0, plExpC: null, plPaletteFor: null, plDraft: {},
     imStep: 1, imFile: null, imShowMap: false, imMapOpen: false,
     imMap: { data: 'A', desc: 'B', valor: 'D' }, imPicker: null, imTxs: [],
-    signedIn: false, account: { name: 'Marina Souza', email: 'marina.souza@gmail.com' }, syncStatus: 'synced', lastSync: 'agora',
   };
 
   samples = [
@@ -1088,113 +937,22 @@ class Component extends DCLogic {
       if (raw) {
         const d = JSON.parse(raw);
         if (d && d.categories && d.transactions) {
-          this._localUpdatedAt = d.updatedAt || Date.now();
           this.setState({ categories: d.categories, transactions: d.transactions });
-        } else { this.persist(); }
-      } else { this.persist(); }
+          return;
+        }
+      }
+      this.persist();
     } catch (e) {}
     try {
       if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
         navigator.serviceWorker.register('sw.js').catch(() => {});
       }
     } catch (e) {}
-    this.waitForSupabase(24);
   }
-  persistAt(ts) {
-    try { localStorage.setItem(this.STORAGE, JSON.stringify({ categories: this.state.categories, transactions: this.state.transactions, updatedAt: ts })); } catch (e) {}
+  persist() {
+    try { localStorage.setItem(this.STORAGE, JSON.stringify({ categories: this.state.categories, transactions: this.state.transactions })); } catch (e) {}
   }
-  persist() { this.persistAt(this._localUpdatedAt || Date.now()); }
-  touch() {
-    this._localUpdatedAt = Date.now();
-    this.persistAt(this._localUpdatedAt);
-    this.schedulePush();
-  }
-  save(partial) { this.setState(partial, () => this.touch()); }
-
-  // ---- Supabase (nuvem) ----
-  waitForSupabase(tries) {
-    const url = window.SUPABASE_URL || this.SUPABASE_URL;
-    const key = window.SUPABASE_ANON_KEY || this.SUPABASE_ANON_KEY;
-    if (!url || !key) return; // sem chaves → modo prévia (offline)
-    if (window.supabase && window.supabase.createClient) { this.initCloud(url, key); return; }
-    if (tries <= 0) return;
-    setTimeout(() => this.waitForSupabase(tries - 1), 250);
-  }
-  initCloud(url, key) {
-    try {
-      this.sb = window.supabase.createClient(url, key);
-      this.cloudReady = true;
-      this.sb.auth.getSession().then(({ data }) => this.applySession(data && data.session));
-      this.sb.auth.onAuthStateChange((_e, session) => this.applySession(session));
-    } catch (e) { this.cloudReady = false; }
-  }
-  applySession(session) {
-    this.session = session || null;
-    if (session && session.user) {
-      const u = session.user, m = u.user_metadata || {};
-      const name = m.full_name || m.name || (u.email ? u.email.split('@')[0] : 'Você');
-      this.setState({ signedIn: true, account: { name, email: u.email || '' } });
-      this.subscribeRealtime();
-      this.pullCloud();
-    } else {
-      this.setState({ signedIn: false });
-    }
-  }
-  subscribeRealtime() {
-    if (!this.cloudReady || this._rt || !this.session) return;
-    try {
-      this._rt = this.sb.channel('gastos_sync')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'gastos_dados', filter: 'user_id=eq.' + this.session.user.id }, () => this.pullCloud())
-        .subscribe();
-    } catch (e) {}
-  }
-  schedulePush() {
-    if (!this.cloudReady || !this.session) return;
-    clearTimeout(this._push);
-    this.setState({ syncStatus: 'syncing' });
-    this._push = setTimeout(() => this.pushCloud(), 1100);
-  }
-  async pushCloud() {
-    if (!this.cloudReady || !this.session) return;
-    try {
-      const { error } = await this.sb.from('gastos_dados').upsert({
-        user_id: this.session.user.id,
-        dados: { categories: this.state.categories, transactions: this.state.transactions },
-        updated_at: new Date(this._localUpdatedAt || Date.now()).toISOString(),
-      });
-      if (error) throw error;
-      this.setState({ syncStatus: 'synced', lastSync: 'agora' });
-    } catch (e) { this.setState({ syncStatus: 'offline' }); }
-  }
-  async pullCloud() {
-    if (!this.cloudReady || !this.session) return;
-    try {
-      const { data, error } = await this.sb.from('gastos_dados').select('dados, updated_at').eq('user_id', this.session.user.id).maybeSingle();
-      if (error) throw error;
-      if (data && data.dados) {
-        const remoteTs = new Date(data.updated_at).getTime();
-        if (remoteTs > (this._localUpdatedAt || 0)) {
-          this._localUpdatedAt = remoteTs;
-          this.setState({ categories: data.dados.categories || this.state.categories, transactions: data.dados.transactions || this.state.transactions });
-          this.persistAt(remoteTs);
-        } else if ((this._localUpdatedAt || 0) > remoteTs) {
-          this.pushCloud(); return;
-        }
-      } else {
-        this.pushCloud(); return; // primeira vez: envia o que existe local
-      }
-      this.setState({ syncStatus: 'synced', lastSync: 'agora' });
-    } catch (e) { this.setState({ syncStatus: 'offline' }); }
-  }
-  deviceName() {
-    const ua = navigator.userAgent || '';
-    if (/Tablet|Tab|iPad/i.test(ua)) return 'Tablet';
-    if (/Android/i.test(ua)) return 'Celular Android';
-    if (/Windows/i.test(ua)) return 'PC Windows';
-    if (/Mac/i.test(ua)) return 'Mac';
-    if (/iPhone/i.test(ua)) return 'iPhone';
-    return 'Este aparelho';
-  }
+  save(partial) { this.setState(partial, () => this.persist()); }
 
   fmt(cents) {
     const s = (Math.round(cents) / 100).toFixed(2);
@@ -1266,64 +1024,6 @@ class Component extends DCLogic {
   navColor(active) { return active ? 'oklch(0.78 0.11 256)' : 'oklch(0.52 0.012 260)'; }
   navColorDim(active) { return active ? 'oklch(0.66 0.09 256)' : 'oklch(0.4 0.012 260)'; }
 
-  // ---- conta / backup / sincronização ----
-  goConta() { this.setState({ view: 'conta' }); }
-  signInGoogle() {
-    if (this.cloudReady) {
-      this.sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.href.split('#')[0] } })
-        .then(({ error }) => { if (error) this.toast('Não consegui abrir o login Google'); });
-    } else { this.doSignIn('Marina Souza', 'marina.souza@gmail.com'); }
-  }
-  signInEmail() {
-    if (this.cloudReady) {
-      const email = (window.prompt('Digite seu e-mail para receber o link de acesso:') || '').trim();
-      if (!email) return;
-      this.sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split('#')[0] } })
-        .then(({ error }) => this.toast(error ? 'Não consegui enviar o link' : 'Link de acesso enviado ao seu e-mail'));
-    } else { this.doSignIn('Marina Souza', 'marina.souza@email.com'); }
-  }
-  doSignIn(name, email) {
-    this.setState({ signedIn: true, account: { name, email }, syncStatus: 'syncing' });
-    clearTimeout(this._sync);
-    this._sync = setTimeout(() => this.setState({ syncStatus: 'synced', lastSync: 'agora' }), 1300);
-    this.toast('Conta conectada · sincronizando');
-  }
-  signOut() {
-    if (this.cloudReady && this.sb) { try { this.sb.auth.signOut(); } catch (e) {} }
-    this.setState({ signedIn: false, syncStatus: 'synced' });
-    this.toast('Você saiu da conta');
-  }
-  syncNow() {
-    if (this.state.syncStatus === 'syncing') return;
-    if (this.cloudReady && this.session) { this.setState({ syncStatus: 'syncing' }); this.pullCloud(); return; }
-    if (this.cloudReady) { this.toast('Entre com uma conta para sincronizar'); return; }
-    this.setState({ syncStatus: 'syncing' });
-    clearTimeout(this._sync);
-    this._sync = setTimeout(() => { this.setState({ syncStatus: 'synced', lastSync: 'agora' }); this.toast('Tudo sincronizado'); }, 1300);
-  }
-  exportBackup() {
-    try {
-      const data = { app: 'App de Gastos', version: 2, exportedAt: new Date().toISOString(), categories: this.state.categories, transactions: this.state.transactions };
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'gastos-backup-' + new Date().toISOString().slice(0, 10) + '.json';
-      document.body.appendChild(a); a.click();
-      setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 500);
-      this.toast('Backup exportado');
-    } catch (e) { this.toast('Não consegui exportar'); }
-  }
-  async onImportBackup(e) {
-    const f = e.target.files && e.target.files[0]; e.target.value = '';
-    if (!f) return;
-    try {
-      const d = JSON.parse(await f.text());
-      if (!d || !Array.isArray(d.categories) || !Array.isArray(d.transactions)) { this.toast('Arquivo de backup inválido'); return; }
-      this.save({ categories: d.categories, transactions: d.transactions });
-      this.toast(d.transactions.length + ' lançamentos restaurados');
-    } catch (err) { this.toast('Não consegui ler o backup'); }
-  }
-
   renderVals() {
     const st = this.state;
     const cats = st.categories;
@@ -1337,7 +1037,7 @@ class Component extends DCLogic {
     out.isPlan = view === 'planejamento';
     out.isImport = view === 'importar';
     out.showGenericHeader = view !== 'dashboard';
-    out.viewTitle = { lancar: 'Lançar gasto', relatorios: 'Relatórios', planejamento: 'Planejamento', importar: 'Importar extrato', conta: 'Conta' }[view] || '';
+    out.viewTitle = { lancar: 'Lançar gasto', relatorios: 'Relatórios', planejamento: 'Planejamento', importar: 'Importar extrato' }[view] || '';
     out.goDash = () => this.setState({ view: 'dashboard' });
     out.goLancar = () => this.setState({ view: 'lancar' });
     out.goRelatorios = () => this.setState({ view: 'relatorios' });
@@ -1543,38 +1243,7 @@ class Component extends DCLogic {
       };
     });
     out.imDoImport = () => this.imDoImportFn();
-
-    // ===== CONTA =====
-    out.goConta = () => this.goConta();
-    out.isConta = view === 'conta';
-    out.signedIn = st.signedIn; out.signedOut = !st.signedIn;
-    out.accountName = st.account.name; out.accountEmail = st.account.email;
-    const syncMap = {
-      synced: { dot: 'oklch(0.8 0.14 155)', label: 'Sincronizado', sub: 'Atualizado ' + (st.lastSync || 'agora') + ' · nuvem', btn: 'Sincronizar' },
-      syncing: { dot: 'oklch(0.82 0.13 75)', label: 'Sincronizando…', sub: 'Enviando alterações para a nuvem', btn: '…' },
-      offline: { dot: 'oklch(0.6 0.012 260)', label: 'Offline', sub: 'Vai sincronizar ao reconectar', btn: 'Tentar' },
-    };
-    const sm = syncMap[st.syncStatus] || syncMap.synced;
-    out.syncDot = st.signedIn ? sm.dot : 'oklch(0.55 0.012 260)';
-    out.syncLabel = sm.label; out.syncSub = sm.sub; out.syncBtnLabel = sm.btn;
-    out.signInGoogle = () => this.signInGoogle();
-    out.signInEmail = () => this.signInEmail();
-    out.signOut = () => this.signOut();
-    out.syncNow = () => this.syncNow();
-    out.onExport = () => this.exportBackup();
-    out.onImportBackup = (e) => this.onImportBackup(e);
-    out.devices = this.cloudReady
-      ? [{ name: this.deviceName(), meta: 'este aparelho · conectado à nuvem', current: true, iconColor: 'oklch(0.78 0.11 256)' }]
-      : [
-          { name: 'Galaxy S23', meta: 'Android · este aparelho', current: true, iconColor: 'oklch(0.78 0.11 256)' },
-          { name: 'Galaxy Tab S9', meta: 'Android · há 2 h', current: false, iconColor: 'oklch(0.6 0.012 260)' },
-          { name: 'PC Windows 11', meta: 'Edge · ontem', current: false, iconColor: 'oklch(0.6 0.012 260)' },
-        ];
-    out.cloudNote = this.cloudReady
-      ? 'Sincronização em nuvem ativa via Supabase. O backup também exporta/importa um arquivo .json.'
-      : 'Backup exporta/importa de verdade. A sincronização em nuvem é uma prévia — preencha SUPABASE_URL e SUPABASE_ANON_KEY no topo do app para ativá-la.';
-    out.firstName = (st.account.name || 'Você').trim().split(' ')[0];
-    out.avatarInitial = (st.account.name || '?').trim().charAt(0).toUpperCase();
+    out.goDash = out.goDash;
 
     return out;
   }
