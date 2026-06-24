@@ -595,10 +595,23 @@
                   <span style="position:absolute;bottom:10px;left:17px;width:13px;height:13px;border-radius:999px;background:oklch(0.78 0.11 256)"></span>
                 </span>
               </span>
-              <span style="font:800 21px Manrope;letter-spacing:-0.01em">Sincronize seus dados</span>
-              <span style="font:600 13px Manrope;color:oklch(0.6 0.012 260);margin-top:9px;line-height:1.5;max-width:300px">Entre com uma conta para acessar seus gastos no celular, tablet e PC, sempre atualizados e com backup na nuvem.</span>
+              <span style="font:800 21px Manrope;letter-spacing:-0.01em">{{ cloudHeadline }}</span>
+              <span style="font:600 13px Manrope;color:oklch(0.6 0.012 260);margin-top:9px;line-height:1.5;max-width:300px">{{ cloudHeadlineSub }}</span>
             </div>
 
+            <sc-if value="{{ needsCloudSetup }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:22px;padding:17px;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260)">
+                <div style="font:700 14px Manrope;color:oklch(0.92 0.006 260);margin-bottom:4px">Conectar à nuvem</div>
+                <div style="font:600 12px Manrope;color:oklch(0.58 0.013 260);line-height:1.5;margin-bottom:14px">Cole a <b style="color:oklch(0.78 0.06 256)">Project URL</b> e a <b style="color:oklch(0.78 0.06 256)">anon public key</b> do seu projeto Supabase (Project Settings → API). Fica salvo só neste aparelho.</div>
+                <div style="display:flex;flex-direction:column;gap:9px">
+                  <input value="{{ cfgUrl }}" onChange="{{ onCfgUrl }}" placeholder="https://xxxx.supabase.co" inputmode="url" autocapitalize="off" autocomplete="off" style="height:46px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 13px Manrope;padding:0 13px;outline:none"/>
+                  <textarea value="{{ cfgKey }}" onChange="{{ onCfgKey }}" placeholder="anon public key (eyJhbGci...)" rows="3" autocapitalize="off" autocomplete="off" style="border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 12px Manrope;padding:11px 13px;outline:none;resize:none;line-height:1.4;width:100%"></textarea>
+                  <button onClick="{{ saveCloud }}" style="height:50px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 15px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">Conectar</button>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ cloudConfigured }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:24px">
               <button onClick="{{ signInGoogle }}" style="display:flex;align-items:center;justify-content:center;gap:11px;height:54px;border-radius:16px;border:none;background:#fff;color:#1f2430;font:700 15px Manrope;cursor:pointer">
                 <span style="width:20px;height:20px;border-radius:999px;background:conic-gradient(#ea4335 0 25%,#fbbc05 0 50%,#34a853 0 75%,#4285f4 0);display:inline-block"></span>
@@ -616,6 +629,7 @@
                 </div>
               </sc-if>
             </div>
+            </sc-if>
 
             <div style="display:flex;align-items:center;gap:12px;margin:24px 2px 18px">
               <span style="flex:1;height:1px;background:oklch(0.27 0.016 260)"></span>
@@ -724,6 +738,7 @@
             </div>
 
             <button onClick="{{ signOut }}" style="width:100%;margin-top:20px;padding:14px;border-radius:14px;border:1px solid oklch(0.305 0.012 260);background:none;color:oklch(0.74 0.012 260);font:700 14px Manrope;cursor:pointer">Sair da conta</button>
+            <button onClick="{{ disconnectCloud }}" style="width:100%;margin-top:10px;padding:12px;border:none;background:none;color:oklch(0.55 0.012 260);font:600 12px Manrope;cursor:pointer">Desconectar nuvem deste aparelho</button>
           </sc-if>
 
           <div style="font:600 11px Manrope;color:oklch(0.45 0.012 260);text-align:center;margin-top:22px;line-height:1.5">{{ cloudNote }}</div>
@@ -1084,6 +1099,7 @@ class Component extends DCLogic {
     imMap: { data: 'A', desc: 'B', valor: 'D' }, imPicker: null, imTxs: [],
     signedIn: false, account: { name: 'Marina Souza', email: 'marina.souza@gmail.com' }, syncStatus: 'synced', lastSync: 'agora',
     authFormOpen: false, authEmail: '', authPass: '',
+    cfgUrl: '', cfgKey: '',
   };
 
   samples = [
@@ -1121,13 +1137,39 @@ class Component extends DCLogic {
   save(partial) { this.setState(partial, () => this.touch()); }
 
   // ---- Supabase (nuvem) ----
+  CFG_KEY = 'gastos_supa_cfg';
+  loadSavedCfg() {
+    try { const r = localStorage.getItem(this.CFG_KEY); if (r) { const d = JSON.parse(r); if (d && d.url && d.key) return d; } } catch (e) {}
+    return null;
+  }
   waitForSupabase(tries) {
-    const url = window.SUPABASE_URL || this.SUPABASE_URL;
-    const key = window.SUPABASE_ANON_KEY || this.SUPABASE_ANON_KEY;
+    const saved = this.loadSavedCfg();
+    const url = (saved && saved.url) || window.SUPABASE_URL || this.SUPABASE_URL;
+    const key = (saved && saved.key) || window.SUPABASE_ANON_KEY || this.SUPABASE_ANON_KEY;
     if (!url || !key) return; // sem chaves → modo prévia (offline)
+    if (this.cloudReady) return;
     if (window.supabase && window.supabase.createClient) { this.initCloud(url, key); return; }
     if (tries <= 0) return;
     setTimeout(() => this.waitForSupabase(tries - 1), 250);
+  }
+  saveCloudConfig() {
+    const url = (this.state.cfgUrl || '').trim().replace(/\/+$/, '');
+    const key = (this.state.cfgKey || '').trim();
+    if (!/^https:\/\/.+\.supabase\.(co|in)$/i.test(url)) { this.toast('URL inválida — use a Project URL do Supabase'); return; }
+    if (key.length < 30) { this.toast('Cole a anon public key completa'); return; }
+    if (!(window.supabase && window.supabase.createClient)) { this.toast('Carregando… tente de novo em alguns segundos'); return; }
+    try { localStorage.setItem(this.CFG_KEY, JSON.stringify({ url, key })); } catch (e) {}
+    this.setState({ cfgUrl: '', cfgKey: '' });
+    this.toast('Conectado à nuvem · faça login');
+    this.initCloud(url, key);
+  }
+  disconnectCloud() {
+    try { localStorage.removeItem(this.CFG_KEY); } catch (e) {}
+    if (this._rt && this.sb) { try { this.sb.removeChannel(this._rt); } catch (e) {} }
+    if (this.sb) { try { this.sb.auth.signOut(); } catch (e) {} }
+    this._rt = null; this.sb = null; this.session = null; this.cloudReady = false;
+    this.setState({ signedIn: false });
+    this.toast('Nuvem desconectada deste aparelho');
   }
   initCloud(url, key) {
     try {
@@ -1135,6 +1177,7 @@ class Component extends DCLogic {
       this.cloudReady = true;
       this.sb.auth.getSession().then(({ data }) => this.applySession(data && data.session));
       this.sb.auth.onAuthStateChange((_e, session) => this.applySession(session));
+      this.forceUpdate();
     } catch (e) { this.cloudReady = false; }
   }
   applySession(session) {
@@ -1579,6 +1622,17 @@ class Component extends DCLogic {
     out.syncLabel = sm.label; out.syncSub = sm.sub; out.syncBtnLabel = sm.btn;
     out.signInGoogle = () => this.signInGoogle();
     out.signInEmail = () => this.signInEmail();
+    out.needsCloudSetup = !this.cloudReady;
+    out.cloudConfigured = this.cloudReady;
+    out.cloudHeadline = this.cloudReady ? 'Sincronize seus dados' : 'Conecte a sua nuvem';
+    out.cloudHeadlineSub = this.cloudReady
+      ? 'Entre com uma conta para acessar seus gastos no celular, tablet e PC, sempre atualizados.'
+      : 'Conecte uma vez as chaves do seu projeto Supabase para sincronizar entre o celular, o tablet e o PC.';
+    out.cfgUrl = st.cfgUrl; out.cfgKey = st.cfgKey;
+    out.onCfgUrl = (e) => this.setState({ cfgUrl: e.target.value });
+    out.onCfgKey = (e) => this.setState({ cfgKey: e.target.value });
+    out.saveCloud = () => this.saveCloudConfig();
+    out.disconnectCloud = () => this.disconnectCloud();
     out.emailFormOpen = !!(st.authFormOpen && this.cloudReady);
     out.authEmail = st.authEmail; out.authPass = st.authPass;
     out.onAuthEmail = (e) => this.setState({ authEmail: e.target.value });
