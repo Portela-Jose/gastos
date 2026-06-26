@@ -3,10 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=./App%20de%20Gastos.dc.html">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#222a36">
 <title>App de Gastos</title>
+<script>
+  /* Encaminha para o app PRESERVANDO query (?code=) e hash (#access_token=),
+     que é como o Supabase/Google devolvem a sessão após o login OAuth.
+     O meta-refresh antigo apagava esses dados e a sessão se perdia. */
+  (function () {
+    try {
+      var dest = './App%20de%20Gastos.dc.html' + (location.search || '') + (location.hash || '');
+      location.replace(dest);
+    } catch (e) {}
+  })();
+</script>
 </head>
 <body style="margin:0;background:#222a36;color:#eee;font-family:system-ui,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center">
 <a href="./App%20de%20Gastos.dc.html" style="color:#7aa7ff;font-weight:700">Abrir App de Gastos</a>

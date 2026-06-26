@@ -1242,6 +1242,7 @@ class Component extends DCLogic {
     document.addEventListener('visibilitychange', this._onWake);
     window.addEventListener('focus', this._onWake);
     window.addEventListener('online', this._onWake);
+    this.checkAuthRedirect();
     this.waitForSupabase(24);
   }
   componentWillUnmount() {
@@ -1523,9 +1524,21 @@ class Component extends DCLogic {
   goConta() { this.setState({ view: 'conta' }); }
   signInGoogle() {
     if (this.cloudReady) {
-      this.sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.href.split('#')[0] } })
+      const back = location.origin + location.pathname; // URL estável p/ autorizar no Supabase
+      this.sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back } })
         .then(({ error }) => { if (error) this.toast('Não consegui abrir o login Google'); });
     } else { this.doSignIn('Marina Souza', 'marina.souza@gmail.com'); }
+  }
+  checkAuthRedirect() {
+    try {
+      const hay = (location.hash || '') + (location.search || '');
+      if (/error_description=|[?#&]error=/.test(hay)) {
+        const m = hay.match(/error_description=([^&]+)/);
+        const msg = m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : 'Falha no login';
+        this.toast('Login: ' + msg);
+        if (history && history.replaceState) history.replaceState(null, '', location.pathname);
+      }
+    } catch (e) {}
   }
   signInEmail() {
     if (this.cloudReady) {
