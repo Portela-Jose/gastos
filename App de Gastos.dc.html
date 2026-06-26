@@ -38,7 +38,7 @@
 
       <!-- status bar -->
       <div style="height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 7px;flex:none">
-        <span style="font:700 15px Manrope">14:30</span>
+        <span style="font:700 15px Manrope">{{ clock }}</span>
         <span style="display:flex;align-items:center;gap:7px">
           <span style="display:flex;align-items:flex-end;gap:2px;height:11px">
             <span style="width:3px;height:5px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
@@ -915,8 +915,8 @@ class Component extends DCLogic {
   cloudReady = false;
 
   STORAGE = 'gastos_app_v2';
-  TODAY = '2026-06-22';
-  CUR_MONTH = '2026-06';
+  TODAY = (() => { const d = new Date(); const p = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()); })();
+  CUR_MONTH = this.TODAY.slice(0, 7);
   MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   MESLONG = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
@@ -1226,22 +1226,42 @@ class Component extends DCLogic {
       if (raw) {
         const d = JSON.parse(raw);
         if (d && d.categories && d.transactions) {
-          this._localUpdatedAt = d.updatedAt || Date.now();
+          // carimbo honesto: só uma edição real define a hora. Sem isso → 0 (a nuvem vence ao sincronizar).
+          this._localUpdatedAt = d.updatedAt || 0;
           this.setState({ categories: d.categories, transactions: d.transactions });
-        } else { this.persist(); }
-      } else { this.persist(); }
+        } else { this._localUpdatedAt = 0; this.persist(); }
+      } else { this._localUpdatedAt = 0; this.persist(); }
     } catch (e) {}
     try {
       if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
         navigator.serviceWorker.register('sw.js').catch(() => {});
       }
     } catch (e) {}
+    // Ao reabrir/focar o app ou reconectar, busca a versão mais recente da nuvem.
+    this._onWake = () => { if (document.visibilityState !== 'hidden') this.pullCloudThrottled(); };
+    document.addEventListener('visibilitychange', this._onWake);
+    window.addEventListener('focus', this._onWake);
+    window.addEventListener('online', this._onWake);
     this.waitForSupabase(24);
+  }
+  componentWillUnmount() {
+    try {
+      document.removeEventListener('visibilitychange', this._onWake);
+      window.removeEventListener('focus', this._onWake);
+      window.removeEventListener('online', this._onWake);
+    } catch (e) {}
+  }
+  pullCloudThrottled() {
+    if (!this.cloudReady || !this.session) return;
+    const now = Date.now();
+    if (this._lastPull && now - this._lastPull < 2500) return;
+    this._lastPull = now;
+    this.pullCloud();
   }
   persistAt(ts) {
     try { localStorage.setItem(this.STORAGE, JSON.stringify({ categories: this.state.categories, transactions: this.state.transactions, updatedAt: ts })); } catch (e) {}
   }
-  persist() { this.persistAt(this._localUpdatedAt || Date.now()); }
+  persist() { this.persistAt(this._localUpdatedAt != null ? this._localUpdatedAt : Date.now()); }
   touch() {
     this._localUpdatedAt = Date.now();
     this.persistAt(this._localUpdatedAt);
@@ -1597,7 +1617,8 @@ class Component extends DCLogic {
     out.navImportLine = this.navColorDim(view === 'importar');
     out.showToast = !!st.toast; out.toast = st.toast || '';
 
-    out.monthLabel = this.MESLONG[5];
+    out.clock = (() => { const d = new Date(); const p = (n) => String(n).padStart(2, '0'); return p(d.getHours()) + ':' + p(d.getMinutes()); })();
+    out.monthLabel = this.MESLONG[parseInt(this.CUR_MONTH.slice(5, 7), 10) - 1];
     const totalPlan = cats.reduce((a, c) => a + this.catPlan(c), 0);
     out.totalPlan = this.thousands(totalPlan);
     out.goalShort = this.short(totalPlan);
@@ -1748,10 +1769,12 @@ class Component extends DCLogic {
       return { color: this.color(c), name: c.name, spent: this.fmtR(sp), plan: this.fmtR(pl), measurePct: (sp / scale * 100).toFixed(1) + '%', targetPct: (pl / scale * 100).toFixed(1) + '%', barColor: over ? 'oklch(0.62 0.19 25)' : this.color(c) };
     }).filter(b => parseFloat(b.measurePct) > 0 || parseFloat(b.targetPct) > 0);
 
-    // line — last 6 months
-    const lineMonths = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06'];
+    // line — últimos 6 meses até o mês atual
+    const lineMonths = [], lineLabels = [];
+    { let [yy, mm] = this.CUR_MONTH.split('-').map(Number);
+      for (let i = 5; i >= 0; i--) { let m = mm - i, y = yy; while (m < 1) { m += 12; y--; } lineMonths.push(y + '-' + this.pad(m)); lineLabels.push(this.MES[m - 1].charAt(0).toUpperCase() + this.MES[m - 1].slice(1)); } }
     const vals = lineMonths.map(mk => this.monthTxs(mk).reduce((a, t) => a + t.v, 0));
-    out.lineLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+    out.lineLabels = lineLabels;
     const budget = totalPlan;
     const n = vals.length, x0 = 14, x1 = 306, pb = 118, pt = 12, ph = pb - pt;
     const maxV = Math.max(...vals, budget) * 1.1 || 1;
@@ -1772,12 +1795,11 @@ class Component extends DCLogic {
     out.heatScale = ['oklch(0.245 0.012 260)', 'oklch(0.42 0.08 256)', 'oklch(0.53 0.12 256)', 'oklch(0.62 0.15 256)', 'oklch(0.72 0.16 256)'];
     const dayMap = {};
     curTxs.forEach(t => { const d = parseInt(t.date.slice(8, 10), 10); dayMap[d] = (dayMap[d] || 0) + t.v; });
-    const firstDow = new Date(Date.UTC(2026, 5, 1)).getUTCDay(); // 0 Sun
-    const lead = (firstDow + 6) % 7;
+    const heatMeta = this.monthMeta(this.CUR_MONTH);
     const bucket = (v) => v === 0 ? 0 : v < 80 ? 1 : v < 200 ? 2 : v < 400 ? 3 : 4;
     const days = [];
-    for (let i = 0; i < lead; i++) days.push({ num: '', color: 'transparent', txt: 'transparent' });
-    for (let d = 1; d <= 30; d++) {
+    for (let i = 0; i < heatMeta.lead; i++) days.push({ num: '', color: 'transparent', txt: 'transparent' });
+    for (let d = 1; d <= heatMeta.dim; d++) {
       const v = dayMap[d] || 0, b = bucket(v);
       days.push({ num: d, color: out.heatScale[b], txt: b >= 3 ? 'oklch(0.2 0.01 260)' : (b === 0 ? 'oklch(0.45 0.012 260)' : 'oklch(0.85 0.01 260)') });
     }

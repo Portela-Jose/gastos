@@ -1,5 +1,5 @@
 /* App de Gastos — service worker */
-const CACHE = 'gastos-app-v4';
+const CACHE = 'gastos-app-v5';
 const CORE = [
   './',
   './index.html',
