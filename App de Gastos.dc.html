@@ -25,15 +25,17 @@
   .noscroll::-webkit-scrollbar{display:none}
   .noscroll{-ms-overflow-style:none;scrollbar-width:none}
   input,select{font-family:Manrope,system-ui,sans-serif}
-  input::placeholder{color:oklch(0.5 0.012 260)}
+  input::placeholder{color:var(--muted4)}
   select{-webkit-appearance:none;appearance:none}
+  .theme-dark{--bg:oklch(0.165 0.012 260);--surface:oklch(0.215 0.014 260);--surface2:oklch(0.2 0.014 260);--surface3:oklch(0.185 0.013 260);--surface4:oklch(0.245 0.014 260);--surface5:oklch(0.255 0.016 260);--surface6:oklch(0.235 0.015 260);--border:oklch(0.27 0.016 260);--border2:oklch(0.305 0.012 260);--text:oklch(0.97 0.004 260);--text2:oklch(0.92 0.006 260);--text3:oklch(0.86 0.01 260);--muted:oklch(0.72 0.012 260);--muted2:oklch(0.6 0.012 260);--muted3:oklch(0.56 0.013 260);--muted4:oklch(0.5 0.012 260);--dim:oklch(0.45 0.012 260)}
+  .theme-light{--bg:oklch(0.97 0.004 260);--surface:oklch(0.94 0.006 260);--surface2:oklch(0.965 0.004 260);--surface3:oklch(0.91 0.007 260);--surface4:oklch(0.905 0.007 260);--surface5:oklch(0.89 0.008 260);--surface6:oklch(0.9 0.007 260);--border:oklch(0.83 0.008 260);--border2:oklch(0.78 0.01 260);--text:oklch(0.2 0.012 260);--text2:oklch(0.26 0.012 260);--text3:oklch(0.34 0.012 260);--muted:oklch(0.42 0.012 260);--muted2:oklch(0.5 0.012 260);--muted3:oklch(0.55 0.012 260);--muted4:oklch(0.6 0.012 260);--dim:oklch(0.66 0.012 260)}
 </style>
 </helmet>
 
 <div style="min-height:100vh;box-sizing:border-box;padding:56px 48px;background:#e6e6ea;font-family:Manrope,system-ui,sans-serif;display:flex;justify-content:flex-start">
   <div style="flex:none;width:392px">
     <div style="font:600 12px ui-monospace,SFMono-Regular,monospace;color:#54545c;letter-spacing:.1em;text-transform:uppercase;margin:0 0 16px 6px">App de Gastos · dados compartilhados</div>
-    <div style="width:392px;height:846px;background:oklch(0.165 0.012 260);border-radius:46px;overflow:hidden;position:relative;box-shadow:0 36px 70px -24px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;color:oklch(0.97 0.004 260)">
+    <div class="{{ themeClass }}" style="width:392px;height:846px;background:var(--bg);border-radius:46px;overflow:hidden;position:relative;box-shadow:0 36px 70px -24px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;color:var(--text)">
       <span style="position:absolute;top:15px;left:50%;transform:translateX(-50%);width:11px;height:11px;border-radius:999px;background:oklch(0.08 0 0);z-index:6"></span>
 
       <!-- status bar -->
@@ -41,11 +43,11 @@
         <span style="font:700 15px Manrope">{{ clock }}</span>
         <span style="display:flex;align-items:center;gap:7px">
           <span style="display:flex;align-items:flex-end;gap:2px;height:11px">
-            <span style="width:3px;height:5px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
-            <span style="width:3px;height:8px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
-            <span style="width:3px;height:11px;border-radius:1px;background:oklch(0.97 0.004 260)"></span>
+            <span style="width:3px;height:5px;border-radius:1px;background:var(--text)"></span>
+            <span style="width:3px;height:8px;border-radius:1px;background:var(--text)"></span>
+            <span style="width:3px;height:11px;border-radius:1px;background:var(--text)"></span>
           </span>
-          <span style="width:23px;height:12px;border:1.5px solid oklch(0.97 0.004 260 / .8);border-radius:3px;padding:1.5px;display:flex"><span style="flex:1;background:oklch(0.97 0.004 260);border-radius:1px"></span></span>
+          <span style="width:23px;height:12px;border:1.5px solid oklch(0.97 0.004 260 / .8);border-radius:3px;padding:1.5px;display:flex"><span style="flex:1;background:var(--text);border-radius:1px"></span></span>
         </span>
       </div>
 
@@ -53,7 +55,7 @@
       <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 6px;flex:none">
           <span>
-            <span style="display:block;font:600 13px Manrope;color:oklch(0.6 0.012 260)">Boa tarde,</span>
+            <span style="display:block;font:600 13px Manrope;color:var(--muted2)">Boa tarde,</span>
             <span style="display:block;font:800 21px Manrope;letter-spacing:-0.01em;margin-top:2px">{{ firstName }}</span>
           </span>
           <button onClick="{{ goConta }}" style="position:relative;width:42px;height:42px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 16px Manrope;color:oklch(0.82 0.1 256);cursor:pointer">
@@ -66,7 +68,7 @@
       <!-- ===== GENERIC HEADER ===== -->
       <sc-if value="{{ showGenericHeader }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 20px 8px;flex:none">
-          <button onClick="{{ goBack }}" style="width:38px;height:38px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
+          <button onClick="{{ goBack }}" style="width:38px;height:38px;border-radius:12px;border:1px solid var(--border2);background:var(--surface);color:var(--muted);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center">‹</button>
           <span style="font:800 19px Manrope;letter-spacing:-0.01em">{{ viewTitle }}</span>
           <span style="width:38px"></span>
         </div>
@@ -82,15 +84,26 @@
               <span style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Gastos de {{ monthLabel }}</span>
               <span style="font:700 11px Manrope;color:oklch(0.78 0.11 256);background:oklch(0.66 0.15 256 / 0.18);padding:4px 9px;border-radius:999px">{{ usedPct }} da meta</span>
             </div>
-            <div style="font:800 38px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:12px;letter-spacing:-0.02em">
+            <div style="font:800 38px/1 Manrope;color:var(--text);margin-top:12px;letter-spacing:-0.02em">
               <span style="font-size:20px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.45em;margin-right:5px">R$</span>{{ totalSpent }}
             </div>
             <div style="height:8px;border-radius:999px;background:oklch(0.27 0.016 260 / .6);margin-top:18px;overflow:hidden">
               <div style="height:100%;border-radius:999px;width:{{ usedPct }};background:oklch(0.78 0.11 256)"></div>
             </div>
             <div style="display:flex;justify-content:space-between;margin-top:13px">
-              <span><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Disponível</span><span style="display:block;font:700 15px Manrope;color:oklch(0.97 0.004 260);margin-top:2px">R$ {{ remaining }}</span></span>
-              <span style="text-align:right"><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Meta do mês</span><span style="display:block;font:700 15px Manrope;color:oklch(0.97 0.004 260);margin-top:2px">R$ {{ totalPlan }}</span></span>
+              <span><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Disponível</span><span style="display:block;font:700 15px Manrope;color:var(--text);margin-top:2px;white-space:nowrap">R$ {{ remaining }}</span></span>
+              <span style="text-align:right"><span style="display:block;font:600 11px Manrope;color:oklch(0.7 0.06 256)">Meta do mês</span><span style="display:block;font:700 15px Manrope;color:var(--text);margin-top:2px">R$ {{ totalPlan }}</span></span>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:11px;margin-top:12px">
+            <div style="flex:1;padding:14px 16px;border-radius:18px;background:var(--surface)">
+              <span style="display:block;font:600 11px Manrope;color:var(--muted2)">Receitas do mês</span>
+              <span style="display:block;font:700 18px Manrope;color:oklch(0.75 0.15 155);margin-top:5px">R$ {{ totalIncome }}</span>
+            </div>
+            <div style="flex:1;padding:14px 16px;border-radius:18px;background:var(--surface)">
+              <span style="display:block;font:600 11px Manrope;color:var(--muted2)">Saldo do mês</span>
+              <span style="display:block;font:700 18px Manrope;color:{{ saldoColor }};margin-top:5px"><sc-if value="{{ saldoNeg }}" hint-placeholder-val="{{ false }}">− </sc-if>R$ {{ saldoValor }}</span>
             </div>
           </div>
 
@@ -98,14 +111,14 @@
             <button onClick="{{ goLancar }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:54px;border-radius:18px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 15px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">
               <span style="font-size:20px;line-height:1">＋</span> Lançar gasto
             </button>
-            <button onClick="{{ goImportar }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.305 0.012 260);cursor:pointer" style-hover="background:oklch(0.255 0.016 260)">
+            <button onClick="{{ goImportar }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:var(--surface);border:1px solid var(--border2);cursor:pointer" style-hover="background:var(--surface5)">
               <span style="position:relative;width:18px;height:18px;display:block">
                 <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:8px solid oklch(0.66 0.15 256)"></span>
                 <span style="position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:7px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
-                <span style="position:absolute;bottom:0;left:1px;width:16px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+                <span style="position:absolute;bottom:0;left:1px;width:16px;height:3px;border-radius:1px;background:var(--muted4)"></span>
               </span>
             </button>
-            <button onClick="{{ goRelatorios }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.305 0.012 260);cursor:pointer" style-hover="background:oklch(0.255 0.016 260)">
+            <button onClick="{{ goRelatorios }}" style="flex:none;width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:var(--surface);border:1px solid var(--border2);cursor:pointer" style-hover="background:var(--surface5)">
               <span style="display:flex;align-items:flex-end;gap:2.5px;height:18px">
                 <span style="width:4px;height:8px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
                 <span style="width:4px;height:14px;border-radius:1px;background:oklch(0.66 0.15 256)"></span>
@@ -114,22 +127,30 @@
             </button>
           </div>
 
+          <sc-if value="{{ hasPendingRec }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:16px;border-radius:18px;background:oklch(0.66 0.15 256 / 0.13);border:1px solid oklch(0.66 0.15 256 / 0.32)">
+              <div style="font:700 14px Manrope;color:var(--text2)">Lançamentos fixos deste mês</div>
+              <div style="font:600 12px Manrope;color:var(--muted);margin-top:4px;line-height:1.5">{{ pendingRecCount }} recorrente(s) ainda não lançado(s) em {{ monthLabel }}.</div>
+              <button onClick="{{ openPendingRec }}" style="width:100%;height:44px;margin-top:12px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 13px Manrope;cursor:pointer">Revisar e lançar</button>
+            </div>
+          </sc-if>
+
           <div style="display:flex;align-items:center;justify-content:space-between;margin:26px 2px 14px">
             <span style="font:700 15px Manrope">Por categoria</span>
             <button onClick="{{ goRelatorios }}" style="font:600 12px Manrope;color:oklch(0.74 0.1 256);background:none;border:none;cursor:pointer">Ver tudo ›</button>
           </div>
-          <div style="padding:6px 18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+          <div style="padding:6px 18px;border-radius:20px;background:var(--surface)">
             <sc-for list="{{ topCats }}" as="c" hint-placeholder-count="4">
-              <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid oklch(0.245 0.014 260)">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--surface4)">
                 <span style="width:34px;height:34px;border-radius:11px;flex:none;background:{{ c.tint }};display:flex;align-items:center;justify-content:center">
                   <span style="width:12px;height:12px;border-radius:999px;background:{{ c.color }}"></span>
                 </span>
                 <span style="flex:1;min-width:0">
                   <span style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ c.name }}</span>
-                    <span style="font:700 13px Manrope;color:oklch(0.95 0.004 260)">R$ {{ c.value }}</span>
+                    <span style="font:600 13px Manrope;color:var(--text3)">{{ c.name }}</span>
+                    <span style="font:700 13px Manrope;color:var(--text2)">R$ {{ c.value }}</span>
                   </span>
-                  <div style="height:5px;border-radius:999px;background:oklch(0.27 0.016 260);margin-top:8px;overflow:hidden">
+                  <div style="height:5px;border-radius:999px;background:var(--border);margin-top:8px;overflow:hidden">
                     <div style="height:100%;border-radius:999px;width:{{ c.barPct }};background:{{ c.color }}"></div>
                   </div>
                 </span>
@@ -141,11 +162,11 @@
             <div style="margin:26px 2px 14px;font:700 15px Manrope">Alertas de orçamento</div>
             <div style="display:flex;flex-direction:column;gap:10px">
               <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="2">
-                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260)">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border)">
                   <span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ a.color }}"></span>
                   <span style="flex:1;min-width:0">
-                    <span style="display:block;font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ a.name }}</span>
-                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">R$ {{ a.detail }}</span>
+                    <span style="display:block;font:600 13px Manrope;color:var(--text3)">{{ a.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">R$ {{ a.detail }}</span>
                   </span>
                   <span style="flex:none;font:700 11px Manrope;padding:5px 10px;border-radius:999px;color:{{ a.statusColor }};background:{{ a.statusBg }}">{{ a.status }}</span>
                 </div>
@@ -155,20 +176,20 @@
 
           <div style="display:flex;align-items:center;justify-content:space-between;margin:26px 2px 14px">
             <span style="font:700 15px Manrope">Últimos lançamentos</span>
-            <span style="font:600 12px Manrope;color:oklch(0.5 0.012 260)">{{ txCount }} este mês</span>
+            <span style="font:600 12px Manrope;color:var(--muted4)">{{ txCount }} este mês</span>
           </div>
-          <div style="padding:4px 18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+          <div style="padding:4px 18px;border-radius:20px;background:var(--surface)">
             <sc-for list="{{ recent }}" as="t" hint-placeholder-count="5">
-              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 0;border:none;border-top:1px solid oklch(0.245 0.014 260);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
+              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 0;border:none;border-top:1px solid var(--surface4);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
                 <span style="width:38px;height:38px;border-radius:12px;flex:none;background:{{ t.tint }};display:flex;align-items:center;justify-content:center">
                   <span style="width:13px;height:13px;border-radius:999px;background:{{ t.color }}"></span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:600 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.sub }}</span>
+                  <span style="display:block;font:600 13px Manrope;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ t.sub }}</span>
                 </span>
-                <span style="flex:none;font:700 14px Manrope;color:oklch(0.92 0.006 260)">− R$ {{ t.amount }}</span>
-                <span style="flex:none;color:oklch(0.45 0.012 260);font-size:15px;margin-left:1px">›</span>
+                <span style="flex:none;font:700 14px Manrope;color:{{ t.amountColor }}">{{ t.sign }}R$ {{ t.amount }}</span>
+                <span style="flex:none;color:var(--dim);font-size:15px;margin-left:1px">›</span>
               </button>
             </sc-for>
           </div>
@@ -176,72 +197,85 @@
 
         <!-- ============ LANÇAR ============ -->
         <sc-if value="{{ isLancar }}" hint-placeholder-val="{{ false }}">
-          <div style="margin:0 0 4px;padding:13px 15px;border-radius:16px;background:oklch(0.215 0.014 260)">
-            <div style="display:flex;justify-content:space-between;align-items:center;font:600 12px Manrope;color:oklch(0.72 0.012 260)">
-              <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:999px;background:{{ lcBudget.color }}"></span>Orçamento · {{ lcBudget.name }}</span>
-              <span style="color:oklch(0.97 0.004 260)">R$ {{ lcBudget.spent }} <span style="color:oklch(0.56 0.013 260)">/ {{ lcBudget.plan }}</span></span>
-            </div>
-            <div style="height:7px;border-radius:999px;background:oklch(0.27 0.016 260);margin-top:10px;overflow:hidden">
-              <div style="height:100%;border-radius:999px;width:{{ lcBudget.pct }};background:{{ lcBudget.barColor }}"></div>
-            </div>
-            <div style="font:600 11px Manrope;margin-top:8px;color:{{ lcBudget.noteColor }}">{{ lcBudget.note }}</div>
+          <div style="display:flex;gap:4px;padding:4px;background:var(--surface);border-radius:14px;margin-bottom:14px">
+            <sc-for list="{{ lcTypes }}" as="lt" hint-placeholder-count="2">
+              <button onClick="{{ lt.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;color:{{ lt.textColor }};font:700 13px Manrope;cursor:pointer">
+                <sc-if value="{{ lt.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:{{ lt.bg }}"></span></sc-if>
+                <span style="position:relative">{{ lt.label }}</span>
+              </button>
+            </sc-for>
           </div>
 
+          <sc-if value="{{ lcIsExpense }}" hint-placeholder-val="{{ true }}">
+            <div style="margin:0 0 4px;padding:13px 15px;border-radius:16px;background:var(--surface)">
+              <div style="display:flex;justify-content:space-between;align-items:center;font:600 12px Manrope;color:var(--muted)">
+                <span style="display:flex;align-items:center;gap:8px"><span style="width:9px;height:9px;border-radius:999px;background:{{ lcBudget.color }}"></span>Orçamento · {{ lcBudget.name }}</span>
+                <span style="color:var(--text)">R$ {{ lcBudget.spent }} <span style="color:var(--muted3)">/ {{ lcBudget.plan }}</span></span>
+              </div>
+              <div style="height:7px;border-radius:999px;background:var(--border);margin-top:10px;overflow:hidden">
+                <div style="height:100%;border-radius:999px;width:{{ lcBudget.pct }};background:{{ lcBudget.barColor }}"></div>
+              </div>
+              <div style="font:600 11px Manrope;margin-top:8px;color:{{ lcBudget.noteColor }}">{{ lcBudget.note }}</div>
+            </div>
+          </sc-if>
+
           <div style="text-align:center;padding:18px 0 12px">
-            <div style="font:600 11px Manrope;letter-spacing:.14em;text-transform:uppercase;color:oklch(0.56 0.013 260)">Valor do gasto</div>
-            <div style="font:800 46px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:10px;letter-spacing:-0.02em">
-              <span style="font-size:22px;font-weight:700;color:oklch(0.72 0.012 260);vertical-align:0.5em;margin-right:5px">R$</span>{{ lcAmount }}
+            <div style="font:600 11px Manrope;letter-spacing:.14em;text-transform:uppercase;color:var(--muted3)">{{ lcAmountLabel }}</div>
+            <div style="font:800 46px/1 Manrope;color:var(--text);margin-top:10px;letter-spacing:-0.02em">
+              <span style="font-size:22px;font-weight:700;color:var(--muted);vertical-align:0.5em;margin-right:5px">R$</span>{{ lcAmount }}
             </div>
           </div>
 
           <div style="display:flex;align-items:center;gap:7px">
-            <button onClick="{{ lcPrevCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
+            <button onClick="{{ lcPrevCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">‹</button>
             <div class="noscroll" ref="{{ catScrollRef }}" style="flex:1;min-width:0;display:flex;gap:8px;overflow-x:auto;padding:2px 0">
               <sc-for list="{{ lcCats }}" as="chip" hint-placeholder-count="6">
-                <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
+                <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--border2);background:var(--surface);color:var(--text3);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
                   <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
                   <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
                 </button>
               </sc-for>
             </div>
-            <button onClick="{{ lcNextCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
+            <button onClick="{{ lcNextCat }}" style="width:32px;height:38px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">›</button>
           </div>
 
-          <div style="padding:16px 0 2px">
-            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Subcategoria · {{ lcCatName }}</div>
-            <div style="display:flex;align-items:center;gap:7px">
-              <button onClick="{{ lcPrevSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
-              <div class="noscroll" ref="{{ subScrollRef }}" style="flex:1;min-width:0;display:flex;gap:7px;overflow-x:auto">
-                <sc-for list="{{ lcSubs }}" as="sub" hint-placeholder-count="4">
-                  <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
-                    {{ sub.label }}
-                    <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
-                  </button>
-                </sc-for>
+          <sc-if value="{{ lcIsExpense }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:16px 0 2px">
+              <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-bottom:9px">Subcategoria · {{ lcCatName }}</div>
+              <div style="display:flex;align-items:center;gap:7px">
+                <button onClick="{{ lcPrevSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">‹</button>
+                <div class="noscroll" ref="{{ subScrollRef }}" style="flex:1;min-width:0;display:flex;gap:7px;overflow-x:auto">
+                  <sc-for list="{{ lcSubs }}" as="sub" hint-placeholder-count="4">
+                    <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                      {{ sub.label }}
+                      <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
+                    </button>
+                  </sc-for>
+                </div>
+                <button onClick="{{ lcNextSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">›</button>
               </div>
-              <button onClick="{{ lcNextSub }}" style="width:32px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
             </div>
-          </div>
+          </sc-if>
 
           <div style="display:flex;align-items:center;gap:9px;padding:16px 0 6px">
-            <button onClick="{{ lcPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">‹</button>
-            <button onClick="{{ lcToggleCal }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid {{ lcDateBorder }};color:oklch(0.9 0.008 260);font:600 14px Manrope;cursor:pointer">
+            <button onClick="{{ lcPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:15px;cursor:pointer">‹</button>
+            <button onClick="{{ lcToggleCal }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:13px;background:var(--surface);border:1px solid {{ lcDateBorder }};color:var(--text3);font:600 14px Manrope;cursor:pointer">
               <span style="width:15px;height:15px;border:1.6px solid oklch(0.66 0.15 256);border-radius:4px;flex:none"></span>{{ lcDateLabel }}
               <span style="color:oklch(0.58 0.012 260);font-size:10px;margin-left:1px">▾</span>
             </button>
-            <button onClick="{{ lcNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">›</button>
+            <button onClick="{{ lcNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:15px;cursor:pointer">›</button>
           </div>
 
           <sc-if value="{{ lcCalOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:8px;padding:14px;border-radius:16px;background:oklch(0.2 0.014 260);border:1px solid oklch(0.27 0.016 260)">
+            <div style="margin-top:8px;padding:14px;border-radius:16px;background:var(--surface2);border:1px solid var(--border)">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-                <button onClick="{{ lcCalPrev }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">‹</button>
+                <button onClick="{{ lcCalPrev }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">‹</button>
                 <span style="font:700 14px Manrope;color:oklch(0.92 0.008 260);text-transform:capitalize">{{ lcCalMonthLabel }}</span>
-                <button onClick="{{ lcCalNext }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.72 0.012 260);font-size:14px;cursor:pointer">›</button>
+                <button onClick="{{ lcCalNext }}" style="width:34px;height:34px;flex:none;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:14px;cursor:pointer">›</button>
               </div>
               <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:5px">
                 <sc-for list="{{ lcCalWeekdays }}" as="w" hint-placeholder-count="7">
-                  <span style="text-align:center;font:600 10px Manrope;color:oklch(0.5 0.012 260)">{{ w }}</span>
+                  <span style="text-align:center;font:600 10px Manrope;color:var(--muted4)">{{ w }}</span>
                 </sc-for>
               </div>
               <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
@@ -254,7 +288,7 @@
 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px">
             <sc-for list="{{ keys }}" as="key" hint-placeholder-count="12">
-              <button onClick="{{ key.onPress }}" style="height:52px;border:none;background:oklch(0.2 0.013 260);color:oklch(0.97 0.004 260);font:600 22px Manrope;border-radius:14px;cursor:pointer" style-hover="background:oklch(0.245 0.016 260)" style-active="background:oklch(0.28 0.016 260)">{{ key.label }}</button>
+              <button onClick="{{ key.onPress }}" style="height:52px;border:none;background:var(--surface2);color:var(--text);font:600 22px Manrope;border-radius:14px;cursor:pointer" style-hover="background:oklch(0.245 0.016 260)" style-active="background:oklch(0.28 0.016 260)">{{ key.label }}</button>
             </sc-for>
           </div>
 
@@ -263,9 +297,9 @@
 
         <!-- ============ RELATÓRIOS ============ -->
         <sc-if value="{{ isRel }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;gap:4px;padding:4px;background:oklch(0.215 0.014 260);border-radius:14px;margin-bottom:16px">
+          <div style="display:flex;gap:4px;padding:4px;background:var(--surface);border-radius:14px;margin-bottom:16px">
             <sc-for list="{{ periods }}" as="p" hint-placeholder-count="3">
-              <button onClick="{{ p.onSelect }}" style="position:relative;flex:1;padding:9px 0;border:none;background:none;border-radius:11px;color:oklch(0.7 0.012 260);font:700 13px Manrope;cursor:pointer">
+              <button onClick="{{ p.onSelect }}" style="position:relative;flex:1;padding:9px 0;border:none;background:none;border-radius:11px;color:{{ p.textColor }};font:700 13px Manrope;cursor:pointer">
                 <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
                 <span style="position:relative">{{ p.label }}</span>
               </button>
@@ -277,28 +311,29 @@
               <span style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Total · {{ periodLabel }}</span>
               <span style="font:700 11px Manrope;color:{{ trendColor }};background:{{ trendBg }};padding:4px 9px;border-radius:999px">{{ trendLabel }}</span>
             </div>
-            <div style="font:800 36px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:11px;letter-spacing:-0.02em">
+            <div style="font:800 36px/1 Manrope;color:var(--text);margin-top:11px;letter-spacing:-0.02em">
               <span style="font-size:19px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.45em;margin-right:5px">R$</span>{{ relTotal }}
             </div>
             <div style="height:7px;border-radius:999px;background:oklch(0.27 0.016 260 / .6);margin-top:16px;overflow:hidden">
               <div style="height:100%;border-radius:999px;width:{{ relUsedPct }};background:oklch(0.78 0.11 256)"></div>
             </div>
             <div style="font:600 12px Manrope;color:oklch(0.78 0.11 256);margin-top:9px">{{ relUsedPct }} da meta · previsto R$ {{ relPlan }}</div>
+            <div style="font:600 12px Manrope;color:oklch(0.75 0.13 155);margin-top:4px">Receitas no período: R$ {{ relIncome }}</div>
           </div>
 
-          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:var(--surface)">
             <div style="font:700 14px Manrope;margin-bottom:4px">Gastos por categoria</div>
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px">Distribuição no período</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:16px">Distribuição no período</div>
             <div style="display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:18px">
               <svg viewBox="0 0 140 140" style="width:158px;height:158px;transform:rotate(-90deg)">
-                <circle cx="70" cy="70" r="52" fill="none" stroke="oklch(0.27 0.016 260)" stroke-width="20"></circle>
+                <circle cx="70" cy="70" r="52" fill="none" stroke="var(--border)" stroke-width="20"></circle>
                 <sc-for list="{{ donut }}" as="seg" hint-placeholder-count="6">
                   <circle cx="70" cy="70" r="52" fill="none" stroke="{{ seg.color }}" stroke-width="20" stroke-dasharray="{{ seg.dash }}" stroke-dashoffset="{{ seg.offset }}"></circle>
                 </sc-for>
               </svg>
               <div style="position:absolute;text-align:center">
                 <div style="font:800 22px Manrope;letter-spacing:-0.02em">R$ {{ relTotalShort }}</div>
-                <div style="font:600 11px Manrope;color:oklch(0.56 0.013 260)">total</div>
+                <div style="font:600 11px Manrope;color:var(--muted3)">total</div>
               </div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 16px">
@@ -306,50 +341,50 @@
                 <div style="display:flex;align-items:center;gap:9px;min-width:0">
                   <span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ it.color }}"></span>
                   <span style="min-width:0;flex:1">
-                    <span style="display:block;font:600 12px Manrope;color:oklch(0.88 0.008 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.name }}</span>
-                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">R$ {{ it.value }} · {{ it.pct }}</span>
+                    <span style="display:block;font:600 12px Manrope;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ it.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:var(--muted3)">R$ {{ it.value }} · {{ it.pct }}</span>
                   </span>
                 </div>
               </sc-for>
             </div>
           </div>
 
-          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:var(--surface)">
             <div style="font:700 14px Manrope;margin-bottom:4px">Ranking de categorias</div>
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:18px">Maiores gastos no período</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:18px">Maiores gastos no período</div>
             <sc-for list="{{ ranking }}" as="r" hint-placeholder-count="6">
               <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px">
-                <span style="width:84px;flex:none;font:600 12px Manrope;color:oklch(0.86 0.01 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
-                <div style="flex:1;height:9px;border-radius:999px;background:oklch(0.27 0.016 260);overflow:hidden">
+                <span style="width:84px;flex:none;font:600 12px Manrope;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+                <div style="flex:1;height:9px;border-radius:999px;background:var(--border);overflow:hidden">
                   <div style="height:100%;border-radius:999px;width:{{ r.barPct }};background:{{ r.color }}"></div>
                 </div>
-                <span style="width:66px;flex:none;text-align:right;font:600 12px Manrope;color:oklch(0.72 0.012 260)">R$ {{ r.value }}</span>
+                <span style="width:66px;flex:none;text-align:right;font:600 12px Manrope;color:var(--muted)">R$ {{ r.value }}</span>
               </div>
             </sc-for>
           </div>
 
-          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:var(--surface)">
             <div style="font:700 14px Manrope;margin-bottom:4px">Evolução dos gastos</div>
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:14px">Últimos 6 meses · meta R$ {{ goalShort }}</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:14px">Últimos 6 meses · meta R$ {{ goalShort }}</div>
             <svg viewBox="0 0 320 132" style="width:100%;height:140px;display:block;overflow:visible">
               <line x1="14" x2="306" y1="{{ budgetY }}" y2="{{ budgetY }}" stroke="oklch(0.62 0.05 256)" stroke-width="1.4" stroke-dasharray="5 5"></line>
               <path d="{{ lineArea }}" fill="oklch(0.66 0.15 256 / 0.16)"></path>
               <polyline points="{{ linePoints }}" fill="none" stroke="oklch(0.66 0.15 256)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"></polyline>
-              <circle cx="{{ lastDot.x }}" cy="{{ lastDot.y }}" r="4.5" fill="oklch(0.66 0.15 256)" stroke="oklch(0.215 0.014 260)" stroke-width="2.5"></circle>
+              <circle cx="{{ lastDot.x }}" cy="{{ lastDot.y }}" r="4.5" fill="oklch(0.66 0.15 256)" stroke="var(--surface)" stroke-width="2.5"></circle>
             </svg>
             <div style="display:flex;justify-content:space-between;margin-top:8px;padding:0 6px">
               <sc-for list="{{ lineLabels }}" as="lb" hint-placeholder-count="6">
-                <span style="font:600 11px Manrope;color:oklch(0.56 0.013 260)">{{ lb }}</span>
+                <span style="font:600 11px Manrope;color:var(--muted3)">{{ lb }}</span>
               </sc-for>
             </div>
           </div>
 
-          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:var(--surface)">
             <div style="font:700 14px Manrope;margin-bottom:4px">Mapa de gastos diários</div>
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px">{{ monthLabel }} · intensidade = valor gasto no dia</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:16px">{{ monthLabel }} · intensidade = valor gasto no dia</div>
             <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px">
               <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="7">
-                <span style="text-align:center;font:600 10px Manrope;color:oklch(0.5 0.012 260)">{{ w }}</span>
+                <span style="text-align:center;font:600 10px Manrope;color:var(--muted4)">{{ w }}</span>
               </sc-for>
             </div>
             <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
@@ -358,27 +393,27 @@
               </sc-for>
             </div>
             <div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:14px">
-              <span style="font:600 10px Manrope;color:oklch(0.5 0.012 260)">menos</span>
+              <span style="font:600 10px Manrope;color:var(--muted4)">menos</span>
               <sc-for list="{{ heatScale }}" as="hc" hint-placeholder-count="5">
                 <span style="width:14px;height:14px;border-radius:4px;background:{{ hc }}"></span>
               </sc-for>
-              <span style="font:600 10px Manrope;color:oklch(0.5 0.012 260)">mais</span>
+              <span style="font:600 10px Manrope;color:var(--muted4)">mais</span>
             </div>
           </div>
 
-          <div style="margin-top:14px;padding:20px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px;border-radius:22px;background:var(--surface)">
             <div style="font:700 14px Manrope;margin-bottom:4px">Executado vs. meta</div>
-            <div style="display:flex;align-items:center;gap:14px;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-bottom:20px">
+            <div style="display:flex;align-items:center;gap:14px;font:600 11px Manrope;color:var(--muted3);margin-bottom:20px">
               <span style="display:flex;align-items:center;gap:6px"><span style="width:16px;height:7px;border-radius:4px;background:oklch(0.66 0.15 256)"></span>gasto</span>
               <span style="display:flex;align-items:center;gap:6px"><span style="width:2.5px;height:14px;border-radius:2px;background:oklch(0.94 0.004 260)"></span>meta prevista</span>
             </div>
             <sc-for list="{{ bullets }}" as="b" hint-placeholder-count="6">
               <div style="margin-bottom:17px">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px">
-                  <span style="display:flex;align-items:center;gap:8px;font:600 13px Manrope;color:oklch(0.9 0.008 260)"><span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ b.color }}"></span>{{ b.name }}</span>
-                  <span style="font:600 12px Manrope;color:oklch(0.72 0.012 260)">R$ {{ b.spent }} <span style="color:oklch(0.5 0.013 260)">/ {{ b.plan }}</span></span>
+                  <span style="display:flex;align-items:center;gap:8px;font:600 13px Manrope;color:var(--text3)"><span style="width:9px;height:9px;border-radius:3px;flex:none;background:{{ b.color }}"></span>{{ b.name }}</span>
+                  <span style="font:600 12px Manrope;color:var(--muted)">R$ {{ b.spent }} <span style="color:oklch(0.5 0.013 260)">/ {{ b.plan }}</span></span>
                 </div>
-                <div style="position:relative;height:16px;border-radius:6px;background:oklch(0.27 0.016 260)">
+                <div style="position:relative;height:16px;border-radius:6px;background:var(--border)">
                   <div style="position:absolute;top:4px;left:0;height:8px;border-radius:5px;width:{{ b.measurePct }};background:{{ b.barColor }}"></div>
                   <div style="position:absolute;top:-3px;height:22px;width:2.5px;border-radius:2px;background:oklch(0.94 0.004 260);left:{{ b.targetPct }};transform:translateX(-50%)"></div>
                 </div>
@@ -386,34 +421,34 @@
             </sc-for>
           </div>
 
-          <div style="margin-top:14px;padding:20px 18px;border-radius:22px;background:oklch(0.215 0.014 260)">
+          <div style="margin-top:14px;padding:20px 18px;border-radius:22px;background:var(--surface)">
             <div style="display:flex;align-items:center;justify-content:space-between;margin:0 2px 4px">
               <span style="font:700 14px Manrope">Lançamentos · {{ periodLabel }}</span>
-              <span style="font:600 12px Manrope;color:oklch(0.56 0.013 260)">{{ relCount }}</span>
+              <span style="font:600 12px Manrope;color:var(--muted3)">{{ relCount }}</span>
             </div>
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin:0 2px 8px">Toque para editar ou excluir</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin:0 2px 8px">Toque para editar ou excluir</div>
             <sc-for list="{{ relList }}" as="t" hint-placeholder-count="6">
-              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 2px;border:none;border-top:1px solid oklch(0.245 0.014 260);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
+              <button onClick="{{ t.onOpen }}" style="width:100%;display:flex;align-items:center;gap:13px;padding:13px 2px;border:none;border-top:1px solid var(--surface4);background:none;cursor:pointer;text-align:left" style-hover="background:oklch(0.235 0.015 260)">
                 <span style="width:36px;height:36px;border-radius:11px;flex:none;background:{{ t.tint }};display:flex;align-items:center;justify-content:center">
                   <span style="width:12px;height:12px;border-radius:999px;background:{{ t.color }}"></span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:600 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.sub }}</span>
+                  <span style="display:block;font:600 13px Manrope;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.title }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ t.sub }}</span>
                 </span>
-                <span style="flex:none;font:700 14px Manrope;color:oklch(0.92 0.006 260)">− R$ {{ t.amount }}</span>
-                <span style="flex:none;color:oklch(0.45 0.012 260);font-size:15px;margin-left:1px">›</span>
+                <span style="flex:none;font:700 14px Manrope;color:{{ t.amountColor }}">{{ t.sign }}R$ {{ t.amount }}</span>
+                <span style="flex:none;color:var(--dim);font-size:15px;margin-left:1px">›</span>
               </button>
             </sc-for>
             <sc-if value="{{ relListEmpty }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:18px 2px;text-align:center;font:600 12px Manrope;color:oklch(0.5 0.012 260)">Nenhum lançamento neste período</div>
+              <div style="padding:18px 2px;text-align:center;font:600 12px Manrope;color:var(--muted4)">Nenhum lançamento neste período</div>
             </sc-if>
           </div>
         </sc-if>
 
         <!-- ============ PLANEJAMENTO ============ -->
         <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;gap:4px;padding:4px;background:oklch(0.215 0.014 260);border-radius:14px;margin-bottom:16px">
+          <div style="display:flex;gap:4px;padding:4px;background:var(--surface);border-radius:14px;margin-bottom:16px">
             <sc-for list="{{ plTabs }}" as="t" hint-placeholder-count="2">
               <button onClick="{{ t.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;font:700 13px Manrope;cursor:pointer">
                 <sc-if value="{{ t.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
@@ -425,28 +460,28 @@
           <sc-if value="{{ isOrcamento }}" hint-placeholder-val="{{ true }}">
             <div style="padding:18px 20px;border-radius:20px;background:oklch(0.66 0.15 256 / 0.13);border:1px solid oklch(0.66 0.15 256 / 0.32);margin-bottom:18px">
               <div style="font:600 11px Manrope;letter-spacing:.13em;text-transform:uppercase;color:oklch(0.78 0.11 256)">Orçamento mensal total</div>
-              <div style="font:800 30px/1 Manrope;color:oklch(0.97 0.004 260);margin-top:9px;letter-spacing:-0.02em">
+              <div style="font:800 30px/1 Manrope;color:var(--text);margin-top:9px;letter-spacing:-0.02em">
                 <span style="font-size:17px;font-weight:700;color:oklch(0.78 0.11 256);vertical-align:0.4em;margin-right:5px">R$</span>{{ totalPlan }}
               </div>
               <div style="font:600 12px Manrope;color:oklch(0.7 0.06 256);margin-top:8px">Defina o valor previsto de cada subcategoria</div>
             </div>
             <sc-for list="{{ catsO }}" as="c" hint-placeholder-count="5">
-              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:10px">
+              <div style="border-radius:16px;background:var(--surface);overflow:hidden;margin-bottom:10px">
                 <div onClick="{{ c.onToggle }}" style="display:flex;align-items:center;gap:12px;padding:15px 16px;cursor:pointer">
                   <span style="width:12px;height:12px;border-radius:4px;flex:none;background:{{ c.color }}"></span>
-                  <span style="flex:1;font:700 14px Manrope;color:oklch(0.92 0.006 260)">{{ c.name }}</span>
-                  <span style="font:700 14px Manrope;color:oklch(0.95 0.004 260)">R$ {{ c.total }}</span>
-                  <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}"><span style="color:oklch(0.6 0.012 260);font-size:12px;width:14px;text-align:center">▾</span></sc-if>
-                  <sc-if value="{{ c.collapsed }}" hint-placeholder-val="{{ true }}"><span style="color:oklch(0.6 0.012 260);font-size:12px;width:14px;text-align:center">▸</span></sc-if>
+                  <span style="flex:1;font:700 14px Manrope;color:var(--text2)">{{ c.name }}</span>
+                  <span style="font:700 14px Manrope;color:var(--text2)">R$ {{ c.total }}</span>
+                  <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}"><span style="color:var(--muted2);font-size:12px;width:14px;text-align:center">▾</span></sc-if>
+                  <sc-if value="{{ c.collapsed }}" hint-placeholder-val="{{ true }}"><span style="color:var(--muted2);font-size:12px;width:14px;text-align:center">▸</span></sc-if>
                 </div>
                 <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">
                   <div style="padding:0 16px 12px">
                     <sc-for list="{{ c.subs }}" as="sub" hint-placeholder-count="3">
-                      <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid oklch(0.245 0.014 260)">
-                        <span style="flex:1;font:600 13px Manrope;color:oklch(0.74 0.012 260)">{{ sub.name }}</span>
-                        <span style="display:flex;align-items:center;gap:5px;background:oklch(0.255 0.016 260);border-radius:10px;padding:0 12px">
-                          <span style="font:600 12px Manrope;color:oklch(0.56 0.013 260)">R$</span>
-                          <input value="{{ sub.plan }}" onChange="{{ sub.onPlan }}" inputmode="numeric" style="width:62px;background:none;border:none;color:oklch(0.97 0.004 260);text-align:right;font:600 14px Manrope;padding:9px 0;outline:none"/>
+                      <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--surface4)">
+                        <span style="flex:1;font:600 13px Manrope;color:var(--muted)">{{ sub.name }}</span>
+                        <span style="display:flex;align-items:center;gap:5px;background:var(--surface5);border-radius:10px;padding:0 12px">
+                          <span style="font:600 12px Manrope;color:var(--muted3)">R$</span>
+                          <input value="{{ sub.plan }}" onChange="{{ sub.onPlan }}" inputmode="numeric" style="width:62px;background:none;border:none;color:var(--text);text-align:right;font:600 14px Manrope;padding:9px 0;outline:none"/>
                         </span>
                       </div>
                     </sc-for>
@@ -457,13 +492,13 @@
           </sc-if>
 
           <sc-if value="{{ isCategorias }}" hint-placeholder-val="{{ false }}">
-            <div style="font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-bottom:16px;line-height:1.5">Toque na cor para alterar · no nome para renomear · na seta para editar as subcategorias.</div>
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:16px;line-height:1.5">Toque na cor para alterar · no nome para renomear · na seta para editar as subcategorias.</div>
             <sc-for list="{{ catsC }}" as="c" hint-placeholder-count="5">
-              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:10px">
+              <div style="border-radius:16px;background:var(--surface);overflow:hidden;margin-bottom:10px">
                 <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
                   <button onClick="{{ c.onTogglePalette }}" style="width:32px;height:32px;border-radius:10px;flex:none;border:1px solid rgba(255,255,255,.12);cursor:pointer;background:{{ c.color }}"></button>
-                  <input value="{{ c.name }}" onChange="{{ c.onRename }}" style="flex:1;min-width:0;background:none;border:none;color:oklch(0.95 0.004 260);font:700 15px Manrope;outline:none"/>
-                  <span style="font:600 11px Manrope;color:oklch(0.5 0.012 260);white-space:nowrap">{{ c.subCount }} subcat.</span>
+                  <input value="{{ c.name }}" onChange="{{ c.onRename }}" style="flex:1;min-width:0;background:none;border:none;color:var(--text2);font:700 15px Manrope;outline:none"/>
+                  <span style="font:600 11px Manrope;color:var(--muted4);white-space:nowrap">{{ c.subCount }} subcat.</span>
                   <button onClick="{{ c.onToggle }}" style="width:30px;height:30px;border:none;background:none;color:oklch(0.62 0.012 260);font-size:12px;cursor:pointer">
                     <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">▾</sc-if>
                     <sc-if value="{{ c.collapsed }}" hint-placeholder-val="{{ true }}">▸</sc-if>
@@ -473,7 +508,7 @@
                   <div style="display:flex;gap:9px;flex-wrap:wrap;padding:2px 16px 14px">
                     <sc-for list="{{ c.palette }}" as="p" hint-placeholder-count="10">
                       <button onClick="{{ p.onSelect }}" style="position:relative;width:30px;height:30px;border-radius:999px;border:none;cursor:pointer;background:{{ p.color }}">
-                        <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-3px;border-radius:999px;border:2px solid oklch(0.97 0.004 260)"></span></sc-if>
+                        <sc-if value="{{ p.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-3px;border-radius:999px;border:2px solid var(--text)"></span></sc-if>
                       </button>
                     </sc-for>
                   </div>
@@ -481,14 +516,14 @@
                 <sc-if value="{{ c.expanded }}" hint-placeholder-val="{{ false }}">
                   <div style="padding:0 16px 14px">
                     <sc-for list="{{ c.subs }}" as="s" hint-placeholder-count="3">
-                      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid oklch(0.245 0.014 260)">
+                      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--surface4)">
                         <span style="width:7px;height:7px;border-radius:999px;flex:none;background:{{ c.color }}"></span>
-                        <span style="flex:1;font:600 13px Manrope;color:oklch(0.86 0.01 260)">{{ s.name }}</span>
-                        <button onClick="{{ s.onRemove }}" style="width:26px;height:26px;border-radius:8px;border:none;background:oklch(0.255 0.016 260);color:oklch(0.6 0.012 260);font-size:15px;cursor:pointer">×</button>
+                        <span style="flex:1;font:600 13px Manrope;color:var(--text3)">{{ s.name }}</span>
+                        <button onClick="{{ s.onRemove }}" style="width:26px;height:26px;border-radius:8px;border:none;background:var(--surface5);color:var(--muted2);font-size:15px;cursor:pointer">×</button>
                       </div>
                     </sc-for>
                     <div style="display:flex;gap:8px;margin-top:12px">
-                      <input value="{{ c.draft }}" onChange="{{ c.onDraft }}" placeholder="Nova subcategoria" style="flex:1;min-width:0;background:oklch(0.2 0.014 260);border:1px solid oklch(0.3 0.016 260);border-radius:11px;padding:11px 13px;color:oklch(0.95 0.004 260);font:600 13px Manrope;outline:none"/>
+                      <input value="{{ c.draft }}" onChange="{{ c.onDraft }}" placeholder="Nova subcategoria" style="flex:1;min-width:0;background:var(--surface2);border:1px solid var(--border2);border-radius:11px;padding:11px 13px;color:var(--text2);font:600 13px Manrope;outline:none"/>
                       <button onClick="{{ c.onAddSub }}" style="flex:none;padding:0 16px;border-radius:11px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 13px Manrope;cursor:pointer">Adicionar</button>
                     </div>
                     <button onClick="{{ c.onRemoveCat }}" style="margin-top:14px;width:100%;padding:11px;border-radius:11px;border:1px solid oklch(0.4 0.12 25 / 0.4);background:none;color:oklch(0.72 0.15 25);font:700 12px Manrope;cursor:pointer">Excluir categoria</button>
@@ -499,6 +534,50 @@
             <button onClick="{{ onAddCat }}" style="width:100%;margin-top:6px;padding:15px;border-radius:16px;border:1px dashed oklch(0.36 0.016 260);background:oklch(0.19 0.013 260);color:oklch(0.82 0.06 256);font:700 14px Manrope;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
               <span style="font-size:18px;line-height:1">＋</span> Nova categoria
             </button>
+          </sc-if>
+
+          <sc-if value="{{ isRecorrentes }}" hint-placeholder-val="{{ false }}">
+            <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:16px;line-height:1.5">Marque gastos fixos (aluguel, assinaturas, mensalidades) para lançar automaticamente todo mês.</div>
+            <sc-for list="{{ recList }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;background:var(--surface);border:1px solid var(--border);margin-bottom:10px">
+                <span style="width:10px;height:10px;border-radius:999px;flex:none;background:{{ r.color }}"></span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font:700 13px Manrope;color:var(--text2)">{{ r.desc }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ r.catName }} · dia {{ r.day }} · R$ {{ r.value }}</span>
+                </span>
+                <button onClick="{{ r.onToggle }}" style="flex:none;width:44px;height:26px;border-radius:999px;border:none;background:{{ r.toggleBg }};position:relative;cursor:pointer">
+                  <span style="position:absolute;top:3px;left:{{ r.knobLeft }};width:20px;height:20px;border-radius:999px;background:#fff;transition:left .15s"></span>
+                </button>
+                <button onClick="{{ r.onRemove }}" style="flex:none;width:30px;height:30px;border-radius:9px;border:none;background:var(--surface2);color:var(--muted2);font-size:15px;cursor:pointer">×</button>
+              </div>
+            </sc-for>
+            <sc-if value="{{ recEmpty }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:18px 2px;text-align:center;font:600 12px Manrope;color:var(--muted4)">Nenhum lançamento recorrente ainda</div>
+            </sc-if>
+
+            <div style="margin-top:14px;padding:16px;border-radius:16px;background:var(--surface2);border:1px solid var(--border)">
+              <div style="font:700 13px Manrope;color:var(--text2);margin-bottom:11px">Novo recorrente</div>
+              <input value="{{ recDraft.desc }}" onChange="{{ recDraft.onDesc }}" placeholder="Descrição (ex.: Aluguel)" style="width:100%;height:44px;border-radius:11px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 13px Manrope;padding:0 13px;outline:none;margin-bottom:9px"/>
+              <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto;margin-bottom:9px">
+                <sc-for list="{{ recDraft.cats }}" as="chip" hint-placeholder-count="6">
+                  <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;border:1px solid var(--border2);background:var(--surface);color:var(--text3);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                    <span style="width:8px;height:8px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
+                    <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:9px">
+                <span style="flex:1;display:flex;align-items:center;gap:5px;background:var(--surface);border-radius:11px;padding:0 12px;height:44px">
+                  <span style="font:600 12px Manrope;color:var(--muted3)">R$</span>
+                  <input value="{{ recDraft.value }}" onChange="{{ recDraft.onValue }}" inputmode="numeric" placeholder="0" style="flex:1;min-width:0;background:none;border:none;color:var(--text2);font:600 14px Manrope;padding:9px 0;outline:none"/>
+                </span>
+                <span style="flex:1;display:flex;align-items:center;gap:5px;background:var(--surface);border-radius:11px;padding:0 12px;height:44px">
+                  <span style="font:600 12px Manrope;color:var(--muted3)">Dia</span>
+                  <input value="{{ recDraft.day }}" onChange="{{ recDraft.onDay }}" inputmode="numeric" placeholder="5" style="flex:1;min-width:0;background:none;border:none;color:var(--text2);font:600 14px Manrope;padding:9px 0;outline:none"/>
+                </span>
+              </div>
+              <button onClick="{{ recDraft.onAdd }}" style="width:100%;height:46px;margin-top:11px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 13px Manrope;cursor:pointer">Adicionar recorrente</button>
+            </div>
           </sc-if>
         </sc-if>
 
@@ -511,63 +590,63 @@
           </div>
 
           <sc-if value="{{ imStep1 }}" hint-placeholder-val="{{ true }}">
-            <div style="font:600 13px Manrope;color:oklch(0.6 0.012 260);line-height:1.5;margin-bottom:18px">Exporte o extrato no app do seu banco e selecione o arquivo. Os lançamentos serão categorizados automaticamente e adicionados aos seus gastos.</div>
-            <label style="width:100%;border:1.5px dashed oklch(0.38 0.04 256);background:oklch(0.2 0.014 260);border-radius:20px;padding:34px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px">
+            <div style="font:600 13px Manrope;color:var(--muted2);line-height:1.5;margin-bottom:18px">Exporte o extrato no app do seu banco e selecione o arquivo. Os lançamentos serão categorizados automaticamente e adicionados aos seus gastos.</div>
+            <label style="width:100%;border:1.5px dashed oklch(0.38 0.04 256);background:var(--surface2);border-radius:20px;padding:34px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px">
               <input type="file" accept=".csv,.ofx,.qfx,.xls,.xlsx,.txt" onChange="{{ onFile }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
               <span style="width:56px;height:56px;border-radius:999px;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center;position:relative">
                 <span style="position:absolute;top:16px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:11px solid oklch(0.78 0.11 256)"></span>
                 <span style="position:absolute;top:25px;left:50%;transform:translateX(-50%);width:5px;height:12px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
               </span>
               <span style="text-align:center">
-                <span style="display:block;font:700 15px Manrope;color:oklch(0.92 0.006 260)">Toque para selecionar o arquivo</span>
-                <span style="display:block;font:600 12px Manrope;color:oklch(0.56 0.013 260);margin-top:5px">Formatos aceitos: CSV, OFX, XLS e XLSX</span>
+                <span style="display:block;font:700 15px Manrope;color:var(--text2)">Toque para selecionar o arquivo</span>
+                <span style="display:block;font:600 12px Manrope;color:var(--muted3);margin-top:5px">Formatos aceitos: CSV, OFX, XLS e XLSX</span>
               </span>
             </label>
-            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.5 0.012 260);margin:24px 2px 12px">Arquivos de exemplo</div>
+            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted4);margin:24px 2px 12px">Arquivos de exemplo</div>
             <div style="display:flex;flex-direction:column;gap:10px">
               <sc-for list="{{ samples }}" as="f" hint-placeholder-count="3">
-                <button onClick="{{ f.onPick }}" style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+                <button onClick="{{ f.onPick }}" style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
                   <span style="width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font:800 11px Manrope;color:{{ f.color }};background:{{ f.tint }}">{{ f.format }}</span>
                   <span style="flex:1;min-width:0">
-                    <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">{{ f.name }}</span>
-                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ f.desc }}</span>
+                    <span style="display:block;font:700 13px Manrope;color:var(--text2)">{{ f.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ f.desc }}</span>
                   </span>
-                  <span style="color:oklch(0.5 0.012 260);font-size:18px">›</span>
+                  <span style="color:var(--muted4);font-size:18px">›</span>
                 </button>
               </sc-for>
             </div>
           </sc-if>
 
           <sc-if value="{{ imStep2 }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);margin-bottom:14px">
+            <div style="display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--border);margin-bottom:14px">
               <span style="width:38px;height:38px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;font:800 10px Manrope;color:{{ imFileColor }};background:{{ imFileTint }}">{{ imFileFormat }}</span>
               <span style="flex:1;min-width:0">
-                <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ imFileName }}</span>
-                <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ imDetected }}</span>
+                <span style="display:block;font:700 13px Manrope;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ imFileName }}</span>
+                <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ imDetected }}</span>
               </span>
               <button onClick="{{ imReset }}" style="flex:none;font:700 12px Manrope;color:oklch(0.74 0.1 256);background:none;border:none;cursor:pointer">Trocar</button>
             </div>
 
             <sc-if value="{{ imShowMap }}" hint-placeholder-val="{{ false }}">
-              <div style="border-radius:16px;background:oklch(0.215 0.014 260);overflow:hidden;margin-bottom:14px">
+              <div style="border-radius:16px;background:var(--surface);overflow:hidden;margin-bottom:14px">
                 <div onClick="{{ imToggleMap }}" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer">
-                  <span style="flex:1;font:700 13px Manrope;color:oklch(0.9 0.008 260)">Mapeamento de colunas</span>
+                  <span style="flex:1;font:700 13px Manrope;color:var(--text3)">Mapeamento de colunas</span>
                   <span style="font:700 10px Manrope;color:oklch(0.8 0.14 155);background:oklch(0.8 0.14 155 / 0.16);padding:4px 9px;border-radius:999px">Detectado</span>
-                  <sc-if value="{{ imMapOpen }}" hint-placeholder-val="{{ false }}"><span style="color:oklch(0.6 0.012 260);font-size:12px">▾</span></sc-if>
-                  <sc-if value="{{ imMapClosed }}" hint-placeholder-val="{{ true }}"><span style="color:oklch(0.6 0.012 260);font-size:12px">▸</span></sc-if>
+                  <sc-if value="{{ imMapOpen }}" hint-placeholder-val="{{ false }}"><span style="color:var(--muted2);font-size:12px">▾</span></sc-if>
+                  <sc-if value="{{ imMapClosed }}" hint-placeholder-val="{{ true }}"><span style="color:var(--muted2);font-size:12px">▸</span></sc-if>
                 </div>
                 <sc-if value="{{ imMapOpen }}" hint-placeholder-val="{{ false }}">
                   <div style="padding:0 16px 14px;display:flex;flex-direction:column;gap:10px">
                     <sc-for list="{{ imMapRows }}" as="m" hint-placeholder-count="3">
                       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-                        <span style="font:600 13px Manrope;color:oklch(0.74 0.012 260)">{{ m.label }}</span>
+                        <span style="font:600 13px Manrope;color:var(--muted)">{{ m.label }}</span>
                         <span style="position:relative;display:flex;align-items:center">
-                          <select value="{{ m.value }}" onChange="{{ m.onChange }}" style="background:oklch(0.255 0.016 260);border:1px solid oklch(0.3 0.016 260);border-radius:10px;color:oklch(0.95 0.004 260);font:600 13px Manrope;padding:9px 30px 9px 13px;outline:none;cursor:pointer">
+                          <select value="{{ m.value }}" onChange="{{ m.onChange }}" style="background:var(--surface5);border:1px solid var(--border2);border-radius:10px;color:var(--text2);font:600 13px Manrope;padding:9px 30px 9px 13px;outline:none;cursor:pointer">
                             <sc-for list="{{ imColumns }}" as="col" hint-placeholder-count="5">
                               <option value="{{ col.v }}">{{ col.label }}</option>
                             </sc-for>
                           </select>
-                          <span style="position:absolute;right:11px;color:oklch(0.6 0.012 260);font-size:10px;pointer-events:none">▾</span>
+                          <span style="position:absolute;right:11px;color:var(--muted2);font-size:10px;pointer-events:none">▾</span>
                         </span>
                       </div>
                     </sc-for>
@@ -582,28 +661,28 @@
             </div>
             <div style="display:flex;flex-direction:column;gap:9px">
               <sc-for list="{{ imTxsView }}" as="t" hint-placeholder-count="6">
-                <div style="border-radius:15px;background:oklch(0.215 0.014 260);border:1px solid {{ t.borderColor }};overflow:hidden">
+                <div style="border-radius:15px;background:var(--surface);border:1px solid {{ t.borderColor }};overflow:hidden">
                   <div style="display:flex;align-items:center;gap:12px;padding:13px 14px">
                     <button onClick="{{ t.onToggle }}" style="width:24px;height:24px;flex:none;border-radius:7px;cursor:pointer;border:1.5px solid {{ t.checkBorder }};background:{{ t.checkBg }};color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center">{{ t.check }}</button>
                     <span style="flex:1;min-width:0">
-                      <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.desc }}</span>
-                      <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ t.date }}</span>
+                      <span style="display:block;font:700 13px Manrope;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.desc }}</span>
+                      <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ t.date }}</span>
                     </span>
-                    <span style="font:700 13px Manrope;color:oklch(0.92 0.006 260);white-space:nowrap">− R$ {{ t.value }}</span>
+                    <span style="font:700 13px Manrope;color:var(--text2);white-space:nowrap">− R$ {{ t.value }}</span>
                   </div>
                   <div style="display:flex;align-items:center;gap:8px;padding:0 14px 13px 50px">
-                    <button onClick="{{ t.onOpenPicker }}" style="display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid oklch(0.3 0.016 260);background:oklch(0.2 0.014 260);cursor:pointer">
+                    <button onClick="{{ t.onOpenPicker }}" style="display:flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;border:1px solid var(--border2);background:var(--surface2);cursor:pointer">
                       <span style="width:9px;height:9px;border-radius:3px;background:{{ t.catColor }}"></span>
-                      <span style="font:600 12px Manrope;color:oklch(0.86 0.01 260)">{{ t.catName }}</span>
+                      <span style="font:600 12px Manrope;color:var(--text3)">{{ t.catName }}</span>
                     </button>
                     <sc-if value="{{ t.suggested }}" hint-placeholder-val="{{ true }}"><span style="font:700 10px Manrope;color:oklch(0.78 0.11 256);background:oklch(0.66 0.15 256 / 0.14);padding:4px 8px;border-radius:999px">sugerido</span></sc-if>
                   </div>
                   <sc-if value="{{ t.pickerOpen }}" hint-placeholder-val="{{ false }}">
                     <div style="display:flex;flex-wrap:wrap;gap:7px;padding:2px 14px 14px 50px">
                       <sc-for list="{{ t.picker }}" as="p" hint-placeholder-count="10">
-                        <button onClick="{{ p.onSelect }}" style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid oklch(0.3 0.016 260);background:oklch(0.235 0.014 260);cursor:pointer">
+                        <button onClick="{{ p.onSelect }}" style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border2);background:oklch(0.235 0.014 260);cursor:pointer">
                           <span style="width:8px;height:8px;border-radius:3px;background:{{ p.color }}"></span>
-                          <span style="font:600 11px Manrope;color:oklch(0.84 0.01 260)">{{ p.name }}</span>
+                          <span style="font:600 11px Manrope;color:var(--text3)">{{ p.name }}</span>
                         </button>
                       </sc-for>
                     </div>
@@ -620,19 +699,19 @@
                 <span style="font:800 38px Manrope;color:oklch(0.78 0.16 155);line-height:1">✓</span>
               </span>
               <span style="font:800 23px Manrope;letter-spacing:-0.01em">Importação concluída</span>
-              <span style="font:600 14px Manrope;color:oklch(0.6 0.012 260);margin-top:10px;line-height:1.5">{{ imIncluded }} lançamentos foram adicionados<br/>aos seus gastos.</span>
+              <span style="font:600 14px Manrope;color:var(--muted2);margin-top:10px;line-height:1.5">{{ imIncluded }} lançamentos foram adicionados<br/>aos seus gastos.</span>
               <div style="width:100%;display:flex;gap:11px;margin-top:30px">
-                <div style="flex:1;padding:18px;border-radius:18px;background:oklch(0.215 0.014 260);text-align:left">
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">Lançamentos</span>
-                  <span style="display:block;font:800 22px Manrope;color:oklch(0.95 0.004 260);margin-top:5px">{{ imIncluded }}</span>
+                <div style="flex:1;padding:18px;border-radius:18px;background:var(--surface);text-align:left">
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3)">Lançamentos</span>
+                  <span style="display:block;font:800 22px Manrope;color:var(--text2);margin-top:5px">{{ imIncluded }}</span>
                 </div>
-                <div style="flex:1;padding:18px;border-radius:18px;background:oklch(0.215 0.014 260);text-align:left">
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260)">Total</span>
-                  <span style="display:block;font:800 22px Manrope;color:oklch(0.95 0.004 260);margin-top:5px">R$ {{ imImportTotal }}</span>
+                <div style="flex:1;padding:18px;border-radius:18px;background:var(--surface);text-align:left">
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3)">Total</span>
+                  <span style="display:block;font:800 22px Manrope;color:var(--text2);margin-top:5px">R$ {{ imImportTotal }}</span>
                 </div>
               </div>
               <button onClick="{{ goDash }}" style="width:100%;height:56px;margin-top:26px;border:none;border-radius:18px;background:oklch(0.66 0.15 256);color:#fff;font:700 16px Manrope;cursor:pointer">Ver no início</button>
-              <button onClick="{{ imReset }}" style="width:100%;height:52px;margin-top:11px;border-radius:18px;border:1px solid oklch(0.305 0.012 260);background:none;color:oklch(0.82 0.01 260);font:700 15px Manrope;cursor:pointer">Importar outro arquivo</button>
+              <button onClick="{{ imReset }}" style="width:100%;height:52px;margin-top:11px;border-radius:18px;border:1px solid var(--border2);background:none;color:var(--text3);font:700 15px Manrope;cursor:pointer">Importar outro arquivo</button>
             </div>
           </sc-if>
         </sc-if>
@@ -650,16 +729,16 @@
                 </span>
               </span>
               <span style="font:800 21px Manrope;letter-spacing:-0.01em">{{ cloudHeadline }}</span>
-              <span style="font:600 13px Manrope;color:oklch(0.6 0.012 260);margin-top:9px;line-height:1.5;max-width:300px">{{ cloudHeadlineSub }}</span>
+              <span style="font:600 13px Manrope;color:var(--muted2);margin-top:9px;line-height:1.5;max-width:300px">{{ cloudHeadlineSub }}</span>
             </div>
 
             <sc-if value="{{ needsCloudSetup }}" hint-placeholder-val="{{ true }}">
-              <div style="margin-top:22px;padding:17px;border-radius:18px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260)">
-                <div style="font:700 14px Manrope;color:oklch(0.92 0.006 260);margin-bottom:4px">Conectar à nuvem</div>
+              <div style="margin-top:22px;padding:17px;border-radius:18px;background:var(--surface);border:1px solid var(--border)">
+                <div style="font:700 14px Manrope;color:var(--text2);margin-bottom:4px">Conectar à nuvem</div>
                 <div style="font:600 12px Manrope;color:oklch(0.58 0.013 260);line-height:1.5;margin-bottom:14px">Cole a <b style="color:oklch(0.78 0.06 256)">Project URL</b> e a <b style="color:oklch(0.78 0.06 256)">anon public key</b> do seu projeto Supabase (Project Settings → API). Fica salvo só neste aparelho.</div>
                 <div style="display:flex;flex-direction:column;gap:9px">
-                  <input value="{{ cfgUrl }}" onChange="{{ onCfgUrl }}" placeholder="https://xxxx.supabase.co" inputmode="url" autocapitalize="off" autocomplete="off" style="height:46px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 13px Manrope;padding:0 13px;outline:none"/>
-                  <textarea value="{{ cfgKey }}" onChange="{{ onCfgKey }}" placeholder="anon public key (eyJhbGci...)" rows="3" autocapitalize="off" autocomplete="off" style="border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 12px Manrope;padding:11px 13px;outline:none;resize:none;line-height:1.4;width:100%"></textarea>
+                  <input value="{{ cfgUrl }}" onChange="{{ onCfgUrl }}" placeholder="https://xxxx.supabase.co" inputmode="url" autocapitalize="off" autocomplete="off" style="height:46px;border-radius:12px;border:1px solid var(--border2);background:oklch(0.165 0.012 260);color:var(--text2);font:600 13px Manrope;padding:0 13px;outline:none"/>
+                  <textarea value="{{ cfgKey }}" onChange="{{ onCfgKey }}" placeholder="anon public key (eyJhbGci...)" rows="3" autocapitalize="off" autocomplete="off" style="border-radius:12px;border:1px solid var(--border2);background:oklch(0.165 0.012 260);color:var(--text2);font:600 12px Manrope;padding:11px 13px;outline:none;resize:none;line-height:1.4;width:100%"></textarea>
                   <button onClick="{{ saveCloud }}" style="height:50px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 15px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">Conectar</button>
                 </div>
               </div>
@@ -671,87 +750,98 @@
                 <span style="width:20px;height:20px;border-radius:999px;background:conic-gradient(#ea4335 0 25%,#fbbc05 0 50%,#34a853 0 75%,#4285f4 0);display:inline-block"></span>
                 Entrar com Google
               </button>
-              <button onClick="{{ signInEmail }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:16px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.92 0.006 260);font:700 15px Manrope;cursor:pointer">
+              <button onClick="{{ signInEmail }}" style="display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:16px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);font:700 15px Manrope;cursor:pointer">
                 Entrar com e-mail e senha
               </button>
               <sc-if value="{{ emailFormOpen }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;flex-direction:column;gap:9px;padding:14px;margin-top:2px;border-radius:16px;background:oklch(0.2 0.014 260);border:1px solid oklch(0.27 0.016 260)">
-                  <input value="{{ authEmail }}" onChange="{{ onAuthEmail }}" placeholder="seu@email.com" inputmode="email" autocomplete="email" style="height:48px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 14px Manrope;padding:0 14px;outline:none"/>
-                  <input value="{{ authPass }}" onChange="{{ onAuthPass }}" type="password" placeholder="Senha (mínimo 6 caracteres)" autocomplete="current-password" style="height:48px;border-radius:12px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.165 0.012 260);color:oklch(0.95 0.004 260);font:600 14px Manrope;padding:0 14px;outline:none"/>
-                  <button onClick="{{ submitEmail }}" style="height:50px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 14px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">Entrar / criar conta</button>
-                  <span style="font:600 11px Manrope;color:oklch(0.5 0.012 260);text-align:center;line-height:1.5">Primeira vez com este e-mail? A conta é criada automaticamente.</span>
+                <div style="display:flex;flex-direction:column;gap:9px;padding:14px;margin-top:2px;border-radius:16px;background:var(--surface2);border:1px solid var(--border)">
+                  <div style="display:flex;gap:4px;padding:3px;background:var(--surface);border-radius:11px;margin-bottom:2px">
+                    <sc-for list="{{ authModes }}" as="am" hint-placeholder-count="2">
+                      <button onClick="{{ am.onSelect }}" style="position:relative;flex:1;padding:8px 0;border:none;background:none;border-radius:9px;color:{{ am.textColor }};font:700 12px Manrope;cursor:pointer">
+                        <sc-if value="{{ am.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:9px;background:oklch(0.66 0.15 256)"></span></sc-if>
+                        <span style="position:relative">{{ am.label }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+                    <input value="{{ authName }}" onChange="{{ onAuthName }}" placeholder="Seu nome" autocomplete="name" style="height:48px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 14px Manrope;padding:0 14px;outline:none"/>
+                  </sc-if>
+                  <input value="{{ authEmail }}" onChange="{{ onAuthEmail }}" placeholder="seu@email.com" inputmode="email" autocomplete="email" style="height:48px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 14px Manrope;padding:0 14px;outline:none"/>
+                  <input value="{{ authPass }}" onChange="{{ onAuthPass }}" type="password" placeholder="Senha (mínimo 6 caracteres)" autocomplete="current-password" style="height:48px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 14px Manrope;padding:0 14px;outline:none"/>
+                  <button onClick="{{ submitEmail }}" style="height:50px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 14px Manrope;cursor:pointer" style-hover="background:oklch(0.7 0.15 256)">{{ authSubmitLabel }}</button>
+                  <button onClick="{{ forgotPassword }}" style="border:none;background:none;color:var(--muted);font:600 12px Manrope;cursor:pointer;padding:2px 0">Esqueci minha senha</button>
                 </div>
               </sc-if>
             </div>
             </sc-if>
 
             <div style="display:flex;align-items:center;gap:12px;margin:24px 2px 18px">
-              <span style="flex:1;height:1px;background:oklch(0.27 0.016 260)"></span>
-              <span style="font:600 11px Manrope;color:oklch(0.5 0.012 260)">backup sem conta</span>
-              <span style="flex:1;height:1px;background:oklch(0.27 0.016 260)"></span>
+              <span style="flex:1;height:1px;background:var(--border)"></span>
+              <span style="font:600 11px Manrope;color:var(--muted4)">backup sem conta</span>
+              <span style="flex:1;height:1px;background:var(--border)"></span>
             </div>
 
             <div style="display:flex;flex-direction:column;gap:10px">
-              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
                 <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
                   <span style="position:relative;width:16px;height:16px;display:block">
                     <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
                     <span style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:var(--muted4)"></span>
                   </span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Exportar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Salva um arquivo .json com tudo</span>
+                  <span style="display:block;font:700 13px Manrope;color:var(--text2)">Exportar backup</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">Salva um arquivo .json com tudo</span>
                 </span>
               </button>
-              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
                 <input type="file" accept=".json,application/json" onChange="{{ onImportBackup }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
                 <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
                   <span style="position:relative;width:16px;height:16px;display:block">
                     <span style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
                     <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:var(--muted4)"></span>
                   </span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Importar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Restaura de um arquivo .json</span>
+                  <span style="display:block;font:700 13px Manrope;color:var(--text2)">Importar backup</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">Restaura de um arquivo .json</span>
                 </span>
               </label>
             </div>
           </sc-if>
 
           <sc-if value="{{ signedIn }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+            <div style="display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;background:var(--surface)">
               <span style="width:52px;height:52px;border-radius:999px;flex:none;background:oklch(0.66 0.15 256 / 0.2);border:1px solid oklch(0.66 0.15 256 / 0.4);display:flex;align-items:center;justify-content:center;font:700 19px Manrope;color:oklch(0.82 0.1 256)">{{ avatarInitial }}</span>
               <span style="flex:1;min-width:0">
-                <span style="display:block;font:700 16px Manrope;color:oklch(0.95 0.004 260)">{{ accountName }}</span>
+                <span style="display:block;font:700 16px Manrope;color:var(--text2)">{{ accountName }}</span>
                 <span style="display:block;font:600 12px Manrope;color:oklch(0.58 0.013 260);margin-top:2px">{{ accountEmail }}</span>
               </span>
             </div>
 
-            <div style="margin-top:12px;padding:18px;border-radius:20px;background:oklch(0.215 0.014 260)">
+            <div style="margin-top:12px;padding:18px;border-radius:20px;background:var(--surface)">
               <div style="display:flex;align-items:center;gap:11px">
                 <span style="width:11px;height:11px;border-radius:999px;flex:none;background:{{ syncDot }}"></span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 14px Manrope;color:oklch(0.92 0.006 260)">{{ syncLabel }}</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ syncSub }}</span>
+                  <span style="display:block;font:700 14px Manrope;color:var(--text2)">{{ syncLabel }}</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ syncSub }}</span>
                 </span>
-                <button onClick="{{ syncNow }}" style="flex:none;padding:9px 14px;border-radius:11px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.2 0.014 260);color:oklch(0.82 0.06 256);font:700 12px Manrope;cursor:pointer">{{ syncBtnLabel }}</button>
+                <button onClick="{{ syncNow }}" style="flex:none;padding:9px 14px;border-radius:11px;border:1px solid var(--border2);background:var(--surface2);color:oklch(0.82 0.06 256);font:700 12px Manrope;cursor:pointer">{{ syncBtnLabel }}</button>
               </div>
             </div>
 
             <div style="margin:24px 2px 12px;font:700 14px Manrope">Meus dispositivos</div>
-            <div style="padding:4px 16px;border-radius:20px;background:oklch(0.215 0.014 260)">
+            <div style="padding:4px 16px;border-radius:20px;background:var(--surface)">
               <sc-for list="{{ devices }}" as="d" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid oklch(0.245 0.014 260)">
-                  <span style="width:34px;height:34px;border-radius:10px;flex:none;background:oklch(0.255 0.016 260);display:flex;align-items:center;justify-content:center">
+                <div style="display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid var(--surface4)">
+                  <span style="width:34px;height:34px;border-radius:10px;flex:none;background:var(--surface5);display:flex;align-items:center;justify-content:center">
                     <span style="width:13px;height:17px;border-radius:3px;border:1.6px solid {{ d.iconColor }}"></span>
                   </span>
                   <span style="flex:1;min-width:0">
-                    <span style="display:block;font:600 13px Manrope;color:oklch(0.9 0.008 260)">{{ d.name }}</span>
-                    <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">{{ d.meta }}</span>
+                    <span style="display:block;font:600 13px Manrope;color:var(--text3)">{{ d.name }}</span>
+                    <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ d.meta }}</span>
                   </span>
                   <sc-if value="{{ d.current }}" hint-placeholder-val="{{ false }}">
                     <span style="flex:none;font:700 10px Manrope;color:oklch(0.8 0.14 155);background:oklch(0.8 0.14 155 / 0.16);padding:4px 9px;border-radius:999px">este</span>
@@ -762,40 +852,73 @@
 
             <div style="margin:24px 2px 12px;font:700 14px Manrope">Backup</div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+              <button onClick="{{ onExport }}" style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
                 <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
                   <span style="position:relative;width:16px;height:16px;display:block">
                     <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
                     <span style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:var(--muted4)"></span>
                   </span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Exportar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Salva um arquivo .json com tudo</span>
+                  <span style="display:block;font:700 13px Manrope;color:var(--text2)">Exportar backup</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">Salva um arquivo .json com tudo</span>
                 </span>
               </button>
-              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);cursor:pointer;text-align:left">
+              <label style="display:flex;align-items:center;gap:13px;padding:15px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
                 <input type="file" accept=".json,application/json" onChange="{{ onImportBackup }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"/>
                 <span style="width:38px;height:38px;border-radius:11px;flex:none;background:oklch(0.66 0.15 256 / 0.16);display:flex;align-items:center;justify-content:center">
                   <span style="position:relative;width:16px;height:16px;display:block">
                     <span style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:3px;height:10px;border-radius:1px;background:oklch(0.78 0.11 256)"></span>
                     <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid oklch(0.78 0.11 256)"></span>
-                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:oklch(0.5 0.012 260)"></span>
+                    <span style="position:absolute;bottom:0;left:1px;width:14px;height:3px;border-radius:1px;background:var(--muted4)"></span>
                   </span>
                 </span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font:700 13px Manrope;color:oklch(0.92 0.006 260)">Importar backup</span>
-                  <span style="display:block;font:600 11px Manrope;color:oklch(0.56 0.013 260);margin-top:2px">Restaura de um arquivo .json</span>
+                  <span style="display:block;font:700 13px Manrope;color:var(--text2)">Importar backup</span>
+                  <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">Restaura de um arquivo .json</span>
                 </span>
               </label>
             </div>
 
-            <button onClick="{{ signOut }}" style="width:100%;margin-top:20px;padding:14px;border-radius:14px;border:1px solid oklch(0.305 0.012 260);background:none;color:oklch(0.74 0.012 260);font:700 14px Manrope;cursor:pointer">Sair da conta</button>
-            <button onClick="{{ disconnectCloud }}" style="width:100%;margin-top:10px;padding:12px;border:none;background:none;color:oklch(0.55 0.012 260);font:600 12px Manrope;cursor:pointer">Desconectar nuvem deste aparelho</button>
+            <div style="margin:24px 2px 12px;font:700 14px Manrope">Gestão de conta</div>
+            <button onClick="{{ toggleEditAcc }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:15px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);cursor:pointer;text-align:left">
+              <span style="font:700 13px Manrope;color:var(--text2)">Editar cadastro</span>
+              <sc-if value="{{ editAccOpen }}" hint-placeholder-val="{{ false }}"><span style="color:var(--muted2);font-size:12px">▾</span></sc-if>
+              <sc-if value="{{ editAccClosed }}" hint-placeholder-val="{{ true }}"><span style="color:var(--muted2);font-size:12px">▸</span></sc-if>
+            </button>
+            <sc-if value="{{ editAccOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:9px;padding:14px;margin-top:8px;border-radius:16px;background:var(--surface2);border:1px solid var(--border)">
+                <input value="{{ edAccName }}" onChange="{{ onEdAccName }}" placeholder="Nome" style="height:46px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 14px Manrope;padding:0 14px;outline:none"/>
+                <input value="{{ edAccEmail }}" onChange="{{ onEdAccEmail }}" placeholder="E-mail" inputmode="email" style="height:46px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 14px Manrope;padding:0 14px;outline:none"/>
+                <input value="{{ edAccPass }}" onChange="{{ onEdAccPass }}" type="password" placeholder="Nova senha (deixe em branco p/ manter)" style="height:46px;border-radius:12px;border:1px solid var(--border2);background:var(--bg);color:var(--text2);font:600 13px Manrope;padding:0 14px;outline:none"/>
+                <button onClick="{{ saveAccount }}" style="height:48px;border-radius:12px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 14px Manrope;cursor:pointer">Salvar alterações</button>
+              </div>
+            </sc-if>
+
+            <button onClick="{{ toggleDeleteAcc }}" style="width:100%;margin-top:10px;padding:15px 16px;border-radius:16px;background:none;border:1px solid oklch(0.5 0.14 25 / 0.4);color:oklch(0.72 0.15 25);font:700 13px Manrope;cursor:pointer">Excluir cadastro</button>
+            <sc-if value="{{ deleteAccOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:8px;padding:14px;border-radius:16px;background:var(--surface2);border:1px solid oklch(0.5 0.14 25 / 0.35)">
+                <div style="font:600 12px Manrope;color:var(--muted);line-height:1.5;margin-bottom:12px">Isso remove seus dados da nuvem e desconecta este cadastro. A remoção definitiva da conta de acesso deve ser confirmada pelo painel do Supabase.</div>
+                <button onClick="{{ confirmDeleteAcc }}" style="width:100%;height:46px;border-radius:12px;border:none;background:oklch(0.55 0.16 25);color:#fff;font:700 13px Manrope;cursor:pointer">Confirmar exclusão do cadastro</button>
+              </div>
+            </sc-if>
+
+            <button onClick="{{ signOut }}" style="width:100%;margin-top:20px;padding:14px;border-radius:14px;border:1px solid var(--border2);background:none;color:var(--muted);font:700 14px Manrope;cursor:pointer">Sair da conta</button>
+            <button onClick="{{ disconnectCloud }}" style="width:100%;margin-top:10px;padding:12px;border:none;background:none;color:var(--muted4);font:600 12px Manrope;cursor:pointer">Desconectar nuvem deste aparelho</button>
           </sc-if>
 
-          <div style="font:600 11px Manrope;color:oklch(0.45 0.012 260);text-align:center;margin-top:22px;line-height:1.5">{{ cloudNote }}</div>
+          <div style="margin:24px 2px 12px;font:700 14px Manrope">Aparência</div>
+          <div style="display:flex;gap:4px;padding:4px;background:var(--surface);border-radius:14px;margin-bottom:8px">
+            <sc-for list="{{ themes }}" as="th" hint-placeholder-count="2">
+              <button onClick="{{ th.onSelect }}" style="position:relative;flex:1;padding:10px 0;border:none;background:none;border-radius:11px;color:{{ th.textColor }};font:700 13px Manrope;cursor:pointer">
+                <sc-if value="{{ th.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:0;border-radius:11px;background:oklch(0.66 0.15 256)"></span></sc-if>
+                <span style="position:relative">{{ th.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="font:600 11px Manrope;color:var(--dim);text-align:center;margin-top:22px;line-height:1.5">{{ cloudNote }}</div>
         </sc-if>
 
       </div>
@@ -803,50 +926,74 @@
       <!-- edit / delete sheet (FUN-01) -->
       <sc-if value="{{ editOpen }}" hint-placeholder-val="{{ false }}">
         <button onClick="{{ closeEdit }}" aria-label="Fechar" style="position:absolute;inset:0;z-index:8;border:none;background:oklch(0.1 0.01 260 / 0.62);cursor:pointer"></button>
-        <div class="noscroll" style="position:absolute;left:0;right:0;bottom:0;z-index:9;background:oklch(0.185 0.013 260);border-radius:26px 26px 0 0;border-top:1px solid oklch(0.27 0.016 260);box-shadow:0 -18px 44px -12px rgba(0,0,0,.55);padding:16px 20px 22px;max-height:90%;overflow-y:auto">
+        <div class="noscroll" style="position:absolute;left:0;right:0;bottom:0;z-index:9;background:var(--surface3);border-radius:26px 26px 0 0;border-top:1px solid var(--border);box-shadow:0 -18px 44px -12px rgba(0,0,0,.55);padding:16px 20px 22px;max-height:90%;overflow-y:auto">
           <div style="width:40px;height:4px;border-radius:999px;background:oklch(0.32 0.014 260);margin:0 auto 14px"></div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-            <span style="font:800 18px Manrope;color:oklch(0.95 0.004 260);letter-spacing:-0.01em">Editar lançamento</span>
-            <button onClick="{{ closeEdit }}" style="width:34px;height:34px;border-radius:11px;border:1px solid oklch(0.3 0.014 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:16px;cursor:pointer">×</button>
+            <span style="font:800 18px Manrope;color:var(--text2);letter-spacing:-0.01em">Editar lançamento</span>
+            <button onClick="{{ closeEdit }}" style="width:34px;height:34px;border-radius:11px;border:1px solid oklch(0.3 0.014 260);background:var(--surface);color:var(--muted);font-size:16px;cursor:pointer">×</button>
           </div>
 
-          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:8px">Valor</div>
-          <div style="display:flex;align-items:center;gap:8px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);border-radius:14px;padding:0 15px;margin-bottom:18px">
-            <span style="font:700 16px Manrope;color:oklch(0.72 0.012 260)">R$</span>
-            <input value="{{ edAmount }}" onChange="{{ onEdAmount }}" inputmode="decimal" style="flex:1;min-width:0;background:none;border:none;color:oklch(0.97 0.004 260);font:700 20px Manrope;padding:14px 0;outline:none"/>
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-bottom:8px">Valor</div>
+          <div style="display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:0 15px;margin-bottom:18px">
+            <span style="font:700 16px Manrope;color:var(--muted)">R$</span>
+            <input value="{{ edAmount }}" onChange="{{ onEdAmount }}" inputmode="decimal" style="flex:1;min-width:0;background:none;border:none;color:var(--text);font:700 20px Manrope;padding:14px 0;outline:none"/>
           </div>
 
-          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Categoria</div>
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-bottom:9px">Categoria</div>
           <div class="noscroll" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin-bottom:16px">
             <sc-for list="{{ edCats }}" as="chip" hint-placeholder-count="6">
-              <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid oklch(0.305 0.012 260);background:oklch(0.215 0.014 260);color:oklch(0.86 0.01 260);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
+              <button onClick="{{ chip.onSelect }}" style="position:relative;flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--border2);background:var(--surface);color:var(--text3);font:600 13px Manrope;cursor:pointer;white-space:nowrap">
                 <span style="width:10px;height:10px;border-radius:999px;background:{{ chip.color }}"></span>{{ chip.name }}
                 <sc-if value="{{ chip.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:999px;border:2px solid {{ chip.color }};pointer-events:none"></span></sc-if>
               </button>
             </sc-for>
           </div>
 
-          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Subcategoria · {{ edCatName }}</div>
-          <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-bottom:16px">
-            <sc-for list="{{ edSubs }}" as="sub" hint-placeholder-count="4">
-              <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.2 0.014 260);color:oklch(0.78 0.012 260);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
-                {{ sub.label }}
-                <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
-              </button>
-            </sc-for>
-          </div>
+          <sc-if value="{{ edIsExpense }}" hint-placeholder-val="{{ true }}">
+            <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-bottom:9px">Subcategoria · {{ edCatName }}</div>
+            <div class="noscroll" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-bottom:16px">
+              <sc-for list="{{ edSubs }}" as="sub" hint-placeholder-count="4">
+                <button onClick="{{ sub.onSelect }}" style="position:relative;flex:none;padding:7px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font:600 12px Manrope;cursor:pointer;white-space:nowrap">
+                  {{ sub.label }}
+                  <sc-if value="{{ sub.selected }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;inset:-1px;border-radius:11px;border:2px solid oklch(0.66 0.15 256);pointer-events:none"></span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
 
-          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:oklch(0.56 0.013 260);margin-bottom:9px">Data</div>
+          <div style="font:600 11px Manrope;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-bottom:9px">Data</div>
           <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px">
-            <button onClick="{{ edPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">‹</button>
-            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:46px;border-radius:13px;background:oklch(0.215 0.014 260);border:1px solid oklch(0.27 0.016 260);color:oklch(0.9 0.008 260);font:600 14px Manrope">
+            <button onClick="{{ edPrevDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:15px;cursor:pointer">‹</button>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;height:46px;border-radius:13px;background:var(--surface);border:1px solid var(--border);color:var(--text3);font:600 14px Manrope">
               <span style="width:15px;height:15px;border:1.6px solid oklch(0.66 0.15 256);border-radius:4px;flex:none"></span>{{ edDateLabel }}
             </div>
-            <button onClick="{{ edNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid oklch(0.27 0.016 260);background:oklch(0.215 0.014 260);color:oklch(0.7 0.012 260);font-size:15px;cursor:pointer">›</button>
+            <button onClick="{{ edNextDay }}" style="width:42px;height:46px;flex:none;border-radius:13px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:15px;cursor:pointer">›</button>
           </div>
 
           <button onClick="{{ saveEdit }}" style="height:54px;width:100%;border:none;border-radius:16px;background:oklch(0.66 0.15 256);color:#fff;font:700 16px Manrope;cursor:pointer;margin-bottom:10px" style-hover="background:oklch(0.7 0.15 256)">Salvar alterações</button>
           <button onClick="{{ deleteEdit }}" style="height:48px;width:100%;border:1px solid oklch(0.5 0.14 25 / 0.5);border-radius:16px;background:none;color:oklch(0.72 0.15 25);font:700 14px Manrope;cursor:pointer" style-hover="background:oklch(0.5 0.14 25 / 0.12)">Excluir lançamento</button>
+        </div>
+      </sc-if>
+
+      <!-- recorrentes pendentes -->
+      <sc-if value="{{ pendingRecOpen }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ closePendingRec }}" aria-label="Fechar" style="position:absolute;inset:0;z-index:8;border:none;background:oklch(0.1 0.01 260 / 0.62);cursor:pointer"></button>
+        <div class="noscroll" style="position:absolute;left:0;right:0;bottom:0;z-index:9;background:var(--surface3);border-radius:26px 26px 0 0;border-top:1px solid var(--border);box-shadow:0 -20px 40px -10px rgba(0,0,0,.5);max-height:78%;overflow-y:auto;padding:22px 20px 26px">
+          <div style="width:38px;height:4px;border-radius:999px;background:var(--border2);margin:0 auto 18px"></div>
+          <div style="font:800 17px Manrope;color:var(--text);margin-bottom:4px">Lançar recorrentes</div>
+          <div style="font:600 12px Manrope;color:var(--muted3);margin-bottom:16px;line-height:1.5">Confirme os lançamentos fixos de {{ monthLabel }}.</div>
+          <sc-for list="{{ pendingRecList }}" as="p" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--surface4)">
+              <span style="width:9px;height:9px;border-radius:999px;flex:none;background:{{ p.color }}"></span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:700 13px Manrope;color:var(--text2)">{{ p.desc }}</span>
+                <span style="display:block;font:600 11px Manrope;color:var(--muted3);margin-top:2px">{{ p.catName }} · dia {{ p.day }}</span>
+              </span>
+              <span style="font:700 13px Manrope;color:var(--text2)">R$ {{ p.value }}</span>
+            </div>
+          </sc-for>
+          <button onClick="{{ confirmPendingRec }}" style="width:100%;height:52px;margin-top:18px;border-radius:16px;border:none;background:oklch(0.66 0.15 256);color:#fff;font:700 15px Manrope;cursor:pointer">Confirmar e lançar</button>
+          <button onClick="{{ closePendingRec }}" style="width:100%;height:46px;margin-top:9px;border-radius:16px;border:1px solid var(--border2);background:none;color:var(--muted);font:700 13px Manrope;cursor:pointer">Agora não</button>
         </div>
       </sc-if>
 
@@ -859,7 +1006,7 @@
       </sc-if>
 
       <!-- ===== BOTTOM NAV ===== -->
-      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;height:76px;padding:10px 30px 20px;border-top:1px solid oklch(0.245 0.014 260);background:oklch(0.185 0.013 260)">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;height:76px;padding:10px 30px 20px;border-top:1px solid var(--surface4);background:var(--surface3)">
         <button onClick="{{ goDash }}" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:48px;background:none;border:none;cursor:pointer">
           <span style="position:relative;width:21px;height:18px;display:block">
             <span style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:7px solid {{ navDash }}"></span>
@@ -926,6 +1073,17 @@ class Component extends DCLogic {
     { hue: 25, chroma: 0.13 }, { hue: 335, chroma: 0.13 }, { hue: 295, chroma: 0.13 },
     { hue: 260, chroma: 0 },
   ];
+
+  incomeCats = [
+    { id: 'salario', name: 'Salário', hue: 150, chroma: 0.13 },
+    { id: 'extra', name: 'Renda extra', hue: 175, chroma: 0.13 },
+    { id: 'rendimentos', name: 'Rendimentos', hue: 195, chroma: 0.1 },
+    { id: 'reembolso', name: 'Reembolso', hue: 135, chroma: 0.1 },
+    { id: 'presente', name: 'Presente', hue: 335, chroma: 0.1 },
+    { id: 'outros_r', name: 'Outros', hue: 160, chroma: 0.04 },
+  ];
+  incomeCatById(id) { return this.incomeCats.find(c => c.id === id) || this.incomeCats[this.incomeCats.length - 1]; }
+  txCat(t) { return t.type === 'r' ? this.incomeCatById(t.cat) : this.catById(t.cat); }
 
   defaultCats = [
     { id: 'moradia', name: 'Moradia', hue: 255, chroma: 0.13, subs: [
@@ -1072,7 +1230,7 @@ class Component extends DCLogic {
   finalize(rows) {
     const hasNeg = rows.some(r => r.raw < 0);
     const filt = hasNeg ? rows.filter(r => r.raw < 0) : rows;
-    return filt.map((r, i) => ({ id: i, desc: r.desc, date: r.date, v: r.v, cat: this.autoCat(r.desc), include: true, suggested: true }));
+    return filt.map((r, i) => ({ id: i, desc: r.desc, date: r.date, v: r.v, cat: this.autoCat(r.desc), include: true, suggested: true, type: 'd' }));
   }
 
   sizeLabel(b) { return b < 1024 ? b + ' B' : b < 1048576 ? Math.round(b / 1024) + ' KB' : (b / 1048576).toFixed(1) + ' MB'; }
@@ -1180,15 +1338,18 @@ class Component extends DCLogic {
       ['Aporte investimentos', 'invest', 'Investimentos', 200.0, 5],
       ['Diversos', 'outros', 'Diversos', 90.0, 11],
     ];
-    june.forEach((e, i) => out.push({ id: 'j' + i, desc: e[0], cat: e[1], sub: e[2], v: e[3], date: '2026-06-' + this.pad(e[4]) }));
+    june.forEach((e, i) => out.push({ id: 'j' + i, desc: e[0], cat: e[1], sub: e[2], v: e[3], date: '2026-06-' + this.pad(e[4]), type: 'd' }));
+    out.push({ id: 'j-sal', desc: 'Salário', cat: 'salario', sub: '', v: 7200, date: '2026-06-05', type: 'r' });
+    out.push({ id: 'j-extra', desc: 'Freelance', cat: 'extra', sub: '', v: 450, date: '2026-06-18', type: 'r' });
 
     const months = { '2026-01': 5200, '2026-02': 4800, '2026-03': 6100, '2026-04': 5500, '2026-05': 7200 };
     const totalPlan = this.defaultCats.reduce((a, c) => a + this.catPlan(c), 0);
     Object.entries(months).forEach(([mk, tot]) => {
       this.defaultCats.forEach(c => {
         const amt = Math.round(tot * this.catPlan(c) / totalPlan * 100) / 100;
-        if (amt > 0) out.push({ id: mk + '-' + c.id, desc: c.name, cat: c.id, sub: c.subs[0] ? c.subs[0].name : '', v: amt, date: mk + '-10' });
+        if (amt > 0) out.push({ id: mk + '-' + c.id, desc: c.name, cat: c.id, sub: c.subs[0] ? c.subs[0].name : '', v: amt, date: mk + '-10', type: 'd' });
       });
+      out.push({ id: mk + '-sal', desc: 'Salário', cat: 'salario', sub: '', v: 7000, date: mk + '-05', type: 'r' });
     });
     return out;
   }
@@ -1200,16 +1361,20 @@ class Component extends DCLogic {
     categories: JSON.parse(JSON.stringify(this.defaultCats)),
     transactions: this.seedTx(),
     toast: null,
-    lcAmount: '', lcCat: 0, lcSub: 0, lcDate: this.TODAY,
+    lcAmount: '', lcType: 'd', lcCat: 0, lcSub: 0, lcDate: this.TODAY,
     lcCalOpen: false, lcCalMonth: this.CUR_MONTH,
-    editId: null, edAmount: '', edCat: 0, edSub: 0, edDate: this.TODAY,
+    editId: null, edAmount: '', edType: 'd', edCat: 0, edSub: 0, edDate: this.TODAY,
     period: 'mes',
     plTab: 'orcamento', plExpO: 0, plExpC: null, plPaletteFor: null, plDraft: {},
     imStep: 1, imFile: null, imShowMap: false, imMapOpen: false,
     imMap: { data: 'A', desc: 'B', valor: 'D' }, imPicker: null, imTxs: [],
     signedIn: false, account: { name: 'Marina Souza', email: 'marina.souza@gmail.com' }, syncStatus: 'synced', lastSync: 'agora',
-    authFormOpen: false, authEmail: '', authPass: '',
+    theme: 'dark',
+    authFormOpen: false, authMode: 'login', authName: '', authEmail: '', authPass: '',
     cfgUrl: '', cfgKey: '',
+    editAccOpen: false, edAccName: '', edAccEmail: '', edAccPass: '', deleteAccOpen: false,
+    recurrences: [], recDraftDesc: '', recDraftCat: 0, recDraftValue: '', recDraftDay: '',
+    pendingRecOpen: false,
   };
 
   _subScroll = (typeof React !== 'undefined') ? React.createRef() : { current: null };
@@ -1221,6 +1386,7 @@ class Component extends DCLogic {
   ];
 
   componentDidMount() {
+    try { const th = localStorage.getItem('gastos_theme'); if (th === 'light' || th === 'dark') this.state.theme = th; } catch (e) {}
     try {
       const raw = localStorage.getItem(this.STORAGE);
       if (raw) {
@@ -1418,17 +1584,23 @@ class Component extends DCLogic {
     a = a.replace(/^0+/, ''); if (a.length > 9) a = a.slice(0, 9);
     this.setState({ lcAmount: a });
   }
+  lcIsExpense() { return (this.state.lcType || 'd') === 'd'; }
+  lcActiveCats() { return this.lcIsExpense() ? this.state.categories : this.incomeCats; }
+  lcSetType(type) { this.setState({ lcType: type, lcCat: 0, lcSub: 0 }); }
   lcSave() {
     const cents = parseInt(this.state.lcAmount || '0', 10);
     if (cents <= 0) { this.toast('Informe um valor'); return; }
-    const cat = this.state.categories[this.state.lcCat];
-    const sub = cat.subs[this.state.lcSub];
-    const tx = { id: 't' + Date.now(), desc: sub ? sub.name : cat.name, cat: cat.id, sub: sub ? sub.name : '', v: cents / 100, date: this.state.lcDate };
+    const type = this.state.lcType || 'd';
+    const cats = this.lcActiveCats();
+    const cat = cats[Math.min(this.state.lcCat, cats.length - 1)] || cats[0];
+    const sub = this.lcIsExpense() ? cat.subs[this.state.lcSub] : null;
+    const tx = { id: 't' + Date.now(), desc: sub ? sub.name : cat.name, cat: cat.id, sub: sub ? sub.name : '', v: cents / 100, date: this.state.lcDate, type };
     this.save({ transactions: [tx, ...this.state.transactions], lcAmount: '', view: 'dashboard' });
-    this.toast('Gasto de R$ ' + this.fmt(cents) + ' salvo');
+    this.toast((type === 'r' ? 'Receita' : 'Gasto') + ' de R$ ' + this.fmt(cents) + ' salva' + (type === 'r' ? '' : 'o'));
   }
   // ---- UX-01: navegação por setas nas subcategorias ----
   lcStepSub(delta) {
+    if (!this.lcIsExpense()) return;
     const cats = this.state.categories;
     const lcCat = cats[Math.min(this.state.lcCat, cats.length - 1)] || cats[0];
     const n = (lcCat.subs || []).length; if (!n) return;
@@ -1442,7 +1614,7 @@ class Component extends DCLogic {
     el.scrollLeft += (cr.left - er.left) - (el.clientWidth - cr.width) / 2;
   }
   lcStepCat(delta) {
-    const n = this.state.categories.length; if (!n) return;
+    const n = this.lcActiveCats().length; if (!n) return;
     let i = this.state.lcCat + delta; if (i < 0) i = 0; if (i > n - 1) i = n - 1;
     this.setState({ lcCat: i, lcSub: 0 }, () => this.scrollCatIntoView());
   }
@@ -1473,19 +1645,23 @@ class Component extends DCLogic {
   // ---- FUN-01: editar / excluir lançamento ----
   openEdit(id) {
     const t = this.state.transactions.find(x => x.id === id); if (!t) return;
-    let ci = this.state.categories.findIndex(c => c.id === t.cat); if (ci < 0) ci = 0;
-    const cat = this.state.categories[ci] || this.state.categories[0];
+    const type = t.type === 'r' ? 'r' : 'd';
+    const list = type === 'r' ? this.incomeCats : this.state.categories;
+    let ci = list.findIndex(c => c.id === t.cat); if (ci < 0) ci = 0;
+    const cat = list[ci] || list[0];
     let si = (cat.subs || []).findIndex(s => s.name === t.sub); if (si < 0) si = 0;
-    this.setState({ editId: id, edAmount: this.fmtR(t.v), edCat: ci, edSub: si, edDate: t.date });
+    this.setState({ editId: id, edType: type, edAmount: this.fmtR(t.v), edCat: ci, edSub: si, edDate: t.date });
   }
   closeEdit() { this.setState({ editId: null }); }
   edStepDay(delta) { const d = this.shiftDate(this.state.edDate || this.TODAY, delta); if (delta > 0 && d > this.TODAY) return; this.setState({ edDate: d }); }
   saveEdit() {
     const v = this.parseNum(this.state.edAmount);
     if (!v || v <= 0) { this.toast('Informe um valor válido'); return; }
-    const cat = this.state.categories[Math.min(this.state.edCat, this.state.categories.length - 1)] || this.state.categories[0];
-    const sub = cat.subs[this.state.edSub];
-    const txs = this.state.transactions.map(t => t.id === this.state.editId ? { ...t, cat: cat.id, sub: sub ? sub.name : '', v: Math.round(Math.abs(v) * 100) / 100, date: this.state.edDate } : t);
+    const isExp = (this.state.edType || 'd') === 'd';
+    const list = isExp ? this.state.categories : this.incomeCats;
+    const cat = list[Math.min(this.state.edCat, list.length - 1)] || list[0];
+    const sub = isExp ? cat.subs[this.state.edSub] : null;
+    const txs = this.state.transactions.map(t => t.id === this.state.editId ? { ...t, desc: sub ? sub.name : cat.name, cat: cat.id, sub: sub ? sub.name : '', v: Math.round(Math.abs(v) * 100) / 100, date: this.state.edDate } : t);
     this.save({ transactions: txs, editId: null });
     this.toast('Lançamento atualizado');
   }
@@ -1496,6 +1672,33 @@ class Component extends DCLogic {
   }
 
   toast(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: null }), 2200); }
+
+  // ---- recorrentes (FUN-03) ----
+  recAddDraft() {
+    const desc = (this.state.recDraftDesc || '').trim();
+    const day = Math.min(28, Math.max(1, parseInt(this.state.recDraftDay, 10) || 1));
+    const value = parseInt((this.state.recDraftValue || '0').replace(/\D/g, ''), 10) || 0;
+    if (!desc || value <= 0) { this.toast('Informe descrição e valor'); return; }
+    const cat = this.state.categories[Math.min(this.state.recDraftCat, this.state.categories.length - 1)] || this.state.categories[0];
+    const rec = { id: 'rec' + Date.now(), desc, cat: cat.id, v: value / 100, day, active: true, applied: [] };
+    this.save({ recurrences: [...this.state.recurrences, rec], recDraftDesc: '', recDraftValue: '', recDraftDay: '' });
+    this.toast('Recorrente adicionado');
+  }
+  recToggle(id) { this.save({ recurrences: this.state.recurrences.map(r => r.id === id ? { ...r, active: !r.active } : r) }); }
+  recRemove(id) { this.save({ recurrences: this.state.recurrences.filter(r => r.id !== id) }); }
+  pendingRecs() {
+    return (this.state.recurrences || []).filter(r => r.active && !(r.applied || []).includes(this.CUR_MONTH));
+  }
+  openPendingRec() { this.setState({ pendingRecOpen: true }); }
+  closePendingRec() { this.setState({ pendingRecOpen: false }); }
+  confirmPendingRec() {
+    const pend = this.pendingRecs();
+    if (!pend.length) { this.setState({ pendingRecOpen: false }); return; }
+    const newTx = pend.map((r, i) => ({ id: 'rt' + Date.now() + '-' + i, desc: r.desc, cat: r.cat, sub: '', v: r.v, date: this.CUR_MONTH + '-' + this.pad(r.day), type: 'd' }));
+    const recurrences = this.state.recurrences.map(r => pend.find(p => p.id === r.id) ? { ...r, applied: [...(r.applied || []), this.CUR_MONTH] } : r);
+    this.save({ transactions: [...newTx, ...this.state.transactions], recurrences, pendingRecOpen: false });
+    this.toast(pend.length + ' lançamento(s) fixo(s) adicionado(s)');
+  }
 
   // ---- planejamento ----
   plSetPlan(ci, si, v) { v = (v || '').replace(/\D/g, '').slice(0, 7); const cats = this.cloneCats(); cats[ci].subs[si].plan = v; this.save({ categories: cats }); }
@@ -1512,7 +1715,7 @@ class Component extends DCLogic {
   imSetCat(i, id) { this.setState({ imTxs: this.state.imTxs.map((t, idx) => idx === i ? { ...t, cat: id, suggested: false } : t), imPicker: null }); }
   imDoImportFn() {
     const inc = this.state.imTxs.filter(t => t.include);
-    const newTx = inc.map((t, i) => ({ id: 'i' + Date.now() + '-' + i, desc: t.desc, cat: t.cat, sub: '', v: t.v, date: t.date }));
+    const newTx = inc.map((t, i) => ({ id: 'i' + Date.now() + '-' + i, desc: t.desc, cat: t.cat, sub: '', v: t.v, date: t.date, type: 'd' }));
     this.save({ transactions: [...newTx, ...this.state.transactions], imStep: 3 });
   }
   fileTone(fmt) { const h = fmt === 'CSV' ? 150 : fmt === 'XLS' ? 85 : 256; return { color: `oklch(0.78 0.12 ${h})`, tint: `oklch(0.74 0.13 ${h} / 0.16)` }; }
@@ -1522,6 +1725,7 @@ class Component extends DCLogic {
 
   // ---- conta / backup / sincronização ----
   goConta() { this.setState({ view: 'conta' }); }
+  setTheme(t) { this.setState({ theme: t }); try { localStorage.setItem('gastos_theme', t); } catch (e) {} }
   signInGoogle() {
     if (this.cloudReady) {
       const back = location.origin + location.pathname; // URL estável p/ autorizar no Supabase
@@ -1548,16 +1752,56 @@ class Component extends DCLogic {
   async submitEmailAuth() {
     const email = (this.state.authEmail || '').trim();
     const pass = this.state.authPass || '';
+    const name = (this.state.authName || '').trim();
     if (!email || pass.length < 6) { this.toast('Informe e-mail e senha (mín. 6 caracteres)'); return; }
     try {
-      const { error } = await this.sb.auth.signInWithPassword({ email, password: pass });
-      if (error) {
-        const r = await this.sb.auth.signUp({ email, password: pass });
-        if (r.error) { this.toast(r.error.message || 'Não consegui entrar'); return; }
+      if (this.state.authMode === 'signup') {
+        const r = await this.sb.auth.signUp({ email, password: pass, options: { data: { full_name: name || undefined } } });
+        if (r.error) { this.toast(r.error.message || 'Não consegui criar a conta'); return; }
         if (!r.data || !r.data.session) { this.toast('Conta criada — confirme pelo e-mail para entrar'); return; }
+        this.setState({ authFormOpen: false, authPass: '' });
+        return;
       }
+      const { error } = await this.sb.auth.signInWithPassword({ email, password: pass });
+      if (error) { this.toast(error.message || 'E-mail ou senha incorretos'); return; }
       this.setState({ authFormOpen: false, authPass: '' });
     } catch (e) { this.toast('Não consegui entrar'); }
+  }
+  async forgotPassword() {
+    const email = (this.state.authEmail || '').trim();
+    if (!email) { this.toast('Digite seu e-mail no campo acima primeiro'); return; }
+    try {
+      const { error } = await this.sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+      this.toast(error ? 'Não consegui enviar o e-mail de recuperação' : 'E-mail de recuperação enviado');
+    } catch (e) { this.toast('Não consegui enviar o e-mail de recuperação'); }
+  }
+  toggleEditAcc() {
+    const open = !this.state.editAccOpen;
+    this.setState({ editAccOpen: open, edAccName: open ? (this.state.account.name || '') : '', edAccEmail: open ? (this.state.account.email || '') : '', edAccPass: '' });
+  }
+  async saveAccount() {
+    const name = (this.state.edAccName || '').trim();
+    const email = (this.state.edAccEmail || '').trim();
+    const pass = this.state.edAccPass || '';
+    if (!name || !email) { this.toast('Preencha nome e e-mail'); return; }
+    const payload = { data: { full_name: name } };
+    if (email !== this.state.account.email) payload.email = email;
+    if (pass) { if (pass.length < 6) { this.toast('A nova senha precisa ter 6+ caracteres'); return; } payload.password = pass; }
+    try {
+      const { error } = await this.sb.auth.updateUser(payload);
+      if (error) { this.toast(error.message || 'Não consegui salvar'); return; }
+      this.setState({ account: { name, email: this.state.account.email }, editAccOpen: false, edAccPass: '' });
+      this.toast(payload.email ? 'Confirme o novo e-mail na sua caixa de entrada' : 'Cadastro atualizado');
+    } catch (e) { this.toast('Não consegui salvar'); }
+  }
+  toggleDeleteAcc() { this.setState({ deleteAccOpen: !this.state.deleteAccOpen }); }
+  async confirmDeleteAcc() {
+    try {
+      if (this.session) await this.sb.from('gastos_dados').delete().eq('user_id', this.session.user.id);
+    } catch (e) {}
+    this.disconnectCloud();
+    this.setState({ deleteAccOpen: false });
+    this.toast('Cadastro removido deste app');
   }
   doSignIn(name, email) {
     this.setState({ signedIn: true, account: { name, email }, syncStatus: 'syncing' });
@@ -1616,7 +1860,7 @@ class Component extends DCLogic {
     out.showGenericHeader = view !== 'dashboard';
     out.viewTitle = { lancar: 'Lançar gasto', relatorios: 'Relatórios', planejamento: 'Planejamento', importar: 'Importar extrato', conta: 'Conta' }[view] || '';
     out.goDash = () => this.setState({ view: 'dashboard' });
-    out.goLancar = () => this.setState({ view: 'lancar' });
+    out.goLancar = () => this.setState({ view: 'lancar', lcType: 'd', lcCat: 0, lcSub: 0 });
     out.goRelatorios = () => this.setState({ view: 'relatorios' });
     out.goPlan = () => this.setState({ view: 'planejamento' });
     out.goImportar = () => this.setState({ view: 'importar' });
@@ -1638,9 +1882,17 @@ class Component extends DCLogic {
 
     // ===== current month aggregates (dashboard) =====
     const curTxs = this.monthTxs(this.CUR_MONTH);
-    const curSpentMap = this.spentByCat(curTxs);
-    const curSpent = curTxs.reduce((a, t) => a + t.v, 0);
+    const curExpTxs = curTxs.filter(t => t.type !== 'r');
+    const curIncTxs = curTxs.filter(t => t.type === 'r');
+    const curSpentMap = this.spentByCat(curExpTxs);
+    const curSpent = curExpTxs.reduce((a, t) => a + t.v, 0);
+    const curIncome = curIncTxs.reduce((a, t) => a + t.v, 0);
+    const curSaldo = curIncome - curSpent;
     out.totalSpent = this.fmtR(curSpent);
+    out.totalIncome = this.fmtR(curIncome);
+    out.saldoValor = this.fmtR(Math.abs(curSaldo));
+    out.saldoNeg = curSaldo < 0;
+    out.saldoColor = curSaldo < 0 ? 'oklch(0.72 0.16 25)' : 'oklch(0.72 0.16 155)';
     out.remaining = this.fmtR(Math.max(0, totalPlan - curSpent));
     out.usedPct = (totalPlan ? Math.min(100, Math.round(curSpent / totalPlan * 100)) : 0) + '%';
     out.txCount = curTxs.length;
@@ -1669,16 +1921,27 @@ class Component extends DCLogic {
     });
 
     out.recent = curTxs.slice().sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)).slice(0, 6).map(t => {
-      const c = this.catById(t.cat);
+      const c = this.txCat(t);
+      const isInc = t.type === 'r';
       const [y, m, d] = t.date.split('-').map(Number);
       const rel = t.date === this.TODAY ? 'Hoje' : (t.date === this.shiftDate(this.TODAY, -1) ? 'Ontem' : `${d} ${this.MES[m - 1]}`);
-      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), onOpen: () => this.openEdit(t.id) };
+      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), sign: isInc ? '+ ' : '− ', amountColor: isInc ? 'oklch(0.75 0.15 155)' : 'oklch(0.92 0.006 260)', onOpen: () => this.openEdit(t.id) };
     });
 
     // ===== LANÇAR =====
-    const lcCat = cats[Math.min(st.lcCat, cats.length - 1)] || cats[0];
+    const lcExpense = (st.lcType || 'd') === 'd';
+    out.lcIsExpense = lcExpense;
+    out.lcTypes = [['d', 'Despesa'], ['r', 'Receita']].map(a => ({
+      label: a[1], selected: (st.lcType || 'd') === a[0], textColor: (st.lcType || 'd') === a[0] ? '#fff' : 'oklch(0.7 0.012 260)',
+      bg: a[0] === 'r' ? 'oklch(0.62 0.14 155)' : 'oklch(0.66 0.15 256)',
+      onSelect: () => this.lcSetType(a[0]),
+    }));
+    out.lcAmountLabel = lcExpense ? 'Valor do gasto' : 'Valor da receita';
+    out.lcSaveBg = lcExpense ? 'oklch(0.66 0.15 256)' : 'oklch(0.58 0.14 155)';
+    const lcActiveCats = lcExpense ? cats : this.incomeCats;
+    const lcCat = lcActiveCats[Math.min(st.lcCat, lcActiveCats.length - 1)] || lcActiveCats[0];
     const lcSpent = curSpentMap[lcCat.id] || 0;
-    const lcPlan = this.catPlan(lcCat);
+    const lcPlan = lcExpense ? this.catPlan(lcCat) : 0;
     const lcOver = lcSpent > lcPlan, lcExact = !lcOver && lcSpent === lcPlan && lcPlan > 0;
     out.lcBudget = {
       name: lcCat.name, color: this.color(lcCat),
@@ -1690,8 +1953,8 @@ class Component extends DCLogic {
     };
     out.lcAmount = this.fmt(parseInt(st.lcAmount || '0', 10));
     out.lcCatName = lcCat.name;
-    out.lcCats = cats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.lcCat, onSelect: () => this.setState({ lcCat: i, lcSub: 0 }) }));
-    out.lcSubs = lcCat.subs.map((s, i) => ({ label: s.name, selected: i === st.lcSub, onSelect: () => this.setState({ lcSub: i }) }));
+    out.lcCats = lcActiveCats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.lcCat, onSelect: () => this.setState({ lcCat: i, lcSub: 0 }) }));
+    out.lcSubs = lcExpense ? lcCat.subs.map((s, i) => ({ label: s.name, selected: i === st.lcSub, onSelect: () => this.setState({ lcSub: i }) })) : [];
     out.lcDateLabel = this.dateLabel(st.lcDate);
     out.lcPrevDay = () => this.setState({ lcDate: this.shiftDate(st.lcDate, -1) });
     out.lcNextDay = () => { if (st.lcDate < this.TODAY) this.setState({ lcDate: this.shiftDate(st.lcDate, 1) }); };
@@ -1726,7 +1989,7 @@ class Component extends DCLogic {
     }
     out.lcCalDays = calCells;
     out.keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '00', '0', 'back'].map(k => ({ label: k === 'back' ? '⌫' : k, onPress: () => this.lcPress(k) }));
-    out.lcSaveLabel = 'Salvar gasto'; out.lcSaveBg = 'oklch(0.66 0.15 256)';
+    out.lcSaveLabel = lcExpense ? 'Salvar gasto' : 'Salvar receita';
     out.lcSave = () => this.lcSave();
 
     // ===== EDITAR / EXCLUIR (FUN-01) =====
@@ -1734,9 +1997,12 @@ class Component extends DCLogic {
     out.closeEdit = () => this.closeEdit();
     out.edAmount = st.edAmount;
     out.onEdAmount = (e) => this.setState({ edAmount: e.target.value });
-    const edCatObj = cats[Math.min(st.edCat, cats.length - 1)] || cats[0];
-    out.edCats = cats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.edCat, onSelect: () => this.setState({ edCat: i, edSub: 0 }) }));
-    out.edSubs = (edCatObj ? edCatObj.subs : []).map((s, i) => ({ label: s.name, selected: i === st.edSub, onSelect: () => this.setState({ edSub: i }) }));
+    const edExpense = (st.edType || 'd') === 'd';
+    out.edIsExpense = edExpense;
+    const edList = edExpense ? cats : this.incomeCats;
+    const edCatObj = edList[Math.min(st.edCat, edList.length - 1)] || edList[0];
+    out.edCats = edList.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.edCat, onSelect: () => this.setState({ edCat: i, edSub: 0 }) }));
+    out.edSubs = (edExpense && edCatObj ? edCatObj.subs : []).map((s, i) => ({ label: s.name, selected: i === st.edSub, onSelect: () => this.setState({ edSub: i }) }));
     out.edCatName = edCatObj ? edCatObj.name : '';
     out.edDateLabel = this.dateLabel(st.edDate || this.TODAY);
     out.edPrevDay = () => this.edStepDay(-1);
@@ -1745,13 +2011,26 @@ class Component extends DCLogic {
     out.deleteEdit = () => this.deleteEdit();
 
     // ===== RELATÓRIOS =====
-    const ranges = { mes: ['2026-06-01', '2026-06-30', 1, 'Junho de 2026'], tri: ['2026-04-01', '2026-06-30', 3, '2º Trimestre'], ano: ['2026-01-01', '2026-12-31', 12, 'Ano de 2026'] };
+    const [curY, curM] = this.CUR_MONTH.split('-').map(Number);
+    const lastDayOfMonth = (y, m) => new Date(y, m, 0).getDate();
+    const mesEnd = this.CUR_MONTH + '-' + this.pad(lastDayOfMonth(curY, curM));
+    let triStartM = curM - 2, triStartY = curY; while (triStartM < 1) { triStartM += 12; triStartY--; }
+    const triStart = triStartY + '-' + this.pad(triStartM) + '-01';
+    const triLabel = 'Trimestre até ' + this.MESLONG[curM - 1];
+    const ranges = {
+      mes: [this.CUR_MONTH + '-01', mesEnd, 1, this.MESLONG[curM - 1].charAt(0).toUpperCase() + this.MESLONG[curM - 1].slice(1) + ' de ' + curY],
+      tri: [triStart, mesEnd, 3, triLabel],
+      ano: [curY + '-01-01', curY + '-12-31', 12, 'Ano de ' + curY],
+    };
     const rg = ranges[st.period];
     const relTxs = this.rangeTxs(rg[0], rg[1]);
-    const relSpentMap = this.spentByCat(relTxs);
-    const relTotal = relTxs.reduce((a, t) => a + t.v, 0);
+    const relExpTxs = relTxs.filter(t => t.type !== 'r');
+    const relSpentMap = this.spentByCat(relExpTxs);
+    const relTotal = relExpTxs.reduce((a, t) => a + t.v, 0);
+    const relIncome = relTxs.filter(t => t.type === 'r').reduce((a, t) => a + t.v, 0);
+    out.relIncome = this.thousands(relIncome);
     const relPlan = totalPlan * rg[2];
-    out.periods = [['mes', 'Mês'], ['tri', 'Trimestre'], ['ano', 'Ano']].map(a => ({ label: a[1], selected: st.period === a[0], onSelect: () => this.setState({ period: a[0] }) }));
+    out.periods = [['mes', 'Mês'], ['tri', 'Trimestre'], ['ano', 'Ano']].map(a => ({ label: a[1], selected: st.period === a[0], textColor: st.period === a[0] ? '#fff' : 'oklch(0.7 0.012 260)', onSelect: () => this.setState({ period: a[0] }) }));
     out.periodLabel = rg[3];
     out.relTotal = this.fmtR(relTotal);
     out.relTotalShort = this.short(relTotal);
@@ -1763,13 +2042,14 @@ class Component extends DCLogic {
     out.relCount = relSorted.length + (relSorted.length === 1 ? ' lançamento' : ' lançamentos');
     out.relListEmpty = relSorted.length === 0;
     out.relList = relSorted.map(t => {
-      const c = this.catById(t.cat);
+      const c = this.txCat(t);
+      const isInc = t.type === 'r';
       const [yy, mm, dd] = t.date.split('-').map(Number);
       const rel = t.date === this.TODAY ? 'Hoje' : (t.date === this.shiftDate(this.TODAY, -1) ? 'Ontem' : `${dd} ${this.MES[mm - 1]}`);
-      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), onOpen: () => this.openEdit(t.id) };
+      return { title: t.desc, color: this.color(c), tint: this.tint(c), sub: `${c.name} · ${rel}`, amount: this.fmtR(t.v), sign: isInc ? '+ ' : '− ', amountColor: isInc ? 'oklch(0.75 0.15 155)' : 'oklch(0.92 0.006 260)', onOpen: () => this.openEdit(t.id) };
     });
 
-    // donut + legend + ranking + bullets from relSpentMap
+    // donut + legend + ranking + bullets from relSpentMap (somente despesas)
     const relRanked = cats.map(c => ({ c, v: relSpentMap[c.id] || 0 })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
     const C = 2 * Math.PI * 52; let acc = 0;
     out.donut = relRanked.map(x => { const len = relTotal ? (x.v / relTotal) * C : 0; const seg = { color: this.color(x.c), dash: `${len.toFixed(2)} ${(C - len).toFixed(2)}`, offset: (-acc).toFixed(2) }; acc += len; return seg; });
@@ -1786,7 +2066,7 @@ class Component extends DCLogic {
     const lineMonths = [], lineLabels = [];
     { let [yy, mm] = this.CUR_MONTH.split('-').map(Number);
       for (let i = 5; i >= 0; i--) { let m = mm - i, y = yy; while (m < 1) { m += 12; y--; } lineMonths.push(y + '-' + this.pad(m)); lineLabels.push(this.MES[m - 1].charAt(0).toUpperCase() + this.MES[m - 1].slice(1)); } }
-    const vals = lineMonths.map(mk => this.monthTxs(mk).reduce((a, t) => a + t.v, 0));
+    const vals = lineMonths.map(mk => this.monthTxs(mk).filter(t => t.type !== 'r').reduce((a, t) => a + t.v, 0));
     out.lineLabels = lineLabels;
     const budget = totalPlan;
     const n = vals.length, x0 = 14, x1 = 306, pb = 118, pt = 12, ph = pb - pt;
@@ -1805,9 +2085,9 @@ class Component extends DCLogic {
 
     // heatmap — current month
     out.weekdays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-    out.heatScale = ['oklch(0.245 0.012 260)', 'oklch(0.42 0.08 256)', 'oklch(0.53 0.12 256)', 'oklch(0.62 0.15 256)', 'oklch(0.72 0.16 256)'];
+    out.heatScale = ['var(--surface4)', 'oklch(0.42 0.08 256)', 'oklch(0.53 0.12 256)', 'oklch(0.62 0.15 256)', 'oklch(0.72 0.16 256)'];
     const dayMap = {};
-    curTxs.forEach(t => { const d = parseInt(t.date.slice(8, 10), 10); dayMap[d] = (dayMap[d] || 0) + t.v; });
+    curExpTxs.forEach(t => { const d = parseInt(t.date.slice(8, 10), 10); dayMap[d] = (dayMap[d] || 0) + t.v; });
     const heatMeta = this.monthMeta(this.CUR_MONTH);
     const bucket = (v) => v === 0 ? 0 : v < 80 ? 1 : v < 200 ? 2 : v < 400 ? 3 : 4;
     const days = [];
@@ -1819,9 +2099,10 @@ class Component extends DCLogic {
     out.days = days;
 
     // ===== PLANEJAMENTO =====
-    out.plTabs = [['orcamento', 'Orçamento'], ['categorias', 'Categorias']].map(a => ({ label: a[1], selected: st.plTab === a[0], textColor: st.plTab === a[0] ? '#fff' : 'oklch(0.7 0.012 260)', onSelect: () => this.setState({ plTab: a[0] }) }));
+    out.plTabs = [['orcamento', 'Orçamento'], ['categorias', 'Categorias'], ['recorrentes', 'Recorrentes']].map(a => ({ label: a[1], selected: st.plTab === a[0], textColor: st.plTab === a[0] ? '#fff' : 'var(--muted)', onSelect: () => this.setState({ plTab: a[0] }) }));
     out.isOrcamento = st.plTab === 'orcamento';
     out.isCategorias = st.plTab === 'categorias';
+    out.isRecorrentes = st.plTab === 'recorrentes';
     out.catsO = cats.map((c, ci) => ({
       name: c.name, color: this.color(c), total: this.thousands(this.catPlan(c)),
       expanded: st.plExpO === ci, collapsed: st.plExpO !== ci,
@@ -1842,6 +2123,31 @@ class Component extends DCLogic {
       subs: c.subs.map((s, si) => ({ name: s.name, onRemove: () => this.plRemoveSub(ci, si) })),
     }));
     out.onAddCat = () => this.plAddCat();
+
+    // ===== RECORRENTES (FUN-03) =====
+    const recs = st.recurrences || [];
+    out.recList = recs.map(r => {
+      const c = this.catById(r.cat);
+      return { desc: r.desc, catName: c.name, color: this.color(c), day: r.day, value: this.thousands(r.v),
+        toggleBg: r.active ? 'oklch(0.66 0.15 256)' : 'var(--border2)', knobLeft: r.active ? '21px' : '3px',
+        onToggle: () => this.recToggle(r.id), onRemove: () => this.recRemove(r.id) };
+    });
+    out.recEmpty = recs.length === 0;
+    out.recDraft = {
+      desc: st.recDraftDesc, onDesc: (e) => this.setState({ recDraftDesc: e.target.value }),
+      value: st.recDraftValue, onValue: (e) => this.setState({ recDraftValue: e.target.value.replace(/\D/g, '') }),
+      day: st.recDraftDay, onDay: (e) => this.setState({ recDraftDay: e.target.value.replace(/\D/g, '').slice(0, 2) }),
+      cats: cats.map((c, i) => ({ name: c.name, color: this.color(c), selected: i === st.recDraftCat, onSelect: () => this.setState({ recDraftCat: i }) })),
+      onAdd: () => this.recAddDraft(),
+    };
+    const pend = this.pendingRecs();
+    out.hasPendingRec = pend.length > 0;
+    out.pendingRecCount = pend.length;
+    out.pendingRecOpen = st.pendingRecOpen;
+    out.openPendingRec = () => this.openPendingRec();
+    out.closePendingRec = () => this.closePendingRec();
+    out.confirmPendingRec = () => this.confirmPendingRec();
+    out.pendingRecList = pend.map(r => { const c = this.catById(r.cat); return { desc: r.desc, catName: c.name, color: this.color(c), day: r.day, value: this.thousands(r.v) }; });
 
     // ===== IMPORTAR =====
     out.stepDots = [1, 2, 3].map(nn => ({ w: st.imStep === nn ? '22px' : '5px', bg: st.imStep >= nn ? 'oklch(0.66 0.15 256)' : 'oklch(0.3 0.016 260)' }));
@@ -1883,6 +2189,8 @@ class Component extends DCLogic {
     // ===== CONTA =====
     out.goConta = () => this.goConta();
     out.isConta = view === 'conta';
+    out.themeClass = st.theme === 'light' ? 'theme-light' : 'theme-dark';
+    out.themes = [['dark', 'Escuro'], ['light', 'Claro']].map(a => ({ label: a[1], selected: st.theme === a[0], textColor: st.theme === a[0] ? '#fff' : 'var(--muted)', onSelect: () => this.setTheme(a[0]) }));
     out.signedIn = st.signedIn; out.signedOut = !st.signedIn;
     out.accountName = st.account.name; out.accountEmail = st.account.email;
     const syncMap = {
@@ -1907,10 +2215,25 @@ class Component extends DCLogic {
     out.saveCloud = () => this.saveCloudConfig();
     out.disconnectCloud = () => this.disconnectCloud();
     out.emailFormOpen = !!(st.authFormOpen && this.cloudReady);
-    out.authEmail = st.authEmail; out.authPass = st.authPass;
+    out.isSignup = st.authMode === 'signup';
+    out.authModes = [['login', 'Entrar'], ['signup', 'Criar conta']].map(a => ({ label: a[1], selected: st.authMode === a[0], textColor: st.authMode === a[0] ? '#fff' : 'var(--muted)', onSelect: () => this.setState({ authMode: a[0] }) }));
+    out.authName = st.authName; out.authEmail = st.authEmail; out.authPass = st.authPass;
+    out.authSubmitLabel = st.authMode === 'signup' ? 'Criar conta' : 'Entrar';
+    out.onAuthName = (e) => this.setState({ authName: e.target.value });
     out.onAuthEmail = (e) => this.setState({ authEmail: e.target.value });
     out.onAuthPass = (e) => this.setState({ authPass: e.target.value });
     out.submitEmail = () => this.submitEmailAuth();
+    out.forgotPassword = () => this.forgotPassword();
+    out.editAccOpen = st.editAccOpen; out.editAccClosed = !st.editAccOpen;
+    out.toggleEditAcc = () => this.toggleEditAcc();
+    out.edAccName = st.edAccName; out.edAccEmail = st.edAccEmail; out.edAccPass = st.edAccPass;
+    out.onEdAccName = (e) => this.setState({ edAccName: e.target.value });
+    out.onEdAccEmail = (e) => this.setState({ edAccEmail: e.target.value });
+    out.onEdAccPass = (e) => this.setState({ edAccPass: e.target.value });
+    out.saveAccount = () => this.saveAccount();
+    out.deleteAccOpen = st.deleteAccOpen;
+    out.toggleDeleteAcc = () => this.toggleDeleteAcc();
+    out.confirmDeleteAcc = () => this.confirmDeleteAcc();
     out.signOut = () => this.signOut();
     out.syncNow = () => this.syncNow();
     out.onExport = () => this.exportBackup();
